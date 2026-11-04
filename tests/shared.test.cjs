@@ -1,0 +1,80 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const {mkdtempSync,rmSync,readFileSync}=require('node:fs');
+const {tmpdir}=require('node:os');
+const path=require('node:path');
+const {JSDOM}=require('jsdom');
+const {createApp}=require('./approved-fixture.cjs');
+test('Shared REST, ownership, votes, CRUD, SSE, conflicts and disk persistence',async t=>{
+ const dir=mkdtempSync(path.join(tmpdir(),'gbl-shared-'));
+ const options={database:path.join(dir,'test.sqlite'),secret:'shared-test-secret-'.repeat(3)};
+ const {app,db}=createApp(options),server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));
+ const base='http://127.0.0.1:'+server.address().port;
+ t.after(()=>{server.closeAllConnections();server.close();db.close();rmSync(dir,{recursive:true,force:true});});
+ async function call(route,method='GET',body,token){const r=await fetch(base+route,{method,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:body===undefined?undefined:JSON.stringify(body)});return {status:r.status,data:r.status===204?null:await r.json().catch(()=>null)};}
+ const a=(await call('/api/auth/register','POST',{name:'Dono A',email:'a@example.com',phone:'11911111111',password:'senha-forte-123',team_id:'sq1'})).data;
+ const b=(await call('/api/auth/register','POST',{name:'Dono B',email:'b@example.com',phone:'11922222222',password:'senha-forte-123',team_id:'sq2'})).data;
+ db.prepare("UPDATE users SET role='admin' WHERE id=?").run(a.user.id);
+ assert.equal((await call('/api/teams')).data.length,17);
+ assert.equal((await call('/api/teams/sq1','PUT',{formation:'4-4-2'})).status,401);
+ assert.equal((await call('/api/teams/sq1','PUT',{formation:'4-4-2'},b.access_token)).status,403);
+ assert.equal((await call('/api/teams/sq2','PUT',{formation:'4-4-2'},b.access_token)).status,200);
+ assert.equal((await call('/api/teams/sq2','PUT',{role:'admin'},b.access_token)).status,403);
+ const sse=await fetch(base+'/api/events'),reader=sse.body.getReader();await reader.read();
+ const news=await call('/api/news','POST',{title:'Nova notícia',body:'Corpo',category:'Liga'},a.access_token);assert.equal(news.status,201);
+ assert.match(new TextDecoder().decode((await reader.read()).value),/changed/);await reader.cancel();
+ assert.equal((await call('/api/news','POST',{title:'Intruso',body:'Corpo'},b.access_token)).status,403);
+ assert.equal((await call('/api/news/'+news.data.id,'PUT',{title:'Editada',body:'Texto'},a.access_token)).status,200);
+ assert.ok((await call('/api/news')).data.some(n=>n.title==='Editada'));
+ assert.equal((await call('/api/news/'+news.data.id,'DELETE',undefined,a.access_token)).status,204);
+ for(const token of [b.access_token,a.access_token])assert.equal((await call('/api/schedules/vote','POST',{entries:[{date:'2026-12-12',periods:['noite'],venue:'Sede'}]},token)).status,200);
+ let votes=(await call('/api/schedules')).data;assert.equal(votes[0].user_id,b.user.id);
+ assert.equal((await call('/api/schedules/'+votes[1].id,'DELETE',undefined,b.access_token)).status,403);
+ assert.equal((await call('/api/schedules/vote','POST',{entries:[{date:'errada',periods:['noite']}]},b.access_token)).status,400);
+ const teams=(await call('/api/teams')).data;
+ const proposal=await call('/api/transfers/propose','POST',{to_team_id:'sq1',offered:[teams[1].roster[0].name],requested:[teams[0].roster[0].name]},b.access_token);
+ assert.equal(proposal.status,201);assert.match(proposal.data.waUrl,/^https:\/\/wa.me\/5511911111111/);
+ assert.equal((await call('/api/transfers/confirm','POST',{},b.access_token)).status,403);
+ const confirmation=await call('/api/transfers/confirm','POST',{teamA:proposal.data.fromClub,teamB:proposal.data.toClub,assetsA:proposal.data.offered,assetsB:proposal.data.requested,proposal_id:proposal.data.id,type:'definitivo',date:'2026-12-12',time:'20:00'},a.access_token);
+ assert.equal(confirmation.status,201);
+ assert.ok((await call('/api/teams/sq1')).data.roster.some(p=>p.name===proposal.data.offered[0]));
+ assert.equal((await call('/api/proposals','GET',undefined,b.access_token)).data[0].status,'Confirmada');
+ const count=(await call('/api/transfers')).data.transfers.length;
+ assert.equal((await call('/api/transfers/confirm','POST',{teamA:proposal.data.fromClub,teamB:proposal.data.toClub,assetsA:['Atleta inexistente'],assetsB:proposal.data.requested},a.access_token)).status,400);
+ assert.equal((await call('/api/transfers')).data.transfers.length,count);
+ const snapshot=(await call('/api/state')).data;
+ assert.equal((await call('/api/collections/records','PUT',{revision:snapshot.records.revision,value:[]},a.access_token)).status,200);
+ assert.equal((await call('/api/collections/records','PUT',{revision:snapshot.records.revision,value:snapshot.records.value},a.access_token)).status,409);
+ assert.equal((await call('/api/collections/records','PUT',{revision:2,value:[]},b.access_token)).status,403);
+ const tournament=await call('/api/tournaments','POST',{season:'10',year:2026,champion:'Joker FC',runnerUp:'Al Kabib',finalScore:'2–1'},a.access_token);assert.equal(tournament.status,201);
+ assert.equal(db.prepare('SELECT count(*) n FROM schedules').get().n,2);
+ assert.equal(db.prepare('SELECT count(*) n FROM rosters').get().n,272);
+ // Two independent frontend projections consume the same REST source.
+ const clients=[];for(let i=0;i<2;i++){const dom=new JSDOM('<body></body>',{url:base,runScripts:'outside-only'});t.after(()=>dom.window.close());const w=dom.window;w.AbortSignal=AbortSignal;w.fetch=(url,opts)=>fetch(new URL(url,base),opts);w.localStorage.setItem('gbl.accessToken.v1',a.access_token);w.eval(readFileSync(path.join(__dirname,'../js/shared.js'),'utf8'));await w.GBLShared.ready();clients.push(w);}
+ const list=JSON.parse(clients[0].GBLShared.getItem('gbl.news.v2'));list[0].title='Sincronizada';clients[0].GBLShared.setItem('gbl.news.v2',JSON.stringify(list));await clients[0].GBLShared.idle();await clients[1].GBLShared.refresh();
+ assert.equal(JSON.parse(clients[1].GBLShared.getItem('gbl.news.v2')).find(n=>n.id===list[0].id).title,'Sincronizada');
+ assert.deepEqual(Object.keys(clients[0].localStorage),['gbl.accessToken.v1']);
+ const second=createApp(options);assert.equal(JSON.parse(second.db.prepare("SELECT payload FROM shared_collections WHERE name='records'").get().payload).length,0);assert.ok(JSON.parse(second.db.prepare("SELECT payload FROM shared_collections WHERE name='news'").get().payload).some(n=>n.title==='Sincronizada'));second.db.close();
+});
+
+test('Production bootstrap loads every screen from REST before guest navigation',async t=>{
+ const {requestInterceptor,VirtualConsole}=require('jsdom');
+ const {app,db}=createApp({database:':memory:',secret:'bootstrap-secret-'.repeat(3)});
+ const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));
+ const base='http://127.0.0.1:'+server.address().port,errors=[];
+ const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
+
+ t.after(()=>{server.closeAllConnections();server.close();db.close();});
+ const dom=await JSDOM.fromURL(base,{resources:{interceptors:[requestInterceptor(req=>req.url.startsWith(base)?undefined:new Response('',{headers:{'Content-Type':'text/css'}}))]},runScripts:'dangerously',pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){w.AbortSignal=AbortSignal;w.fetch=(url,opts)=>fetch(new URL(url,base),opts);w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};w.matchMedia=()=>({matches:false,addEventListener(){}});}});
+ t.after(()=>dom.window.close());
+ const w=dom.window;
+ for(let i=0;i<200&&!w.GBLReady;i++)await new Promise(r=>setTimeout(r,20));
+ assert.ok(w.GBLReady,'Bootstrap finished');
+ w.document.getElementById('secureGuestBtn').click();
+ assert.equal(w.document.getElementById('secureAuthModal').hidden,true);
+ assert.equal(w.document.getElementById('authHeaderRole').textContent,'Modo Visitante');
+ assert.ok(w.document.getElementById('geMiniStandingsBody').textContent.includes('Joker'));
+ assert.ok(JSON.parse(w.GBLShared.getItem('gbl.squads.v2')).length===17);
+ assert.equal(w.localStorage.length,0);
+ assert.deepEqual(errors,[]);
+});

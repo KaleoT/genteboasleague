@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
+  <defs>
+    <linearGradient id="shieldBg" x1="15" y1="10" x2="105" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#15317e"/>
+      <stop offset="55%" stop-color="#081949"/>
+      <stop offset="100%" stop-color="#040d29"/>
+    </linearGradient>
+    <linearGradient id="shieldGold" x1="20" y1="8" x2="100" y2="112" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffe074"/>
+      <stop offset="50%" stop-color="#f5c84c"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </linearGradient>
+  </defs>
+  <!-- Escudo externo dourado -->
+  <path d="M60 8L18 24V56C18 83.5 35.9 106.8 60 114C84.1 106.8 102 83.5 102 56V24L60 8Z" fill="url(#shieldBg)" stroke="url(#shieldGold)" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Borda interna sutil -->
+  <path d="M60 16L26 29V55.5C26 78.2 40.5 97.6 60 104C79.5 97.6 94 78.2 94 55.5V29L60 16Z" fill="none" stroke="#4fd8ff" stroke-opacity="0.35" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Faixa diagonal esportiva -->
+  <path d="M33 34L87 78" stroke="#f5c84c" stroke-opacity="0.22" stroke-width="10" stroke-linecap="round"/>
+  <!-- Estrela central da Liga -->
+  <path d="M60 34L65.4 45.2L77.8 46.9L68.8 55.6L70.9 67.9L60 62.1L49.1 67.9L51.2 55.6L42.2 46.9L54.6 45.2L60 34Z" fill="url(#shieldGold)"/>
+  <!-- Sigla GBL -->
+  <text x="60" y="88" text-anchor="middle" fill="#e8f0ff" font-family="Arial, sans-serif" font-weight="800" font-size="14" letter-spacing="2">GBL</text>
+</svg>

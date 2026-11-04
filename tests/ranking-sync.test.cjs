@@ -1,0 +1,32 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const {sheetId,parseRanking,importRankings,DEFAULT_URL}=require('../server/ranking-sync.cjs');
+const {createApp}=require('./approved-fixture.cjs');
+const header='TIMES,POSIÇÃO,OITAVAS,QUARTAS,SEMI,CONQUISTA,VICE,TERCEIRO,VITORIAS,EMPATE,GOLS,PONTOS';
+const valid=header+'\nClube A,10,"1,5",2,3,1,0,0,5,"2,5",12,"107,4"\nClube B,1,0,0,0,0,0,0,1,0,1,2';
+test('CSV parsing, decimals, sorting and URL restrictions',()=>{
+ assert.equal(sheetId(DEFAULT_URL),'1elWrb2pUjUKOB8wZFQCVk4sb_2cA_x8F5hCyPRDA-dY');
+ for(const url of ['http://127.0.0.1/admin','https://docs.google.com.evil.test/spreadsheets/d/aaaaaaaaaaaaaaaaaaaa','file:///etc/passwd'])assert.throws(()=>sheetId(url));
+ const rows=parseRanking(valid,'historico');assert.equal(rows[0].pontos,107.4);assert.equal(rows[0].oitavas,1.5);assert.equal(rows[0].empates,2.5);assert.equal(rows[1].officialPos,2);
+ assert.equal(parseRanking('\ufeff'+header+'\n"Time, com vírgula",0,0,0,0,0,0,0,0,0,0,"1.234,56"','historico')[0].pontos,1234.56);
+ assert.throws(()=>parseRanking('<html>login</html>','historico'),/Cabeçalho/);
+ assert.throws(()=>parseRanking(valid.replace('"107,4"','abc'),'historico'),/número inválido/);
+ assert.throws(()=>parseRanking(header,'historico'),/entre 1 e 500/);
+ assert.throws(()=>parseRanking(valid+'\nClube A,0,0,0,0,0,0,0,0,0,0,0','historico'),/duplicado/);
+});
+test('Both snapshots commit atomically, admin-only; errors preserve previous snapshot',async t=>{
+ let failure=false;
+ const {app,db}=createApp({database:':memory:',secret:'ranking-test-secret-'.repeat(3),sheetsFetch:async url=>new Response(failure && url.searchParams.get('sheet')==='Tabela_1'?'bad header':valid,{headers:{'content-type':'text/csv'}})});
+ const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));t.after(()=>{server.close();db.close();});
+ const base='http://127.0.0.1:'+server.address().port;
+ const req=async(path,body,token)=>fetch(base+path,{method:body?'POST':'GET',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},...(body?{body:JSON.stringify(body)}:{})});
+ assert.equal((await req('/api/rankings')).status,204);
+ assert.equal((await req('/api/admin/rankings/sync',{})).status,401);
+ const register=await req('/api/auth/register',{name:'Admin',email:'sync@example.com',phone:'35988887777',password:'password-long-enough',team_id:'sq1'});const session=await register.json();
+ assert.equal((await req('/api/admin/rankings/sync',{},session.access_token)).status,403);
+ db.prepare("UPDATE users SET role='admin' WHERE id=?").run(session.user.id);
+ const synced=await req('/api/admin/rankings/sync',{url:DEFAULT_URL},session.access_token);assert.equal(synced.status,200);const payload=await synced.json();
+ assert.equal(payload.rankings.historico.length,2);assert.equal(payload.rankings.temporada2026[0].pontos,107.4);assert.ok(payload.synced_at);assert.equal(payload.warnings.length,1);
+ failure=true;const bad=await req('/api/admin/rankings/sync',{url:DEFAULT_URL},session.access_token);assert.equal(bad.status,422);assert.match((await bad.json()).message,/Tabela_1/);
+ assert.deepEqual(await (await req('/api/rankings')).json(),payload);
+});

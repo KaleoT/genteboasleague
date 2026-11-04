@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gbl:backup:1.0.0",
+  "title": "Gente Boa’s League — Backup 1.0.0",
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": "1.0.0"
+    },
+    "exported_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "teams": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "$ref": "#/$defs/team"
+      },
+      "minItems": 1
+    },
+    "rosters": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$ref": "#/$defs/roster"
+      }
+    },
+    "rankings": {
+      "type": "object",
+      "properties": {
+        "historico": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        },
+        "temporada2026": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        }
+      },
+      "required": [
+        "historico",
+        "temporada2026"
+      ]
+    },
+    "titles": {
+      "type": "object",
+      "properties": {
+        "finals": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        },
+        "records": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        }
+      },
+      "required": [
+        "finals",
+        "records"
+      ]
+    },
+    "transfers": {
+      "type": "object",
+      "properties": {
+        "history": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        },
+        "limits": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        },
+        "proposals": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        }
+      },
+      "required": [
+        "history",
+        "limits",
+        "proposals"
+      ]
+    },
+    "schedules": {
+      "type": "object",
+      "properties": {
+        "votes": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/vote"
+          }
+        },
+        "options": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        }
+      },
+      "required": [
+        "votes",
+        "options"
+      ]
+    },
+    "news": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$ref": "#/$defs/news"
+      }
+    }
+  },
+  "required": [
+    "version",
+    "exported_at",
+    "teams",
+    "rosters",
+    "rankings",
+    "titles",
+    "transfers",
+    "schedules",
+    "news"
+  ],
+  "$defs": {
+    "entity": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      }
+    },
+    "team": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/entity"
+        },
+        {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "manager": {
+              "type": "string"
+            },
+            "badge_url": {
+              "type": "string"
+            },
+            "kit_home_3d_url": {
+              "type": "string"
+            },
+            "kit_away_3d_url": {
+              "type": "string"
+            },
+            "formation": {
+              "type": "string"
+            },
+            "stars": {
+              "type": "number"
+            },
+            "overall_rating": {
+              "type": "number"
+            },
+            "captain": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "roster": {
+      "type": "object",
+      "properties": {
+        "team_id": {
+          "type": "string"
+        },
+        "players": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        },
+        "starterIds": {
+          "type": "array",
+          "maxItems": 11,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "team_id",
+        "players",
+        "starterIds"
+      ]
+    },
+    "vote": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/entity"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "periods": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "manha",
+                  "tarde",
+                  "noite"
+                ]
+              }
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "date",
+            "periods"
+          ]
+        }
+      ]
+    },
+    "news": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/entity"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "body"
+          ]
+        }
+      ]
+    }
+  }
+}

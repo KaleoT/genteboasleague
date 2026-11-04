@@ -1,0 +1,41 @@
+(async()=>{
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const path = require('node:path');
+let admin = true, fail = false;
+let raw = JSON.stringify([{id:'sq15', name:'Augusto FC', badge_url:'existing', roster:[{id:'p1'}]}]);
+const events = [], messages = [];
+const context = { URL, document:{getElementById:()=>null}, window:{dispatchEvent:e=>events.push(e.type)},
+ GBLShared:{getItem:()=>raw,async refresh(){}},
+ RBAC:{requireAdmin:()=>admin,showToast:m=>messages.push(m),async request(url,options){if(fail)throw Error('Não foi possível salvar');const fields=JSON.parse(options.body);raw=JSON.stringify(JSON.parse(raw).map(t=>t.id==='sq15'?{...t,...fields}:t));}}, CustomEvent:function(type){this.type=type;} };
+vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../js/kits.js'),'utf8'),context);
+const kits=context.window.GBLKits;
+assert.equal(kits.valid('javascript:alert(1)'),false);
+assert.equal(kits.valid('data:text/html;base64,AAAA'),false);
+assert.equal(kits.valid('https://example.test/home.png'),true);
+assert.equal(await kits.save('sq15',{home:'https://example.test/home.png',away:'/uploads/kits/fixture.webp'}),true);
+const saved=JSON.parse(raw)[0];
+assert.equal(saved.kit_home_3d_url,'https://example.test/home.png');
+assert.equal(saved.badge_url,'existing');
+assert.equal(saved.roster[0].id,'p1');
+assert.match(kits.render(saved,'home'),/href="https:\/\/example.test\/home.png"/);
+assert.match(kits.render(saved,'home'),/onerror=/);
+const model = kits.render(saved, 'home');
+assert.equal((model.match(/<image /g) || []).length, 4, 'Texture applied to torso, both sleeves and shorts');
+assert.equal((model.match(/<clipPath /g) || []).length, 4);
+assert.doesNotMatch(model, /<img /, 'Never display the complete PES texture sheet');
+const anotherModel = kits.render(saved, 'away');
+const ids = [...(model + anotherModel).matchAll(/ id="([^"]+)"/g)].map(match => match[1]);
+assert.equal(new Set(ids).size, ids.length, 'SVG definitions do not collide between kits');
+assert.equal(await kits.save('sq15',{home:'',away:''}),true);
+assert.match(kits.render(JSON.parse(raw)[0],'home'), /<svg/);
+assert.doesNotMatch(kits.render(JSON.parse(raw)[0],'home'), /<image/);
+const before=raw;
+admin=false; assert.equal(await kits.save('sq15',{home:'https://example.test/no.png',away:''}),false); assert.equal(raw,before);
+admin=true; fail=true; const count=events.length;
+assert.equal(await kits.save('sq15',{home:'https://example.test/no.png',away:''}),false);
+assert.equal(raw,before); assert.equal(events.length,count); assert.match(messages.at(-1),/Não foi possível salvar/);
+assert.equal(await kits.save('sq15',{home:'data:image/png;base64,AAAA',away:''}),false);
+console.log('Passed: REST kit save, rendering, fallback, URL restrictions, permissions and failed requests.');
+})().catch(e=>{console.error(e);process.exitCode=1;});
