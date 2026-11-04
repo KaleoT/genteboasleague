@@ -1,0 +1,3649 @@
+{
+  "teams": [
+    {
+      "id": "sq1",
+      "name": "Joker FC",
+      "manager": "Kalleby",
+      "stars": 5,
+      "primaryColor": "#7e22ce",
+      "secondaryColor": "#f5c84c",
+      "formation": "4-2-1-3 Contra-Ataque",
+      "captain": "N’Golo Kanté (90)",
+      "recentForm": [
+        "W",
+        "W",
+        "D",
+        "W",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p201",
+          "pos": "GK",
+          "name": "Courtois",
+          "ovr": 90
+        },
+        {
+          "id": "p202",
+          "pos": "GK",
+          "name": "Areola",
+          "ovr": 82
+        },
+        {
+          "id": "p203",
+          "pos": "CB",
+          "name": "Rúben Dias",
+          "ovr": 89
+        },
+        {
+          "id": "p204",
+          "pos": "CB",
+          "name": "Varane",
+          "ovr": 87
+        },
+        {
+          "id": "p205",
+          "pos": "CB",
+          "name": "Militão",
+          "ovr": 85
+        },
+        {
+          "id": "p206",
+          "pos": "LB",
+          "name": "Theo Hernández",
+          "ovr": 86
+        },
+        {
+          "id": "p207",
+          "pos": "RB",
+          "name": "Cancelo",
+          "ovr": 88
+        },
+        {
+          "id": "p208",
+          "pos": "DMF",
+          "name": "Kanté",
+          "ovr": 90
+        },
+        {
+          "id": "p209",
+          "pos": "DMF",
+          "name": "Fabinho",
+          "ovr": 87
+        },
+        {
+          "id": "p210",
+          "pos": "CMF",
+          "name": "Saúl",
+          "ovr": 84
+        },
+        {
+          "id": "p211",
+          "pos": "CMF",
+          "name": "Modrić",
+          "ovr": 88
+        },
+        {
+          "id": "p212",
+          "pos": "AMF",
+          "name": "Bernardo Silva",
+          "ovr": 88
+        },
+        {
+          "id": "p213",
+          "pos": "LWF",
+          "name": "Son Heung-Min",
+          "ovr": 89
+        },
+        {
+          "id": "p214",
+          "pos": "RWF",
+          "name": "Di Maria",
+          "ovr": 87
+        },
+        {
+          "id": "p215",
+          "pos": "RWF",
+          "name": "Chiesa",
+          "ovr": 85
+        },
+        {
+          "id": "p216",
+          "pos": "CF",
+          "name": "Haaland",
+          "ovr": 91
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq2",
+      "name": "Al Kabib",
+      "manager": "Kalled",
+      "stars": 5,
+      "primaryColor": "#be123c",
+      "secondaryColor": "#38bdf8",
+      "formation": "4-1-4-1 Árabe Ofensivo",
+      "captain": "Mohamed Salah (91)",
+      "recentForm": [
+        "W",
+        "W",
+        "W",
+        "D",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p401",
+          "pos": "GK",
+          "name": "Ederson",
+          "ovr": 89
+        },
+        {
+          "id": "p402",
+          "pos": "GK",
+          "name": "Bono",
+          "ovr": 84
+        },
+        {
+          "id": "p403",
+          "pos": "CB",
+          "name": "Rudiger",
+          "ovr": 88
+        },
+        {
+          "id": "p404",
+          "pos": "CB",
+          "name": "Laporte",
+          "ovr": 86
+        },
+        {
+          "id": "p405",
+          "pos": "CB",
+          "name": "Upamecano",
+          "ovr": 84
+        },
+        {
+          "id": "p406",
+          "pos": "LB",
+          "name": "Nuno Mendes",
+          "ovr": 84
+        },
+        {
+          "id": "p407",
+          "pos": "RB",
+          "name": "Carvajal",
+          "ovr": 85
+        },
+        {
+          "id": "p408",
+          "pos": "DMF",
+          "name": "Kimmich",
+          "ovr": 90
+        },
+        {
+          "id": "p409",
+          "pos": "CMF",
+          "name": "Valverde",
+          "ovr": 87
+        },
+        {
+          "id": "p410",
+          "pos": "CMF",
+          "name": "Milinković-Savić",
+          "ovr": 86
+        },
+        {
+          "id": "p411",
+          "pos": "AMF",
+          "name": "Ødegaard",
+          "ovr": 86
+        },
+        {
+          "id": "p412",
+          "pos": "LMF",
+          "name": "Carrasco",
+          "ovr": 84
+        },
+        {
+          "id": "p413",
+          "pos": "LWF",
+          "name": "Rafael Leão",
+          "ovr": 87
+        },
+        {
+          "id": "p414",
+          "pos": "RWF",
+          "name": "Mohamed Salah",
+          "ovr": 91
+        },
+        {
+          "id": "p415",
+          "pos": "RWF",
+          "name": "Mahrez",
+          "ovr": 86
+        },
+        {
+          "id": "p416",
+          "pos": "CF",
+          "name": "Harry Kane",
+          "ovr": 90
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq3",
+      "name": "Frog FC",
+      "manager": "Gian",
+      "stars": 4.5,
+      "primaryColor": "#16a34a",
+      "secondaryColor": "#2dd4bf",
+      "formation": "4-3-3 Ofensivo",
+      "captain": "Robert Lewandowski (92)",
+      "recentForm": [
+        "W",
+        "D",
+        "W",
+        "W",
+        "L"
+      ],
+      "roster": [
+        {
+          "id": "p501",
+          "pos": "GK",
+          "name": "Neuer",
+          "ovr": 90
+        },
+        {
+          "id": "p502",
+          "pos": "GK",
+          "name": "Musso",
+          "ovr": 82
+        },
+        {
+          "id": "p503",
+          "pos": "CB",
+          "name": "De Ligt",
+          "ovr": 87
+        },
+        {
+          "id": "p504",
+          "pos": "CB",
+          "name": "Alaba",
+          "ovr": 87
+        },
+        {
+          "id": "p505",
+          "pos": "CB",
+          "name": "Tomori",
+          "ovr": 84
+        },
+        {
+          "id": "p506",
+          "pos": "LB",
+          "name": "Lucas Hernández",
+          "ovr": 86
+        },
+        {
+          "id": "p507",
+          "pos": "RB",
+          "name": "Hakimi",
+          "ovr": 88
+        },
+        {
+          "id": "p508",
+          "pos": "DMF",
+          "name": "Declan Rice",
+          "ovr": 86
+        },
+        {
+          "id": "p509",
+          "pos": "CMF",
+          "name": "Kroos",
+          "ovr": 88
+        },
+        {
+          "id": "p510",
+          "pos": "CMF",
+          "name": "Gündoğan",
+          "ovr": 86
+        },
+        {
+          "id": "p511",
+          "pos": "AMF",
+          "name": "Thomas Müller",
+          "ovr": 87
+        },
+        {
+          "id": "p512",
+          "pos": "AMF",
+          "name": "Musiala",
+          "ovr": 85
+        },
+        {
+          "id": "p513",
+          "pos": "LWF",
+          "name": "Neymar Jr.",
+          "ovr": 91
+        },
+        {
+          "id": "p514",
+          "pos": "RWF",
+          "name": "Coman",
+          "ovr": 86
+        },
+        {
+          "id": "p515",
+          "pos": "RWF",
+          "name": "Sané",
+          "ovr": 85
+        },
+        {
+          "id": "p516",
+          "pos": "CF",
+          "name": "Lewandowski",
+          "ovr": 92
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq4",
+      "name": "Sorriso FC",
+      "manager": "Enzo",
+      "stars": 4.5,
+      "primaryColor": "#0284c7",
+      "secondaryColor": "#7dd3fc",
+      "formation": "4-3-3 Tiki-Taka",
+      "captain": "Jan Oblak (91)",
+      "recentForm": [
+        "W",
+        "W",
+        "D",
+        "L",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p601",
+          "pos": "GK",
+          "name": "Oblak",
+          "ovr": 91
+        },
+        {
+          "id": "p602",
+          "pos": "GK",
+          "name": "Unai Simón",
+          "ovr": 83
+        },
+        {
+          "id": "p603",
+          "pos": "CB",
+          "name": "Giménez",
+          "ovr": 85
+        },
+        {
+          "id": "p604",
+          "pos": "CB",
+          "name": "Pau Torres",
+          "ovr": 84
+        },
+        {
+          "id": "p605",
+          "pos": "CB",
+          "name": "Koundé",
+          "ovr": 86
+        },
+        {
+          "id": "p606",
+          "pos": "LB",
+          "name": "Acuña",
+          "ovr": 84
+        },
+        {
+          "id": "p607",
+          "pos": "RB",
+          "name": "Reece James",
+          "ovr": 86
+        },
+        {
+          "id": "p608",
+          "pos": "DMF",
+          "name": "Tchouaméni",
+          "ovr": 85
+        },
+        {
+          "id": "p609",
+          "pos": "CMF",
+          "name": "Frenkie de Jong",
+          "ovr": 87
+        },
+        {
+          "id": "p610",
+          "pos": "CMF",
+          "name": "Koke",
+          "ovr": 85
+        },
+        {
+          "id": "p611",
+          "pos": "AMF",
+          "name": "Phil Foden",
+          "ovr": 87
+        },
+        {
+          "id": "p612",
+          "pos": "AMF",
+          "name": "Mason Mount",
+          "ovr": 84
+        },
+        {
+          "id": "p613",
+          "pos": "LWF",
+          "name": "Sterling",
+          "ovr": 86
+        },
+        {
+          "id": "p614",
+          "pos": "RWF",
+          "name": "Saka",
+          "ovr": 86
+        },
+        {
+          "id": "p615",
+          "pos": "RWF",
+          "name": "Raphinha",
+          "ovr": 85
+        },
+        {
+          "id": "p616",
+          "pos": "CF",
+          "name": "Suárez",
+          "ovr": 87
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq5",
+      "name": "Carvalhaes FC",
+      "manager": "Carvalhaes",
+      "stars": 4.5,
+      "primaryColor": "#dc2626",
+      "secondaryColor": "#111827",
+      "formation": "4-2-3-1 Pressão Alta",
+      "captain": "Zlatan Ibrahimović (88)",
+      "recentForm": [
+        "W",
+        "L",
+        "W",
+        "D",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p701",
+          "pos": "GK",
+          "name": "Ter Stegen",
+          "ovr": 89
+        },
+        {
+          "id": "p702",
+          "pos": "GK",
+          "name": "Cillessen",
+          "ovr": 80
+        },
+        {
+          "id": "p703",
+          "pos": "CB",
+          "name": "Thiago Silva",
+          "ovr": 87
+        },
+        {
+          "id": "p704",
+          "pos": "CB",
+          "name": "Pepe",
+          "ovr": 84
+        },
+        {
+          "id": "p705",
+          "pos": "CB",
+          "name": "Araújo",
+          "ovr": 86
+        },
+        {
+          "id": "p706",
+          "pos": "LB",
+          "name": "Alex Sandro",
+          "ovr": 83
+        },
+        {
+          "id": "p707",
+          "pos": "RB",
+          "name": "Trippier",
+          "ovr": 85
+        },
+        {
+          "id": "p708",
+          "pos": "DMF",
+          "name": "Busquets",
+          "ovr": 86
+        },
+        {
+          "id": "p709",
+          "pos": "CMF",
+          "name": "Pogba",
+          "ovr": 86
+        },
+        {
+          "id": "p710",
+          "pos": "CMF",
+          "name": "Vidal",
+          "ovr": 83
+        },
+        {
+          "id": "p711",
+          "pos": "AMF",
+          "name": "James Rodríguez",
+          "ovr": 84
+        },
+        {
+          "id": "p712",
+          "pos": "LMF",
+          "name": "Perišić",
+          "ovr": 85
+        },
+        {
+          "id": "p713",
+          "pos": "LWF",
+          "name": "Insigne",
+          "ovr": 85
+        },
+        {
+          "id": "p714",
+          "pos": "RWF",
+          "name": "Bale",
+          "ovr": 84
+        },
+        {
+          "id": "p715",
+          "pos": "CF",
+          "name": "Ibrahimović",
+          "ovr": 88
+        },
+        {
+          "id": "p716",
+          "pos": "CF",
+          "name": "Cavani",
+          "ovr": 85
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq6",
+      "name": "Beni FC",
+      "manager": "Beni",
+      "stars": 4.5,
+      "primaryColor": "#881337",
+      "secondaryColor": "#fda4af",
+      "formation": "4-3-3 Ala Aberta",
+      "captain": "Eden Hazard (87)",
+      "recentForm": [
+        "W",
+        "D",
+        "L",
+        "W",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p801",
+          "pos": "GK",
+          "name": "Maignan",
+          "ovr": 88
+        },
+        {
+          "id": "p802",
+          "pos": "GK",
+          "name": "Lloris",
+          "ovr": 85
+        },
+        {
+          "id": "p803",
+          "pos": "CB",
+          "name": "Hummels",
+          "ovr": 85
+        },
+        {
+          "id": "p804",
+          "pos": "CB",
+          "name": "Süle",
+          "ovr": 84
+        },
+        {
+          "id": "p805",
+          "pos": "CB",
+          "name": "Romero",
+          "ovr": 85
+        },
+        {
+          "id": "p806",
+          "pos": "LB",
+          "name": "Guerreiro",
+          "ovr": 85
+        },
+        {
+          "id": "p807",
+          "pos": "RB",
+          "name": "Alexander-Arnold",
+          "ovr": 88
+        },
+        {
+          "id": "p808",
+          "pos": "DMF",
+          "name": "Brozović",
+          "ovr": 86
+        },
+        {
+          "id": "p809",
+          "pos": "CMF",
+          "name": "Camavinga",
+          "ovr": 84
+        },
+        {
+          "id": "p810",
+          "pos": "CMF",
+          "name": "Tielemans",
+          "ovr": 84
+        },
+        {
+          "id": "p811",
+          "pos": "AMF",
+          "name": "Reus",
+          "ovr": 86
+        },
+        {
+          "id": "p812",
+          "pos": "AMF",
+          "name": "Havertz",
+          "ovr": 85
+        },
+        {
+          "id": "p813",
+          "pos": "LWF",
+          "name": "Hazard",
+          "ovr": 87
+        },
+        {
+          "id": "p814",
+          "pos": "RWF",
+          "name": "Gnabry",
+          "ovr": 86
+        },
+        {
+          "id": "p815",
+          "pos": "RWF",
+          "name": "Dembele",
+          "ovr": 85
+        },
+        {
+          "id": "p816",
+          "pos": "CF",
+          "name": "Immobile",
+          "ovr": 87
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq7",
+      "name": "Crew FC",
+      "manager": "Crew",
+      "stars": 4.5,
+      "primaryColor": "#0f172a",
+      "secondaryColor": "#38bdf8",
+      "formation": "4-4-2 Losango",
+      "captain": "Jorginho (87)",
+      "recentForm": [
+        "D",
+        "W",
+        "D",
+        "W",
+        "L"
+      ],
+      "roster": [
+        {
+          "id": "p901",
+          "pos": "GK",
+          "name": "Mendy",
+          "ovr": 86
+        },
+        {
+          "id": "p902",
+          "pos": "GK",
+          "name": "Pickford",
+          "ovr": 83
+        },
+        {
+          "id": "p903",
+          "pos": "CB",
+          "name": "Bonucci",
+          "ovr": 86
+        },
+        {
+          "id": "p904",
+          "pos": "CB",
+          "name": "Chiellini",
+          "ovr": 86
+        },
+        {
+          "id": "p905",
+          "pos": "CB",
+          "name": "Akanji",
+          "ovr": 84
+        },
+        {
+          "id": "p906",
+          "pos": "LB",
+          "name": "Spinazzola",
+          "ovr": 84
+        },
+        {
+          "id": "p907",
+          "pos": "RB",
+          "name": "Di Lorenzo",
+          "ovr": 84
+        },
+        {
+          "id": "p908",
+          "pos": "DMF",
+          "name": "Jorginho",
+          "ovr": 87
+        },
+        {
+          "id": "p909",
+          "pos": "DMF",
+          "name": "Tonali",
+          "ovr": 85
+        },
+        {
+          "id": "p910",
+          "pos": "CMF",
+          "name": "Locatelli",
+          "ovr": 84
+        },
+        {
+          "id": "p911",
+          "pos": "AMF",
+          "name": "Pellegrini",
+          "ovr": 85
+        },
+        {
+          "id": "p912",
+          "pos": "LMF",
+          "name": "Kostić",
+          "ovr": 84
+        },
+        {
+          "id": "p913",
+          "pos": "LWF",
+          "name": "Grealish",
+          "ovr": 85
+        },
+        {
+          "id": "p914",
+          "pos": "RWF",
+          "name": "Berardi",
+          "ovr": 84
+        },
+        {
+          "id": "p915",
+          "pos": "CF",
+          "name": "Giroud",
+          "ovr": 84
+        },
+        {
+          "id": "p916",
+          "pos": "CF",
+          "name": "Morata",
+          "ovr": 84
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq8",
+      "name": "Mazili M.D FC",
+      "manager": "Mazili",
+      "stars": 4.5,
+      "primaryColor": "#0369a1",
+      "secondaryColor": "#facc15",
+      "formation": "4-3-1-2 Posse de Bola",
+      "captain": "Lionel Messi (93)",
+      "recentForm": [
+        "W",
+        "W",
+        "L",
+        "W",
+        "D"
+      ],
+      "roster": [
+        {
+          "id": "p301",
+          "pos": "GK",
+          "name": "Alisson",
+          "ovr": 90
+        },
+        {
+          "id": "p302",
+          "pos": "GK",
+          "name": "Ospina",
+          "ovr": 81
+        },
+        {
+          "id": "p303",
+          "pos": "CB",
+          "name": "Koulibaly",
+          "ovr": 88
+        },
+        {
+          "id": "p304",
+          "pos": "CB",
+          "name": "Skriniar",
+          "ovr": 87
+        },
+        {
+          "id": "p305",
+          "pos": "CB",
+          "name": "Bastoni",
+          "ovr": 85
+        },
+        {
+          "id": "p306",
+          "pos": "LB",
+          "name": "Jordi Alba",
+          "ovr": 86
+        },
+        {
+          "id": "p307",
+          "pos": "RB",
+          "name": "Walker",
+          "ovr": 86
+        },
+        {
+          "id": "p308",
+          "pos": "DMF",
+          "name": "Rodri",
+          "ovr": 88
+        },
+        {
+          "id": "p309",
+          "pos": "CMF",
+          "name": "Barella",
+          "ovr": 87
+        },
+        {
+          "id": "p310",
+          "pos": "CMF",
+          "name": "Pedri",
+          "ovr": 86
+        },
+        {
+          "id": "p311",
+          "pos": "CMF",
+          "name": "Thiago Alcântara",
+          "ovr": 86
+        },
+        {
+          "id": "p312",
+          "pos": "AMF",
+          "name": "Lucas Paquetá",
+          "ovr": 84
+        },
+        {
+          "id": "p313",
+          "pos": "LWF",
+          "name": "Sadio Mané",
+          "ovr": 89
+        },
+        {
+          "id": "p314",
+          "pos": "RWF",
+          "name": "Messi",
+          "ovr": 93
+        },
+        {
+          "id": "p315",
+          "pos": "CF",
+          "name": "Lukaku",
+          "ovr": 88,
+          "loan": "Empréstimo - Expira 26/07"
+        },
+        {
+          "id": "p316",
+          "pos": "CF",
+          "name": "Lautaro Martínez",
+          "ovr": 87
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq9",
+      "name": "The Beatles",
+      "manager": "Beatles",
+      "stars": 4,
+      "primaryColor": "#1e3a8a",
+      "secondaryColor": "#e2e8f0",
+      "formation": "4-2-2-2 Clássico",
+      "captain": "Bruno Guimarães / Coutinho (86)",
+      "recentForm": [
+        "W",
+        "L",
+        "L",
+        "W",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p1001",
+          "pos": "GK",
+          "name": "Weverton",
+          "ovr": 84
+        },
+        {
+          "id": "p1002",
+          "pos": "GK",
+          "name": "Santos",
+          "ovr": 81
+        },
+        {
+          "id": "p1003",
+          "pos": "CB",
+          "name": "Gabriel Magalhães",
+          "ovr": 85
+        },
+        {
+          "id": "p1004",
+          "pos": "CB",
+          "name": "Bremer",
+          "ovr": 85
+        },
+        {
+          "id": "p1005",
+          "pos": "CB",
+          "name": "Gustavo Gómez",
+          "ovr": 84
+        },
+        {
+          "id": "p1006",
+          "pos": "LB",
+          "name": "Alex Telles",
+          "ovr": 83
+        },
+        {
+          "id": "p1007",
+          "pos": "RB",
+          "name": "Danilo",
+          "ovr": 84
+        },
+        {
+          "id": "p1008",
+          "pos": "DMF",
+          "name": "Bruno Guimarães",
+          "ovr": 86
+        },
+        {
+          "id": "p1009",
+          "pos": "CMF",
+          "name": "Fred",
+          "ovr": 83
+        },
+        {
+          "id": "p1010",
+          "pos": "AMF",
+          "name": "Coutinho",
+          "ovr": 85
+        },
+        {
+          "id": "p1011",
+          "pos": "AMF",
+          "name": "Arrascaeta",
+          "ovr": 85
+        },
+        {
+          "id": "p1012",
+          "pos": "AMF",
+          "name": "Everton Ribeiro",
+          "ovr": 82
+        },
+        {
+          "id": "p1013",
+          "pos": "LWF",
+          "name": "Gabriel Martinelli",
+          "ovr": 85
+        },
+        {
+          "id": "p1014",
+          "pos": "RWF",
+          "name": "Antony",
+          "ovr": 84
+        },
+        {
+          "id": "p1015",
+          "pos": "RWF",
+          "name": "Rodrygo",
+          "ovr": 85
+        },
+        {
+          "id": "p1016",
+          "pos": "CF",
+          "name": "Firmino",
+          "ovr": 85
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq10",
+      "name": "Gustavo FC",
+      "manager": "Gustavo",
+      "stars": 4.5,
+      "primaryColor": "#065f46",
+      "secondaryColor": "#cbd5e1",
+      "formation": "4-3-3 Ofensivo",
+      "captain": "Kylian Mbappé (92)",
+      "recentForm": [
+        "W",
+        "W",
+        "W",
+        "D",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p101",
+          "pos": "GK",
+          "name": "Donnarumma",
+          "ovr": 89
+        },
+        {
+          "id": "p102",
+          "pos": "GK",
+          "name": "Keylor Navas",
+          "ovr": 86
+        },
+        {
+          "id": "p103",
+          "pos": "CB",
+          "name": "Van Dijk",
+          "ovr": 91
+        },
+        {
+          "id": "p104",
+          "pos": "CB",
+          "name": "Marquinhos",
+          "ovr": 88
+        },
+        {
+          "id": "p105",
+          "pos": "CB",
+          "name": "Kimpembe",
+          "ovr": 84
+        },
+        {
+          "id": "p106",
+          "pos": "LB",
+          "name": "Alphonso Davies",
+          "ovr": 86
+        },
+        {
+          "id": "p107",
+          "pos": "RB",
+          "name": "Robertson",
+          "ovr": 87
+        },
+        {
+          "id": "p108",
+          "pos": "RB",
+          "name": "Pavard",
+          "ovr": 83
+        },
+        {
+          "id": "p109",
+          "pos": "DMF",
+          "name": "Casemiro",
+          "ovr": 89
+        },
+        {
+          "id": "p110",
+          "pos": "CMF",
+          "name": "Verratti",
+          "ovr": 88,
+          "loan": "Empréstimo - Expira 26/07"
+        },
+        {
+          "id": "p111",
+          "pos": "CMF",
+          "name": "Goretzka",
+          "ovr": 87
+        },
+        {
+          "id": "p112",
+          "pos": "AMF",
+          "name": "De Bruyne",
+          "ovr": 92
+        },
+        {
+          "id": "p113",
+          "pos": "AMF",
+          "name": "Bruno Fernandes",
+          "ovr": 88
+        },
+        {
+          "id": "p114",
+          "pos": "LWF",
+          "name": "Vinícius Jr.",
+          "ovr": 88
+        },
+        {
+          "id": "p115",
+          "pos": "RWF",
+          "name": "Pavón",
+          "ovr": 82
+        },
+        {
+          "id": "p116",
+          "pos": "CF",
+          "name": "Mbappé",
+          "ovr": 92
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq11",
+      "name": "Ashen Lords",
+      "manager": "Ashen",
+      "stars": 4,
+      "primaryColor": "#c2410c",
+      "secondaryColor": "#fdba74",
+      "formation": "5-3-2 Muralha de Fogo",
+      "captain": "Sergio Ramos (88)",
+      "recentForm": [
+        "D",
+        "D",
+        "W",
+        "D",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p1101",
+          "pos": "GK",
+          "name": "De Gea",
+          "ovr": 87
+        },
+        {
+          "id": "p1102",
+          "pos": "GK",
+          "name": "Rui Patrício",
+          "ovr": 82
+        },
+        {
+          "id": "p1103",
+          "pos": "CB",
+          "name": "Sergio Ramos",
+          "ovr": 88
+        },
+        {
+          "id": "p1104",
+          "pos": "CB",
+          "name": "Piqué",
+          "ovr": 85
+        },
+        {
+          "id": "p1105",
+          "pos": "CB",
+          "name": "Otamendi",
+          "ovr": 83
+        },
+        {
+          "id": "p1106",
+          "pos": "LB",
+          "name": "Marcos Alonso",
+          "ovr": 82
+        },
+        {
+          "id": "p1107",
+          "pos": "RB",
+          "name": "Azpilicueta",
+          "ovr": 84
+        },
+        {
+          "id": "p1108",
+          "pos": "DMF",
+          "name": "Partey",
+          "ovr": 85
+        },
+        {
+          "id": "p1109",
+          "pos": "DMF",
+          "name": "Ndidi",
+          "ovr": 84
+        },
+        {
+          "id": "p1110",
+          "pos": "CMF",
+          "name": "Kessié",
+          "ovr": 84
+        },
+        {
+          "id": "p1111",
+          "pos": "CMF",
+          "name": "Wijnaldum",
+          "ovr": 84
+        },
+        {
+          "id": "p1112",
+          "pos": "AMF",
+          "name": "Eriksen",
+          "ovr": 85
+        },
+        {
+          "id": "p1113",
+          "pos": "LWF",
+          "name": "Rashford",
+          "ovr": 86
+        },
+        {
+          "id": "p1114",
+          "pos": "RWF",
+          "name": "Ziyech",
+          "ovr": 84
+        },
+        {
+          "id": "p1115",
+          "pos": "CF",
+          "name": "Jamie Vardy",
+          "ovr": 85
+        },
+        {
+          "id": "p1116",
+          "pos": "CF",
+          "name": "Raúl Jiménez",
+          "ovr": 83
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq12",
+      "name": "Fabricio FC",
+      "manager": "Fabricio",
+      "stars": 4,
+      "primaryColor": "#d97706",
+      "secondaryColor": "#fde68a",
+      "formation": "4-3-3 Velocidade",
+      "captain": "Wojciech Szczęsny (87)",
+      "recentForm": [
+        "W",
+        "L",
+        "W",
+        "L",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p1201",
+          "pos": "GK",
+          "name": "Szczęsny",
+          "ovr": 87
+        },
+        {
+          "id": "p1202",
+          "pos": "GK",
+          "name": "Perin",
+          "ovr": 80
+        },
+        {
+          "id": "p1203",
+          "pos": "CB",
+          "name": "De Vrij",
+          "ovr": 86
+        },
+        {
+          "id": "p1204",
+          "pos": "CB",
+          "name": "Schlotterbeck",
+          "ovr": 83
+        },
+        {
+          "id": "p1205",
+          "pos": "CB",
+          "name": "Christensen",
+          "ovr": 84
+        },
+        {
+          "id": "p1206",
+          "pos": "LB",
+          "name": "Grimaldo",
+          "ovr": 84
+        },
+        {
+          "id": "p1207",
+          "pos": "RB",
+          "name": "Dumfries",
+          "ovr": 84
+        },
+        {
+          "id": "p1208",
+          "pos": "DMF",
+          "name": "Bennacer",
+          "ovr": 84
+        },
+        {
+          "id": "p1209",
+          "pos": "CMF",
+          "name": "Rabiot",
+          "ovr": 84
+        },
+        {
+          "id": "p1210",
+          "pos": "CMF",
+          "name": "Zielinski",
+          "ovr": 84
+        },
+        {
+          "id": "p1211",
+          "pos": "AMF",
+          "name": "Çalhanoğlu",
+          "ovr": 85
+        },
+        {
+          "id": "p1212",
+          "pos": "RMF",
+          "name": "Cuadrado",
+          "ovr": 84
+        },
+        {
+          "id": "p1213",
+          "pos": "LWF",
+          "name": "Kvaratskhelia",
+          "ovr": 85
+        },
+        {
+          "id": "p1214",
+          "pos": "LWF",
+          "name": "Lozano",
+          "ovr": 83
+        },
+        {
+          "id": "p1215",
+          "pos": "RWF",
+          "name": "Diaby",
+          "ovr": 84
+        },
+        {
+          "id": "p1216",
+          "pos": "CF",
+          "name": "Abraham",
+          "ovr": 84
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq13",
+      "name": "Cannabis Crew",
+      "manager": "Cannabis",
+      "stars": 4,
+      "primaryColor": "#15803d",
+      "secondaryColor": "#a855f7",
+      "formation": "4-2-3-1 Equilibrado",
+      "captain": "Dani Parejo (86)",
+      "recentForm": [
+        "L",
+        "D",
+        "W",
+        "W",
+        "D"
+      ],
+      "roster": [
+        {
+          "id": "p1301",
+          "pos": "GK",
+          "name": "Sommer",
+          "ovr": 86
+        },
+        {
+          "id": "p1302",
+          "pos": "GK",
+          "name": "Remiro",
+          "ovr": 82
+        },
+        {
+          "id": "p1303",
+          "pos": "CB",
+          "name": "Albiol",
+          "ovr": 84
+        },
+        {
+          "id": "p1304",
+          "pos": "CB",
+          "name": "Íñigo Martínez",
+          "ovr": 84
+        },
+        {
+          "id": "p1305",
+          "pos": "CB",
+          "name": "Le Normand",
+          "ovr": 83
+        },
+        {
+          "id": "p1306",
+          "pos": "LB",
+          "name": "Gayà",
+          "ovr": 84
+        },
+        {
+          "id": "p1307",
+          "pos": "RB",
+          "name": "Jesús Navas",
+          "ovr": 84
+        },
+        {
+          "id": "p1308",
+          "pos": "DMF",
+          "name": "Guido Rodríguez",
+          "ovr": 83
+        },
+        {
+          "id": "p1309",
+          "pos": "CMF",
+          "name": "Parejo",
+          "ovr": 86
+        },
+        {
+          "id": "p1310",
+          "pos": "CMF",
+          "name": "Mikel Merino",
+          "ovr": 84
+        },
+        {
+          "id": "p1311",
+          "pos": "AMF",
+          "name": "Fekir",
+          "ovr": 85
+        },
+        {
+          "id": "p1312",
+          "pos": "AMF",
+          "name": "Canales",
+          "ovr": 84
+        },
+        {
+          "id": "p1313",
+          "pos": "LWF",
+          "name": "Oyarzabal",
+          "ovr": 85
+        },
+        {
+          "id": "p1314",
+          "pos": "LWF",
+          "name": "Danjuma",
+          "ovr": 83
+        },
+        {
+          "id": "p1315",
+          "pos": "RWF",
+          "name": "Asensio",
+          "ovr": 84
+        },
+        {
+          "id": "p1316",
+          "pos": "CF",
+          "name": "Gerard Moreno",
+          "ovr": 86
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq14",
+      "name": "Justin FC",
+      "manager": "Justin",
+      "stars": 4,
+      "primaryColor": "#1d4ed8",
+      "secondaryColor": "#facc15",
+      "formation": "4-4-2 Linha Dupla",
+      "captain": "Marcos Llorente (86)",
+      "recentForm": [
+        "W",
+        "W",
+        "D",
+        "L",
+        "D"
+      ],
+      "roster": [
+        {
+          "id": "p1401",
+          "pos": "GK",
+          "name": "Bounou",
+          "ovr": 85
+        },
+        {
+          "id": "p1402",
+          "pos": "GK",
+          "name": "Rulli",
+          "ovr": 82
+        },
+        {
+          "id": "p1403",
+          "pos": "CB",
+          "name": "Savić",
+          "ovr": 85
+        },
+        {
+          "id": "p1404",
+          "pos": "CB",
+          "name": "Diego Carlos",
+          "ovr": 84
+        },
+        {
+          "id": "p1405",
+          "pos": "CB",
+          "name": "Felipe",
+          "ovr": 83
+        },
+        {
+          "id": "p1406",
+          "pos": "LB",
+          "name": "Reinildo",
+          "ovr": 83
+        },
+        {
+          "id": "p1407",
+          "pos": "RB",
+          "name": "Molina",
+          "ovr": 82
+        },
+        {
+          "id": "p1408",
+          "pos": "DMF",
+          "name": "Kondogbia",
+          "ovr": 83
+        },
+        {
+          "id": "p1409",
+          "pos": "CMF",
+          "name": "Marcos Llorente",
+          "ovr": 86
+        },
+        {
+          "id": "p1410",
+          "pos": "CMF",
+          "name": "De Paul",
+          "ovr": 85
+        },
+        {
+          "id": "p1411",
+          "pos": "AMF",
+          "name": "Lemar",
+          "ovr": 84
+        },
+        {
+          "id": "p1412",
+          "pos": "RMF",
+          "name": "Soler",
+          "ovr": 83
+        },
+        {
+          "id": "p1413",
+          "pos": "LWF",
+          "name": "Ferran Torres",
+          "ovr": 84
+        },
+        {
+          "id": "p1414",
+          "pos": "LWF",
+          "name": "Ansu Fati",
+          "ovr": 83
+        },
+        {
+          "id": "p1415",
+          "pos": "RWF",
+          "name": "Ángel Correa",
+          "ovr": 84
+        },
+        {
+          "id": "p1416",
+          "pos": "CF",
+          "name": "Matheus Cunha",
+          "ovr": 82
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq15",
+      "name": "Augusto FC",
+      "manager": "Augusto",
+      "stars": 4,
+      "primaryColor": "#334155",
+      "secondaryColor": "#f8fafc",
+      "formation": "4-1-2-1-2 Estreito",
+      "captain": "Dimitri Payet (85)",
+      "recentForm": [
+        "L",
+        "W",
+        "D",
+        "W",
+        "L"
+      ],
+      "roster": [
+        {
+          "id": "p1501",
+          "pos": "GK",
+          "name": "Schmeichel",
+          "ovr": 84
+        },
+        {
+          "id": "p1502",
+          "pos": "GK",
+          "name": "Mandanda",
+          "ovr": 81
+        },
+        {
+          "id": "p1503",
+          "pos": "CB",
+          "name": "Saliba",
+          "ovr": 84
+        },
+        {
+          "id": "p1504",
+          "pos": "CB",
+          "name": "Fofana",
+          "ovr": 83
+        },
+        {
+          "id": "p1505",
+          "pos": "CB",
+          "name": "Fonte",
+          "ovr": 82
+        },
+        {
+          "id": "p1506",
+          "pos": "LB",
+          "name": "Tagliafico",
+          "ovr": 83
+        },
+        {
+          "id": "p1507",
+          "pos": "RB",
+          "name": "Clauss",
+          "ovr": 82
+        },
+        {
+          "id": "p1508",
+          "pos": "DMF",
+          "name": "Guendouzi",
+          "ovr": 82
+        },
+        {
+          "id": "p1509",
+          "pos": "CMF",
+          "name": "Seko Fofana",
+          "ovr": 83
+        },
+        {
+          "id": "p1510",
+          "pos": "CMF",
+          "name": "Renato Sanches",
+          "ovr": 83
+        },
+        {
+          "id": "p1511",
+          "pos": "AMF",
+          "name": "Payet",
+          "ovr": 84
+        },
+        {
+          "id": "p1512",
+          "pos": "AMF",
+          "name": "Aouar",
+          "ovr": 82
+        },
+        {
+          "id": "p1513",
+          "pos": "LWF",
+          "name": "Bamba",
+          "ovr": 81
+        },
+        {
+          "id": "p1514",
+          "pos": "RWF",
+          "name": "Bourigeaud",
+          "ovr": 82
+        },
+        {
+          "id": "p1515",
+          "pos": "CF",
+          "name": "Ben Yedder",
+          "ovr": 85
+        },
+        {
+          "id": "p1516",
+          "pos": "CF",
+          "name": "Lacazette",
+          "ovr": 84
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq16",
+      "name": "Adevogados FC",
+      "manager": "Adevogados",
+      "stars": 4,
+      "primaryColor": "#ca8a04",
+      "secondaryColor": "#fef08a",
+      "formation": "3-4-1-2 Jurídico",
+      "captain": "Samir Handanovič (85)",
+      "recentForm": [
+        "W",
+        "D",
+        "W",
+        "L",
+        "D"
+      ],
+      "roster": [
+        {
+          "id": "p1601",
+          "pos": "GK",
+          "name": "Handanovič",
+          "ovr": 85
+        },
+        {
+          "id": "p1602",
+          "pos": "GK",
+          "name": "Onana",
+          "ovr": 83
+        },
+        {
+          "id": "p1603",
+          "pos": "CB",
+          "name": "Acerbi",
+          "ovr": 83
+        },
+        {
+          "id": "p1604",
+          "pos": "CB",
+          "name": "Smalling",
+          "ovr": 83
+        },
+        {
+          "id": "p1605",
+          "pos": "CB",
+          "name": "Kalulu",
+          "ovr": 82
+        },
+        {
+          "id": "p1606",
+          "pos": "LB",
+          "name": "Gosens",
+          "ovr": 83
+        },
+        {
+          "id": "p1607",
+          "pos": "RB",
+          "name": "Calabria",
+          "ovr": 82
+        },
+        {
+          "id": "p1608",
+          "pos": "DMF",
+          "name": "Cristante",
+          "ovr": 82
+        },
+        {
+          "id": "p1609",
+          "pos": "CMF",
+          "name": "Mkhitaryan",
+          "ovr": 83
+        },
+        {
+          "id": "p1610",
+          "pos": "CMF",
+          "name": "Fabián Ruiz",
+          "ovr": 84
+        },
+        {
+          "id": "p1611",
+          "pos": "AMF",
+          "name": "Luis Alberto",
+          "ovr": 85
+        },
+        {
+          "id": "p1612",
+          "pos": "AMF",
+          "name": "Brahim Díaz",
+          "ovr": 81
+        },
+        {
+          "id": "p1613",
+          "pos": "LWF",
+          "name": "Pedro Rodríguez",
+          "ovr": 82
+        },
+        {
+          "id": "p1614",
+          "pos": "RWF",
+          "name": "Politano",
+          "ovr": 82
+        },
+        {
+          "id": "p1615",
+          "pos": "RWF",
+          "name": "Felipe Anderson",
+          "ovr": 82
+        },
+        {
+          "id": "p1616",
+          "pos": "CF",
+          "name": "Scamacca",
+          "ovr": 82
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    },
+    {
+      "id": "sq17",
+      "name": "Panissa FC",
+      "manager": "Panissa",
+      "stars": 4,
+      "primaryColor": "#b91c1c",
+      "secondaryColor": "#f59e0b",
+      "formation": "4-2-3-1 Ofensivo",
+      "captain": "Jude Bellingham (86)",
+      "recentForm": [
+        "D",
+        "W",
+        "L",
+        "W",
+        "W"
+      ],
+      "roster": [
+        {
+          "id": "p1701",
+          "pos": "GK",
+          "name": "Trapp",
+          "ovr": 86
+        },
+        {
+          "id": "p1702",
+          "pos": "GK",
+          "name": "Casteels",
+          "ovr": 85
+        },
+        {
+          "id": "p1703",
+          "pos": "CB",
+          "name": "Ginter",
+          "ovr": 84
+        },
+        {
+          "id": "p1704",
+          "pos": "CB",
+          "name": "Tah",
+          "ovr": 83
+        },
+        {
+          "id": "p1705",
+          "pos": "CB",
+          "name": "Orban",
+          "ovr": 83
+        },
+        {
+          "id": "p1706",
+          "pos": "LB",
+          "name": "Angelino",
+          "ovr": 83
+        },
+        {
+          "id": "p1707",
+          "pos": "RB",
+          "name": "Frimpong",
+          "ovr": 83
+        },
+        {
+          "id": "p1708",
+          "pos": "DMF",
+          "name": "Laimer",
+          "ovr": 83
+        },
+        {
+          "id": "p1709",
+          "pos": "CMF",
+          "name": "Bellingham",
+          "ovr": 86
+        },
+        {
+          "id": "p1710",
+          "pos": "CMF",
+          "name": "Sabitzer",
+          "ovr": 83
+        },
+        {
+          "id": "p1711",
+          "pos": "AMF",
+          "name": "Wirtz",
+          "ovr": 84
+        },
+        {
+          "id": "p1712",
+          "pos": "AMF",
+          "name": "Dani Olmo",
+          "ovr": 84
+        },
+        {
+          "id": "p1713",
+          "pos": "LMF",
+          "name": "Hofmann",
+          "ovr": 83
+        },
+        {
+          "id": "p1714",
+          "pos": "RWF",
+          "name": "Adeyemi",
+          "ovr": 81
+        },
+        {
+          "id": "p1715",
+          "pos": "CF",
+          "name": "Schick",
+          "ovr": 85
+        },
+        {
+          "id": "p1716",
+          "pos": "CF",
+          "name": "Haller",
+          "ovr": 84
+        }
+      ],
+      "badge_url": "",
+      "shield_image": "",
+      "kit_home_3d_url": "",
+      "kit_away_3d_url": ""
+    }
+  ],
+  "limits": [
+    {
+      "id": "c1",
+      "name": "Joker FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c2",
+      "name": "Al Kabib",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c3",
+      "name": "Frog FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c4",
+      "name": "Sorriso FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c5",
+      "name": "Carvalhaes FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c6",
+      "name": "Beni FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c7",
+      "name": "Crew FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c8",
+      "name": "Mazili M.D FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c9",
+      "name": "The Beatles",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c10",
+      "name": "Gustavo FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c11",
+      "name": "Ashen Lords",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c12",
+      "name": "Fabricio FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c13",
+      "name": "Cannabis Crew",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c14",
+      "name": "Justin FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c15",
+      "name": "Augusto FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c16",
+      "name": "Adevogados FC",
+      "maxTrades": 3,
+      "reserves": 5
+    },
+    {
+      "id": "c17",
+      "name": "Panissa FC",
+      "maxTrades": 3,
+      "reserves": 5
+    }
+  ],
+  "transfers": [
+    {
+      "id": "t1",
+      "date": "2026-07-18",
+      "time": "21:30",
+      "type": "definitivo",
+      "expiryDate": "",
+      "teamA": "Gustavo FC",
+      "assetsA": [
+        "Di Maria",
+        "Saúl"
+      ],
+      "teamB": "Joker FC",
+      "assetsB": [
+        "Pavón",
+        "Kanté"
+      ],
+      "createdAt": "2026-07-18T21:30:00Z"
+    },
+    {
+      "id": "t2",
+      "date": "2026-07-19",
+      "time": "19:15",
+      "type": "emprestimo",
+      "expiryDate": "2026-07-26",
+      "teamA": "Mazili M.D FC",
+      "assetsA": [
+        "Lukaku",
+        "PICK 11"
+      ],
+      "teamB": "Gustavo FC",
+      "assetsB": [
+        "Verratti"
+      ],
+      "createdAt": "2026-07-19T19:15:00Z"
+    },
+    {
+      "id": "t3",
+      "date": "2026-07-20",
+      "time": "15:40",
+      "type": "definitivo",
+      "expiryDate": "",
+      "teamA": "Al Kabib",
+      "assetsA": [
+        "Hakimi"
+      ],
+      "teamB": "Frog FC",
+      "assetsB": [
+        "Robertson",
+        "PICK 04"
+      ],
+      "createdAt": "2026-07-20T15:40:00Z"
+    }
+  ],
+  "news": [
+    {
+      "id": "news-hero-1",
+      "placement": "hero",
+      "category": "DECISÃO",
+      "timeAgo": "há 35 minutos",
+      "author": "Redação GBL",
+      "relatedTab": "#campeonatos",
+      "relatedLabel": "Ver Tabela da Temporada 9 no Copa Fácil →",
+      "visualTheme": "hero-championship",
+      "clubs": [
+        "Joker FC",
+        "Al Kabib",
+        "Frog FC"
+      ],
+      "title": "Temporada 9 pega fogo: G4 embolado e clássicos diretos prometem sacudir a próxima resenha presencial",
+      "subtitle": "Com Joker FC (107,4 PT), Al Kabib (93,8 PT), Frog FC (85,4 PT) e Sorriso FC (77,1 PT) no topo do ranking, clubes preparam força máxima no PES 21.",
+      "bullets": [
+        "Al Kabib ostenta 6 títulos na Sala de Troféus e mira o topo do Ranking Geral",
+        "17 clubes confirmados na disputa enquanto a 18ª equipe aguarda anúncio oficial em breve"
+      ],
+      "body": "A 9ª Temporada da Xupé Gente Boa's League entrou na reta decisiva da fase classificatória com equilíbrio histórico entre os 17 clubes confirmados (com o 18º time chegando em breve). Líder do Ranking Geral com 107,4 pontos, o Joker FC vê o hexacampeão Al Kabib (93,8 PT) e o Frog FC (85,4 PT) na cola.\n\nNos bastidores, os treinadores aproveitaram a janela de transferências para ajustar as formações táticas e preencher as 5 vagas do banco de reservas. A expectativa agora se volta para a confirmação da próxima data presencial no calendário oficial da liga."
+    },
+    {
+      "id": "news-sec-1",
+      "placement": "secondary",
+      "category": "MERCADO",
+      "timeAgo": "há 2 horas",
+      "author": "Plantão do Mercado",
+      "relatedTab": "#transferencias",
+      "relatedLabel": "Conferir Feed de Transferências →",
+      "visualTheme": "theme-market",
+      "clubs": [
+        "Al Kabib",
+        "Mazili M.D FC"
+      ],
+      "title": "Janela fervendo: propostas via WhatsApp aceleram trocas de estrelas e picks de draft",
+      "subtitle": "Treinadores usam o simulador oficial para fechar empréstimos e trocas definitivas antes do bloqueio de saldo.",
+      "body": "O novo sistema de Propostas via WhatsApp movimentou os bastidores dos clubes da liga. Em menos de 48 horas, diversas sondagens envolvendo meio-campistas de Overall 86+ e escolhas futuras de draft chegaram às mesas dos treinadores.\n\nVale lembrar que cada equipe dispõe de no máximo 3 negociações por temporada no painel oficial de Transferências."
+    },
+    {
+      "id": "news-sec-2",
+      "placement": "secondary",
+      "category": "TÁTICA & ELENCOS",
+      "timeAgo": "há 4 horas",
+      "author": "Análise Tática GBL",
+      "relatedTab": "#elencos",
+      "relatedLabel": "Explorar os Elencos e Kits 3D →",
+      "visualTheme": "theme-kits",
+      "clubs": [
+        "Al Kabib",
+        "Joker FC"
+      ],
+      "title": "Novos mantos em campo: clubes exibem uniformes 3D e ajustam esquemas 4-3-3 com 5 reservas",
+      "subtitle": "Padronização do plantel em 11 titulares + 5 substitutos exige escolhas cirúrgicas de cada comandante.",
+      "body": "A atualização visual da central de Elencos trouxe a vitrine de uniformes em perspectiva 3D (Casa e Visitante) e consolidou a regra de 16 atletas por plantel ativo (11 titulares no gramado + 5 substitutos imediatos).\n\nCom o banco mais enxuto e competitivo, ter jogadores versáteis capazes de atuar em mais de uma faixa do campo virou diferencial estratégico nas partidas decididas na prorrogação."
+    },
+    {
+      "id": "news-sec-3",
+      "placement": "secondary",
+      "category": "GIRO DA RODADA",
+      "timeAgo": "há 5 horas",
+      "author": "Redação GBL",
+      "relatedTab": "#titulos",
+      "relatedLabel": "Ver Galeria de Títulos & Recordes →",
+      "visualTheme": "theme-trophy",
+      "clubs": [
+        "Al Kabib",
+        "Frog FC"
+      ],
+      "title": "Hegemonia e tradição: confira todos os campeões que já levantaram a taça da liga",
+      "subtitle": "Al Kabib lidera isolado com 6 conquistas, seguido por Frog FC, Sorriso FC, Carvalhaes FC, Crew FC, Fabricio FC e Panissa FC.",
+      "body": "Nenhuma vantagem é segura até o apito final na Xupé Gente Boa's League. O levantamento histórico da Sala de Troféus mostra o domínio do Al Kabib com 6 títulos, além das conquistas históricas de Frog FC, Sorriso FC, Carvalhaes FC, Crew FC, Fabricio FC e Panissa FC.\n\nConfira na aba Títulos todos os placares históricos e os recordistas da competição."
+    },
+    {
+      "id": "news-feed-1",
+      "placement": "feed",
+      "category": "BASTIDORES",
+      "timeAgo": "há 7 horas",
+      "author": "Agenda Presencial",
+      "relatedTab": "#agendamento",
+      "relatedLabel": "Votar nas Datas da Próxima Resenha →",
+      "visualTheme": "theme-schedule",
+      "clubs": [
+        "Sorriso FC",
+        "Carvalhaes FC"
+      ],
+      "title": "Quórum em alta: votação para o próximo encontro presencial já reúne treinadores nos 3 períodos",
+      "subtitle": "Sistema estilo reserva de hotel destaca feriados e aponta automaticamente o melhor dia e turno para a galera.",
+      "body": "A aba de Agendamento segue recebendo os votos dos treinadores para definir o dia da próxima maratona presencial de PES 21. O ranking inteligente cruza os períodos da Manhã, Tarde e Noite para indicar a janela com maior número de confirmados."
+    },
+    {
+      "id": "news-feed-2",
+      "placement": "feed",
+      "category": "MERCADO",
+      "timeAgo": "há 9 horas",
+      "author": "Plantão do Mercado",
+      "relatedTab": "#transferencias",
+      "relatedLabel": "Abrir Simulador de Propostas →",
+      "visualTheme": "theme-market",
+      "clubs": [
+        "Joker FC",
+        "Beni FC"
+      ],
+      "title": "Empréstimos estratégicos viram arma para reforçar defesas sem comprometer estrelas do time titular",
+      "subtitle": "Negociações temporárias com data de expiração permitem testar zagueiros e goleiros de elite por uma edição.",
+      "body": "Com o limite de 3 trocas por temporada, vários treinadores têm recorrido à modalidade de Empréstimo com vigência determinada para suprir carências pontuais na zaga e nas laterais sem abrir mão em definitivo de seus titulares."
+    },
+    {
+      "id": "news-feed-3",
+      "placement": "feed",
+      "category": "DECISÃO",
+      "timeAgo": "há 12 horas",
+      "author": "Estatísticas GBL",
+      "relatedTab": "#campeonatos",
+      "relatedLabel": "Consultar Campeonato em Curso →",
+      "visualTheme": "theme-trophy",
+      "clubs": [
+        "Al Kabib",
+        "Gustavo FC"
+      ],
+      "title": "Raio-X dos ataques: média de gols da liga supera 3,8 por partida e consagra esquemas ofensivos",
+      "subtitle": "Formações 4-3-3 e 4-2-1-3 dominam as escolhas dos clubes inscritos na temporada atual.",
+      "body": "Quem joga na retranca fica para trás na Gente Boa's League. Os números consolidados mostram que a maioria dos treinadores utiliza variações do 4-3-3 com pontas agudos e meia-atacante infiltrador, mantendo a média histórica de quase 4 gols por jogo."
+    },
+    {
+      "id": "news-feed-4",
+      "placement": "feed",
+      "category": "BASTIDORES",
+      "timeAgo": "há 1 dia",
+      "author": "Comissão Organizadora",
+      "relatedTab": "#sobre",
+      "relatedLabel": "Ler Regulamento Oficial na Aba Sobre →",
+      "visualTheme": "theme-kits",
+      "clubs": [
+        "Mazili M.D FC",
+        "Joker FC"
+      ],
+      "title": "Guia da Temporada: confira as regras atualizadas de limite de elenco, reservas e saldo de negociações",
+      "subtitle": "Todas as diretrizes oficiais do campeonato estão disponíveis para consulta rápida no portal.",
+      "body": "A Comissão Organizadora consolidou na seção Sobre todas as regras vigentes da Xupé Gente Boa's League: elencos de 16 jogadores (11 titulares + 5 reservas), teto de 3 transferências por clube e fluxo oficial de validação pelo Painel Admin."
+    }
+  ],
+  "finals": [
+    {
+      "id": "f12",
+      "season": "Temporada 12",
+      "year": 2026,
+      "winnerTeam": "Al Kabib",
+      "winnerScore": 3,
+      "runnerTeam": "Joker FC",
+      "runnerScore": 2,
+      "extraNote": "Prorrogação",
+      "highlight": "Mohamed Salah (2 gols, 1 assist.) · Gol do hexacampeonato aos 118’",
+      "winner_team_id": "sq2",
+      "runner_team_id": "sq1"
+    },
+    {
+      "id": "f11",
+      "season": "Temporada 11",
+      "year": 2026,
+      "winnerTeam": "Frog FC",
+      "winnerScore": 2,
+      "runnerTeam": "Joker FC",
+      "runnerScore": 1,
+      "extraNote": "",
+      "highlight": "Lewandowski (2 gols) · Campanha impecável no mata-mata",
+      "winner_team_id": "sq3",
+      "runner_team_id": "sq1"
+    },
+    {
+      "id": "f10",
+      "season": "Temporada 10",
+      "year": 2026,
+      "winnerTeam": "Al Kabib",
+      "winnerScore": 3,
+      "runnerTeam": "Sorriso FC",
+      "runnerScore": 1,
+      "extraNote": "",
+      "highlight": "Harry Kane (2 gols) · Pentacampeonato confirmado",
+      "winner_team_id": "sq2",
+      "runner_team_id": "sq4"
+    },
+    {
+      "id": "f9",
+      "season": "Temporada 9",
+      "year": 2025,
+      "winnerTeam": "Sorriso FC",
+      "winnerScore": 2,
+      "runnerTeam": "Frog FC",
+      "runnerScore": 2,
+      "extraNote": "5-4 pen",
+      "highlight": "Oblak (2 defesas nos pênaltis) · Phil Foden decisivo",
+      "winner_team_id": "sq4",
+      "runner_team_id": "sq3"
+    },
+    {
+      "id": "f8",
+      "season": "Temporada 8",
+      "year": 2025,
+      "winnerTeam": "Al Kabib",
+      "winnerScore": 4,
+      "runnerTeam": "Carvalhaes FC",
+      "runnerScore": 1,
+      "extraNote": "",
+      "highlight": "Rafael Leão (Hat-trick) · Atuação de gala na decisão",
+      "winner_team_id": "sq2",
+      "runner_team_id": "sq5"
+    },
+    {
+      "id": "f7",
+      "season": "Temporada 7",
+      "year": 2025,
+      "winnerTeam": "Carvalhaes FC",
+      "winnerScore": 2,
+      "runnerTeam": "Beni FC",
+      "runnerScore": 1,
+      "extraNote": "",
+      "highlight": "Ibrahimović (2 gols) · Virada histórica no segundo tempo",
+      "winner_team_id": "sq5",
+      "runner_team_id": "sq6"
+    },
+    {
+      "id": "f6",
+      "season": "Temporada 6",
+      "year": 2024,
+      "winnerTeam": "Al Kabib",
+      "winnerScore": 1,
+      "runnerTeam": "Mazili M.D FC",
+      "runnerScore": 0,
+      "extraNote": "",
+      "highlight": "Kimmich (gol aos 89’) · Campeão Invicto da edição",
+      "winner_team_id": "sq2",
+      "runner_team_id": "sq8"
+    },
+    {
+      "id": "f5",
+      "season": "Temporada 5",
+      "year": 2024,
+      "winnerTeam": "Crew FC",
+      "winnerScore": 3,
+      "runnerTeam": "Joker FC",
+      "runnerScore": 2,
+      "extraNote": "Gol nos acréscimos (90+3’)",
+      "highlight": "Giroud (2 gols) · Decisão eletrizante até o último lance",
+      "winner_team_id": "sq7",
+      "runner_team_id": "sq1"
+    },
+    {
+      "id": "f4",
+      "season": "Temporada 4",
+      "year": 2024,
+      "winnerTeam": "Al Kabib",
+      "winnerScore": 2,
+      "runnerTeam": "Frog FC",
+      "runnerScore": 0,
+      "extraNote": "",
+      "highlight": "Mohamed Salah (2 gols) · Domínio tático absoluto",
+      "winner_team_id": "sq2",
+      "runner_team_id": "sq3"
+    },
+    {
+      "id": "f3",
+      "season": "Temporada 3",
+      "year": 2023,
+      "winnerTeam": "Fabricio FC",
+      "winnerScore": 2,
+      "runnerTeam": "Sorriso FC",
+      "runnerScore": 2,
+      "extraNote": "4-2 pen",
+      "highlight": "Szczęsny brilhou nas penalidades · Kvaratskhelia (1 gol)",
+      "winner_team_id": "sq12",
+      "runner_team_id": "sq4"
+    },
+    {
+      "id": "f2",
+      "season": "Temporada 2",
+      "year": 2023,
+      "winnerTeam": "Panissa FC",
+      "winnerScore": 2,
+      "runnerTeam": "Al Kabib",
+      "runnerScore": 1,
+      "extraNote": "",
+      "highlight": "Bellingham (1 gol, 1 assist.) · Título inédito",
+      "winner_team_id": "sq17",
+      "runner_team_id": "sq2"
+    },
+    {
+      "id": "f1",
+      "season": "Temporada 1",
+      "year": 2023,
+      "winnerTeam": "Al Kabib",
+      "winnerScore": 3,
+      "runnerTeam": "Gustavo FC",
+      "runnerScore": 2,
+      "extraNote": "",
+      "highlight": "Salah e Harry Kane decisivos · Primeiro campeão da história da GBL",
+      "winner_team_id": "sq2",
+      "runner_team_id": "sq10"
+    }
+  ],
+  "records": [
+    {
+      "id": "rec1",
+      "tag": "Hegemonia & Invencibilidade",
+      "icon": "👑",
+      "title": "Maior Campeão da História",
+      "metric": "6 Taças · Hexacampeão",
+      "team_id": "sq2",
+      "club": "Al Kabib",
+      "desc": "Lidera isolado a Sala de Troféus da Xupé Gente Boa's League com 6 títulos conquistados e 93,8 pontos acumulados."
+    },
+    {
+      "id": "rec2",
+      "tag": "Liderança Geral em Pontos",
+      "icon": "🔥",
+      "title": "Recordista de Pontuação Geral",
+      "metric": "107,4 PT Acumulados",
+      "team_id": "sq1",
+      "club": "Joker FC",
+      "desc": "Clube mais regular da história do campeonato, ultrapassando a marca centenária de 107,4 pontos no Ranking Oficial."
+    },
+    {
+      "id": "rec3",
+      "tag": "Rei das Decisões",
+      "icon": "⚽",
+      "title": "Artilheiro Histórico das Finais",
+      "metric": "7 Gols em Finais",
+      "club": "Mohamed Salah (Al Kabib)",
+      "desc": "O homem dos jogos grandes: balançou as redes nas decisões e comandou o hexacampeonato do Al Kabib."
+    }
+  ],
+  "active": {
+    "title": "Temporada 9 · Xupé Gente Boa's League",
+    "format": "Pontos Corridos + Mata-Mata",
+    "seasonLabel": "Edição 2026 · 17 Clubes (18º em breve)",
+    "statusText": "🔴 EM ANDAMENTO",
+    "copaFacilUrl": "https://copafacil.com/genteboasleague-t9",
+    "description": "Tabela de classificação oficial, rodadas, chaveamento e estatísticas integradas em tempo real via Copa Fácil."
+  },
+  "history": [
+    {
+      "id": "arch-t8",
+      "name": "Temporada 8 · Liga Oficial",
+      "year": 2026,
+      "dateLabel": "Outubro 2026",
+      "category": "liga",
+      "format": "Pontos Corridos + Mata-Mata",
+      "championTeam": "Gustavo FC",
+      "championManager": "Gustavo",
+      "championScore": 3,
+      "runnerTeam": "Joker FC",
+      "runnerManager": "Kalleby",
+      "runnerScore": 2,
+      "extraNote": "Prorrogação (118’)",
+      "summary": "Mbappé marcou 2 gols na grande final e garantiu o tetracampeonato na prorrogação.",
+      "topScorer": "Kylian Mbappé (Gustavo FC) — 16 gols",
+      "bestDefense": "Gustavo FC (12 gols sofridos)",
+      "copaFacilUrl": "https://copafacil.com/genteboasleague-t8",
+      "standings": [
+        {
+          "pos": 1,
+          "team": "Gustavo FC",
+          "manager": "Gustavo",
+          "pts": 44,
+          "j": 17,
+          "v": 14,
+          "e": 2,
+          "d": 1,
+          "gp": 46,
+          "gc": 12,
+          "status": "🏆 Campeão"
+        },
+        {
+          "pos": 2,
+          "team": "Joker FC",
+          "manager": "Kalleby",
+          "pts": 40,
+          "j": 17,
+          "v": 13,
+          "e": 1,
+          "d": 3,
+          "gp": 41,
+          "gc": 16,
+          "status": "🥈 Vice-Campeão"
+        },
+        {
+          "pos": 3,
+          "team": "Al Kabib",
+          "manager": "Kalled",
+          "pts": 36,
+          "j": 17,
+          "v": 11,
+          "e": 3,
+          "d": 3,
+          "gp": 35,
+          "gc": 18,
+          "status": "Semifinalista"
+        },
+        {
+          "pos": 4,
+          "team": "Mazili MD FC",
+          "manager": "Mazili",
+          "pts": 34,
+          "j": 17,
+          "v": 10,
+          "e": 4,
+          "d": 3,
+          "gp": 38,
+          "gc": 21,
+          "status": "Semifinalista"
+        },
+        {
+          "pos": 5,
+          "team": "Xupé United",
+          "manager": "Pedro",
+          "pts": 30,
+          "j": 17,
+          "v": 9,
+          "e": 3,
+          "d": 5,
+          "gp": 29,
+          "gc": 22,
+          "status": "Quartas de Final"
+        },
+        {
+          "pos": 6,
+          "team": "Resenha City",
+          "manager": "Lucas",
+          "pts": 28,
+          "j": 17,
+          "v": 8,
+          "e": 4,
+          "d": 5,
+          "gp": 27,
+          "gc": 24,
+          "status": "Quartas de Final"
+        }
+      ]
+    },
+    {
+      "id": "arch-inverno-26",
+      "name": "Copa de Inverno 2026",
+      "year": 2026,
+      "dateLabel": "Julho 2026",
+      "category": "copa",
+      "format": "Copa Eliminatória (Mata-Mata)",
+      "championTeam": "Al Kabib",
+      "championManager": "Kalled",
+      "championScore": 2,
+      "runnerTeam": "Mazili MD FC",
+      "runnerManager": "Mazili",
+      "runnerScore": 1,
+      "extraNote": "Final em Jogo Único",
+      "summary": "Salah e Kanté comandaram a campanha invicta do Al Kabib no mata-mata de inverno.",
+      "topScorer": "Mohamed Salah (Al Kabib) — 8 gols",
+      "bestDefense": "Al Kabib (3 gols sofridos em 5 jogos)",
+      "copaFacilUrl": "https://copafacil.com/copainverno-gbl-2026",
+      "standings": [
+        {
+          "pos": 1,
+          "team": "Al Kabib",
+          "manager": "Kalled",
+          "pts": 15,
+          "j": 5,
+          "v": 5,
+          "e": 0,
+          "d": 0,
+          "gp": 13,
+          "gc": 3,
+          "status": "🏆 Campeão"
+        },
+        {
+          "pos": 2,
+          "team": "Mazili MD FC",
+          "manager": "Mazili",
+          "pts": 12,
+          "j": 5,
+          "v": 4,
+          "e": 0,
+          "d": 1,
+          "gp": 11,
+          "gc": 5,
+          "status": "🥈 Vice-Campeão"
+        },
+        {
+          "pos": 3,
+          "team": "Joker FC",
+          "manager": "Kalleby",
+          "pts": 7,
+          "j": 4,
+          "v": 2,
+          "e": 1,
+          "d": 1,
+          "gp": 8,
+          "gc": 5,
+          "status": "Semifinalista"
+        },
+        {
+          "pos": 4,
+          "team": "Real Matismo FC",
+          "manager": "Matheus",
+          "pts": 6,
+          "j": 4,
+          "v": 2,
+          "e": 0,
+          "d": 2,
+          "gp": 7,
+          "gc": 7,
+          "status": "Semifinalista"
+        }
+      ]
+    },
+    {
+      "id": "arch-t7",
+      "name": "Temporada 7 · Liga Oficial",
+      "year": 2026,
+      "dateLabel": "Abril 2026",
+      "category": "liga",
+      "format": "Pontos Corridos + Mata-Mata",
+      "championTeam": "Joker FC",
+      "championManager": "Kalleby",
+      "championScore": 2,
+      "runnerTeam": "Mazili MD FC",
+      "runnerManager": "Mazili",
+      "runnerScore": 2,
+      "extraNote": "5-3 nos Pênaltis",
+      "summary": "Courtois brilhou defendendo duas cobranças e Haaland anotou dois gols no tempo normal.",
+      "topScorer": "Erling Haaland (Joker FC) — 18 gols",
+      "bestDefense": "Joker FC (14 gols sofridos)",
+      "copaFacilUrl": "https://copafacil.com/genteboasleague-t7",
+      "standings": [
+        {
+          "pos": 1,
+          "team": "Joker FC",
+          "manager": "Kalleby",
+          "pts": 42,
+          "j": 17,
+          "v": 13,
+          "e": 3,
+          "d": 1,
+          "gp": 43,
+          "gc": 14,
+          "status": "🏆 Campeão"
+        },
+        {
+          "pos": 2,
+          "team": "Mazili MD FC",
+          "manager": "Mazili",
+          "pts": 39,
+          "j": 17,
+          "v": 12,
+          "e": 3,
+          "d": 2,
+          "gp": 40,
+          "gc": 17,
+          "status": "🥈 Vice-Campeão"
+        },
+        {
+          "pos": 3,
+          "team": "Gustavo FC",
+          "manager": "Gustavo",
+          "pts": 35,
+          "j": 17,
+          "v": 11,
+          "e": 2,
+          "d": 4,
+          "gp": 34,
+          "gc": 19,
+          "status": "Semifinalista"
+        },
+        {
+          "pos": 4,
+          "team": "Al Kabib",
+          "manager": "Kalled",
+          "pts": 31,
+          "j": 17,
+          "v": 9,
+          "e": 4,
+          "d": 4,
+          "gp": 30,
+          "gc": 20,
+          "status": "Semifinalista"
+        }
+      ]
+    },
+    {
+      "id": "arch-supercopa-25",
+      "name": "Supercopa Gente Boa 2025",
+      "year": 2025,
+      "dateLabel": "Dezembro 2025",
+      "category": "copa",
+      "format": "Copa Eliminatória (Top 8)",
+      "championTeam": "Gustavo FC",
+      "championManager": "Gustavo",
+      "championScore": 3,
+      "runnerTeam": "Joker FC",
+      "runnerManager": "Kalleby",
+      "runnerScore": 1,
+      "extraNote": "Final Presencial",
+      "summary": "Torneio especial de encerramento de ano reunindo os 8 melhores colocados da temporada.",
+      "topScorer": "Vinícius Jr. (Gustavo FC) — 6 gols",
+      "bestDefense": "Gustavo FC (2 gols sofridos)",
+      "copaFacilUrl": "https://copafacil.com/supercopa-gbl-2025",
+      "standings": [
+        {
+          "pos": 1,
+          "team": "Gustavo FC",
+          "manager": "Gustavo",
+          "pts": 9,
+          "j": 3,
+          "v": 3,
+          "e": 0,
+          "d": 0,
+          "gp": 8,
+          "gc": 2,
+          "status": "🏆 Campeão"
+        },
+        {
+          "pos": 2,
+          "team": "Joker FC",
+          "manager": "Kalleby",
+          "pts": 6,
+          "j": 3,
+          "v": 2,
+          "e": 0,
+          "d": 1,
+          "gp": 6,
+          "gc": 4,
+          "status": "🥈 Vice-Campeão"
+        },
+        {
+          "pos": 3,
+          "team": "Xupé United",
+          "manager": "Pedro",
+          "pts": 3,
+          "j": 2,
+          "v": 1,
+          "e": 0,
+          "d": 1,
+          "gp": 4,
+          "gc": 4,
+          "status": "Semifinalista"
+        },
+        {
+          "pos": 4,
+          "team": "Al Kabib",
+          "manager": "Kalled",
+          "pts": 3,
+          "j": 2,
+          "v": 1,
+          "e": 0,
+          "d": 1,
+          "gp": 3,
+          "gc": 4,
+          "status": "Semifinalista"
+        }
+      ]
+    },
+    {
+      "id": "arch-t6",
+      "name": "Temporada 6 · Liga Oficial",
+      "year": 2025,
+      "dateLabel": "Agosto 2025",
+      "category": "liga",
+      "format": "Pontos Corridos + Mata-Mata",
+      "championTeam": "Gustavo FC",
+      "championManager": "Gustavo",
+      "championScore": 4,
+      "runnerTeam": "Xupé United",
+      "runnerManager": "Pedro",
+      "runnerScore": 1,
+      "extraNote": "",
+      "summary": "Hat-trick histórico de Vinícius Jr. na decisão com atuação dominante do início ao fim.",
+      "topScorer": "Vinícius Jr. (Gustavo FC) — 15 gols",
+      "bestDefense": "Gustavo FC (15 gols sofridos)",
+      "copaFacilUrl": "https://copafacil.com/genteboasleague-t6",
+      "standings": [
+        {
+          "pos": 1,
+          "team": "Gustavo FC",
+          "manager": "Gustavo",
+          "pts": 41,
+          "j": 17,
+          "v": 13,
+          "e": 2,
+          "d": 2,
+          "gp": 44,
+          "gc": 15,
+          "status": "🏆 Campeão"
+        },
+        {
+          "pos": 2,
+          "team": "Xupé United",
+          "manager": "Pedro",
+          "pts": 37,
+          "j": 17,
+          "v": 11,
+          "e": 4,
+          "d": 2,
+          "gp": 35,
+          "gc": 18,
+          "status": "🥈 Vice-Campeão"
+        },
+        {
+          "pos": 3,
+          "team": "Mazili MD FC",
+          "manager": "Mazili",
+          "pts": 33,
+          "j": 17,
+          "v": 10,
+          "e": 3,
+          "d": 4,
+          "gp": 32,
+          "gc": 20,
+          "status": "Semifinalista"
+        },
+        {
+          "pos": 4,
+          "team": "Joker FC",
+          "manager": "Kalleby",
+          "pts": 31,
+          "j": 17,
+          "v": 9,
+          "e": 4,
+          "d": 4,
+          "gp": 30,
+          "gc": 21,
+          "status": "Semifinalista"
+        }
+      ]
+    },
+    {
+      "id": "arch-t4",
+      "name": "Temporada 4 · Liga Oficial",
+      "year": 2024,
+      "dateLabel": "Novembro 2024",
+      "category": "liga",
+      "format": "Pontos Corridos + Mata-Mata",
+      "championTeam": "Mazili MD FC",
+      "championManager": "Mazili",
+      "championScore": 5,
+      "runnerTeam": "Joker FC",
+      "runnerManager": "Kalleby",
+      "runnerScore": 4,
+      "extraNote": "Gol aos 90+4’",
+      "summary": "A final mais eletrizante da história: 9 gols e título decidido por Messi no último lance.",
+      "topScorer": "Lionel Messi (Mazili MD FC) — 19 gols",
+      "bestDefense": "Joker FC (16 gols sofridos)",
+      "copaFacilUrl": "https://copafacil.com/genteboasleague-t4",
+      "standings": [
+        {
+          "pos": 1,
+          "team": "Mazili MD FC",
+          "manager": "Mazili",
+          "pts": 43,
+          "j": 17,
+          "v": 14,
+          "e": 1,
+          "d": 2,
+          "gp": 49,
+          "gc": 18,
+          "status": "🏆 Campeão"
+        },
+        {
+          "pos": 2,
+          "team": "Joker FC",
+          "manager": "Kalleby",
+          "pts": 40,
+          "j": 17,
+          "v": 13,
+          "e": 1,
+          "d": 3,
+          "gp": 42,
+          "gc": 16,
+          "status": "🥈 Vice-Campeão"
+        },
+        {
+          "pos": 3,
+          "team": "Gustavo FC",
+          "manager": "Gustavo",
+          "pts": 36,
+          "j": 17,
+          "v": 11,
+          "e": 3,
+          "d": 3,
+          "gp": 37,
+          "gc": 19,
+          "status": "Semifinalista"
+        },
+        {
+          "pos": 4,
+          "team": "Resenha City",
+          "manager": "Lucas",
+          "pts": 29,
+          "j": 17,
+          "v": 9,
+          "e": 2,
+          "d": 6,
+          "gp": 28,
+          "gc": 24,
+          "status": "Semifinalista"
+        }
+      ]
+    }
+  ],
+  "proposals": [],
+  "schedules": [],
+  "badges": {},
+  "ranking": {
+    "historico": [
+      {
+        "id": "rk_h1",
+        "name": "Joker FC",
+        "ranking_detail": "1º no Ranking Geral",
+        "primaryColor": "#7e22ce",
+        "secondaryColor": "#f5c84c",
+        "posPts": 24,
+        "oitavas": 9,
+        "quartas": 8,
+        "semi": 6,
+        "conquista": 0,
+        "vice": 3,
+        "terceiro": 2,
+        "vitorias": 52,
+        "empates": 14,
+        "gols": 164,
+        "pontos": 107.4,
+        "team_id": "sq1"
+      },
+      {
+        "id": "rk_h2",
+        "name": "Al Kabib",
+        "ranking_detail": "6 Títulos Conquistados",
+        "primaryColor": "#be123c",
+        "secondaryColor": "#38bdf8",
+        "posPts": 21.5,
+        "oitavas": 9,
+        "quartas": 8,
+        "semi": 7,
+        "conquista": 6,
+        "vice": 1,
+        "terceiro": 1,
+        "vitorias": 45,
+        "empates": 16,
+        "gols": 148,
+        "pontos": 93.8,
+        "team_id": "sq2"
+      },
+      {
+        "id": "rk_h3",
+        "name": "Frog FC",
+        "ranking_detail": "1 Título Conquistado",
+        "primaryColor": "#16a34a",
+        "secondaryColor": "#2dd4bf",
+        "posPts": 19.5,
+        "oitavas": 8,
+        "quartas": 7,
+        "semi": 5,
+        "conquista": 1,
+        "vice": 2,
+        "terceiro": 2,
+        "vitorias": 41,
+        "empates": 15,
+        "gols": 135,
+        "pontos": 85.4,
+        "team_id": "sq3"
+      },
+      {
+        "id": "rk_h4",
+        "name": "Sorriso FC",
+        "ranking_detail": "1 Título Conquistado",
+        "primaryColor": "#0284c7",
+        "secondaryColor": "#7dd3fc",
+        "posPts": 18,
+        "oitavas": 8,
+        "quartas": 7,
+        "semi": 5,
+        "conquista": 1,
+        "vice": 2,
+        "terceiro": 1,
+        "vitorias": 38,
+        "empates": 13,
+        "gols": 128,
+        "pontos": 77.1,
+        "team_id": "sq4"
+      },
+      {
+        "id": "rk_h5",
+        "name": "Carvalhaes FC",
+        "ranking_detail": "1 Título Conquistado",
+        "primaryColor": "#dc2626",
+        "secondaryColor": "#111827",
+        "posPts": 15,
+        "oitavas": 7,
+        "quartas": 6,
+        "semi": 4,
+        "conquista": 1,
+        "vice": 1,
+        "terceiro": 1,
+        "vitorias": 28,
+        "empates": 11,
+        "gols": 96,
+        "pontos": 56.6,
+        "team_id": "sq5"
+      },
+      {
+        "id": "rk_h6",
+        "name": "Beni FC",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#881337",
+        "secondaryColor": "#fda4af",
+        "posPts": 13.5,
+        "oitavas": 7,
+        "quartas": 5,
+        "semi": 3,
+        "conquista": 0,
+        "vice": 1,
+        "terceiro": 2,
+        "vitorias": 25,
+        "empates": 12,
+        "gols": 89,
+        "pontos": 50.8,
+        "team_id": "sq6"
+      },
+      {
+        "id": "rk_h7",
+        "name": "Crew FC",
+        "ranking_detail": "1 Título Conquistado",
+        "primaryColor": "#0f172a",
+        "secondaryColor": "#38bdf8",
+        "posPts": 12,
+        "oitavas": 6,
+        "quartas": 5,
+        "semi": 3,
+        "conquista": 1,
+        "vice": 0,
+        "terceiro": 1,
+        "vitorias": 22,
+        "empates": 10,
+        "gols": 78,
+        "pontos": 43.6,
+        "team_id": "sq7"
+      },
+      {
+        "id": "rk_h8",
+        "name": "Mazili M.D FC",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#0369a1",
+        "secondaryColor": "#facc15",
+        "posPts": 11,
+        "oitavas": 6,
+        "quartas": 4,
+        "semi": 2,
+        "conquista": 0,
+        "vice": 1,
+        "terceiro": 1,
+        "vitorias": 19,
+        "empates": 11,
+        "gols": 71,
+        "pontos": 38.5,
+        "team_id": "sq8"
+      },
+      {
+        "id": "rk_h9",
+        "name": "The Beatles",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#1e3a8a",
+        "secondaryColor": "#e2e8f0",
+        "posPts": 9.5,
+        "oitavas": 5,
+        "quartas": 3,
+        "semi": 2,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 1,
+        "vitorias": 15,
+        "empates": 9,
+        "gols": 58,
+        "pontos": 29.6,
+        "team_id": "sq9"
+      },
+      {
+        "id": "rk_h10",
+        "name": "Gustavo FC",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#065f46",
+        "secondaryColor": "#cbd5e1",
+        "posPts": 9.2,
+        "oitavas": 5,
+        "quartas": 3,
+        "semi": 1,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 1,
+        "vitorias": 15,
+        "empates": 8,
+        "gols": 56,
+        "pontos": 29.2,
+        "team_id": "sq10"
+      },
+      {
+        "id": "rk_h11",
+        "name": "Ashen Lords",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#c2410c",
+        "secondaryColor": "#fdba74",
+        "posPts": 9,
+        "oitavas": 5,
+        "quartas": 3,
+        "semi": 1,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 1,
+        "vitorias": 14,
+        "empates": 9,
+        "gols": 55,
+        "pontos": 29.1,
+        "team_id": "sq11"
+      },
+      {
+        "id": "rk_h12",
+        "name": "Fabricio FC",
+        "ranking_detail": "1 Título Conquistado",
+        "primaryColor": "#d97706",
+        "secondaryColor": "#fde68a",
+        "posPts": 7.5,
+        "oitavas": 4,
+        "quartas": 2,
+        "semi": 1,
+        "conquista": 1,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 11,
+        "empates": 6,
+        "gols": 42,
+        "pontos": 22.3,
+        "team_id": "sq12"
+      },
+      {
+        "id": "rk_h13",
+        "name": "Cannabis Crew",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#15803d",
+        "secondaryColor": "#a855f7",
+        "posPts": 5.5,
+        "oitavas": 3,
+        "quartas": 1,
+        "semi": 0,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 7,
+        "empates": 5,
+        "gols": 28,
+        "pontos": 13.8,
+        "team_id": "sq13"
+      },
+      {
+        "id": "rk_h14",
+        "name": "Justin FC",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#1d4ed8",
+        "secondaryColor": "#facc15",
+        "posPts": 5.2,
+        "oitavas": 3,
+        "quartas": 1,
+        "semi": 0,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 7,
+        "empates": 4,
+        "gols": 26,
+        "pontos": 13.3,
+        "team_id": "sq14"
+      },
+      {
+        "id": "rk_h15",
+        "name": "Augusto FC",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#334155",
+        "secondaryColor": "#f8fafc",
+        "posPts": 5,
+        "oitavas": 2,
+        "quartas": 1,
+        "semi": 0,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 6,
+        "empates": 5,
+        "gols": 24,
+        "pontos": 12.8,
+        "team_id": "sq15"
+      },
+      {
+        "id": "rk_h16",
+        "name": "Adevogados FC",
+        "ranking_detail": "Histórico GBL",
+        "primaryColor": "#ca8a04",
+        "secondaryColor": "#fef08a",
+        "posPts": 4.5,
+        "oitavas": 2,
+        "quartas": 1,
+        "semi": 0,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 5,
+        "empates": 5,
+        "gols": 21,
+        "pontos": 11.4,
+        "team_id": "sq16"
+      },
+      {
+        "id": "rk_h17",
+        "name": "Panissa FC",
+        "ranking_detail": "1 Título Conquistado",
+        "primaryColor": "#b91c1c",
+        "secondaryColor": "#f59e0b",
+        "posPts": 4.2,
+        "oitavas": 2,
+        "quartas": 1,
+        "semi": 1,
+        "conquista": 1,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 5,
+        "empates": 4,
+        "gols": 19,
+        "pontos": 11.2,
+        "team_id": "sq17"
+      }
+    ],
+    "temporada2026": [
+      {
+        "id": "rk_s1",
+        "name": "Joker FC",
+        "ranking_detail": "",
+        "primaryColor": "#7e22ce",
+        "secondaryColor": "#f5c84c",
+        "posPts": 24,
+        "oitavas": 9,
+        "quartas": 8,
+        "semi": 6,
+        "conquista": 0,
+        "vice": 3,
+        "terceiro": 2,
+        "vitorias": 52,
+        "empates": 14,
+        "gols": 164,
+        "pontos": 107.4,
+        "team_id": "sq1"
+      },
+      {
+        "id": "rk_s2",
+        "name": "Al Kabib",
+        "ranking_detail": "",
+        "primaryColor": "#be123c",
+        "secondaryColor": "#38bdf8",
+        "posPts": 21.5,
+        "oitavas": 9,
+        "quartas": 8,
+        "semi": 7,
+        "conquista": 6,
+        "vice": 1,
+        "terceiro": 1,
+        "vitorias": 45,
+        "empates": 16,
+        "gols": 148,
+        "pontos": 93.8,
+        "team_id": "sq2"
+      },
+      {
+        "id": "rk_s3",
+        "name": "Frog FC",
+        "ranking_detail": "",
+        "primaryColor": "#16a34a",
+        "secondaryColor": "#2dd4bf",
+        "posPts": 19.5,
+        "oitavas": 8,
+        "quartas": 7,
+        "semi": 5,
+        "conquista": 1,
+        "vice": 2,
+        "terceiro": 2,
+        "vitorias": 41,
+        "empates": 15,
+        "gols": 135,
+        "pontos": 85.4,
+        "team_id": "sq3"
+      },
+      {
+        "id": "rk_s4",
+        "name": "Sorriso FC",
+        "ranking_detail": "",
+        "primaryColor": "#0284c7",
+        "secondaryColor": "#7dd3fc",
+        "posPts": 18,
+        "oitavas": 8,
+        "quartas": 7,
+        "semi": 5,
+        "conquista": 1,
+        "vice": 2,
+        "terceiro": 1,
+        "vitorias": 38,
+        "empates": 13,
+        "gols": 128,
+        "pontos": 77.1,
+        "team_id": "sq4"
+      },
+      {
+        "id": "rk_s5",
+        "name": "Carvalhaes FC",
+        "ranking_detail": "",
+        "primaryColor": "#dc2626",
+        "secondaryColor": "#111827",
+        "posPts": 15,
+        "oitavas": 7,
+        "quartas": 6,
+        "semi": 4,
+        "conquista": 1,
+        "vice": 1,
+        "terceiro": 1,
+        "vitorias": 28,
+        "empates": 11,
+        "gols": 96,
+        "pontos": 56.6,
+        "team_id": "sq5"
+      },
+      {
+        "id": "rk_s6",
+        "name": "Beni FC",
+        "ranking_detail": "",
+        "primaryColor": "#881337",
+        "secondaryColor": "#fda4af",
+        "posPts": 13.5,
+        "oitavas": 7,
+        "quartas": 5,
+        "semi": 3,
+        "conquista": 0,
+        "vice": 1,
+        "terceiro": 2,
+        "vitorias": 25,
+        "empates": 12,
+        "gols": 89,
+        "pontos": 50.8,
+        "team_id": "sq6"
+      },
+      {
+        "id": "rk_s7",
+        "name": "Crew FC",
+        "ranking_detail": "",
+        "primaryColor": "#0f172a",
+        "secondaryColor": "#38bdf8",
+        "posPts": 12,
+        "oitavas": 6,
+        "quartas": 5,
+        "semi": 3,
+        "conquista": 1,
+        "vice": 0,
+        "terceiro": 1,
+        "vitorias": 22,
+        "empates": 10,
+        "gols": 78,
+        "pontos": 43.6,
+        "team_id": "sq7"
+      },
+      {
+        "id": "rk_s8",
+        "name": "Mazili M.D FC",
+        "ranking_detail": "",
+        "primaryColor": "#0369a1",
+        "secondaryColor": "#facc15",
+        "posPts": 11,
+        "oitavas": 6,
+        "quartas": 4,
+        "semi": 2,
+        "conquista": 0,
+        "vice": 1,
+        "terceiro": 1,
+        "vitorias": 19,
+        "empates": 11,
+        "gols": 71,
+        "pontos": 38.5,
+        "team_id": "sq8"
+      },
+      {
+        "id": "rk_s9",
+        "name": "The Beatles",
+        "ranking_detail": "",
+        "primaryColor": "#1e3a8a",
+        "secondaryColor": "#e2e8f0",
+        "posPts": 9.5,
+        "oitavas": 5,
+        "quartas": 3,
+        "semi": 2,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 1,
+        "vitorias": 15,
+        "empates": 9,
+        "gols": 58,
+        "pontos": 29.6,
+        "team_id": "sq9"
+      },
+      {
+        "id": "rk_s10",
+        "name": "Gustavo FC",
+        "ranking_detail": "",
+        "primaryColor": "#065f46",
+        "secondaryColor": "#cbd5e1",
+        "posPts": 9.2,
+        "oitavas": 5,
+        "quartas": 3,
+        "semi": 1,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 1,
+        "vitorias": 15,
+        "empates": 8,
+        "gols": 56,
+        "pontos": 29.2,
+        "team_id": "sq10"
+      },
+      {
+        "id": "rk_s11",
+        "name": "Ashen Lords",
+        "ranking_detail": "",
+        "primaryColor": "#c2410c",
+        "secondaryColor": "#fdba74",
+        "posPts": 9,
+        "oitavas": 5,
+        "quartas": 3,
+        "semi": 1,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 1,
+        "vitorias": 14,
+        "empates": 9,
+        "gols": 55,
+        "pontos": 29.1,
+        "team_id": "sq11"
+      },
+      {
+        "id": "rk_s12",
+        "name": "Fabricio FC",
+        "ranking_detail": "",
+        "primaryColor": "#d97706",
+        "secondaryColor": "#fde68a",
+        "posPts": 7.5,
+        "oitavas": 4,
+        "quartas": 2,
+        "semi": 1,
+        "conquista": 1,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 11,
+        "empates": 6,
+        "gols": 42,
+        "pontos": 22.3,
+        "team_id": "sq12"
+      },
+      {
+        "id": "rk_s13",
+        "name": "Cannabis Crew",
+        "ranking_detail": "",
+        "primaryColor": "#15803d",
+        "secondaryColor": "#a855f7",
+        "posPts": 5.5,
+        "oitavas": 3,
+        "quartas": 1,
+        "semi": 0,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 7,
+        "empates": 5,
+        "gols": 28,
+        "pontos": 13.8,
+        "team_id": "sq13"
+      },
+      {
+        "id": "rk_s14",
+        "name": "Justin FC",
+        "ranking_detail": "",
+        "primaryColor": "#1d4ed8",
+        "secondaryColor": "#facc15",
+        "posPts": 5.2,
+        "oitavas": 3,
+        "quartas": 1,
+        "semi": 0,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 7,
+        "empates": 4,
+        "gols": 26,
+        "pontos": 13.3,
+        "team_id": "sq14"
+      },
+      {
+        "id": "rk_s15",
+        "name": "Augusto FC",
+        "ranking_detail": "",
+        "primaryColor": "#334155",
+        "secondaryColor": "#f8fafc",
+        "posPts": 5,
+        "oitavas": 2,
+        "quartas": 1,
+        "semi": 0,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 6,
+        "empates": 5,
+        "gols": 24,
+        "pontos": 12.8,
+        "team_id": "sq15"
+      },
+      {
+        "id": "rk_s16",
+        "name": "Adevogados FC",
+        "ranking_detail": "",
+        "primaryColor": "#ca8a04",
+        "secondaryColor": "#fef08a",
+        "posPts": 4.5,
+        "oitavas": 2,
+        "quartas": 1,
+        "semi": 0,
+        "conquista": 0,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 5,
+        "empates": 5,
+        "gols": 21,
+        "pontos": 11.4,
+        "team_id": "sq16"
+      },
+      {
+        "id": "rk_s17",
+        "name": "Panissa FC",
+        "ranking_detail": "",
+        "primaryColor": "#b91c1c",
+        "secondaryColor": "#f59e0b",
+        "posPts": 4.2,
+        "oitavas": 2,
+        "quartas": 1,
+        "semi": 1,
+        "conquista": 1,
+        "vice": 0,
+        "terceiro": 0,
+        "vitorias": 5,
+        "empates": 4,
+        "gols": 19,
+        "pontos": 11.2,
+        "team_id": "sq17"
+      }
+    ]
+  },
+  "schedule_options": []
+}

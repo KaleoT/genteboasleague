@@ -1,0 +1,29 @@
+{
+  "name": "gbl-league",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=24.14"
+  },
+  "scripts": {
+    "start": "node --env-file=.env server/start.cjs",
+    "test": "node --test tests/auth.test.cjs tests/auth-ui.test.cjs tests/guest.test.cjs tests/shared.test.cjs tests/rbac.test.cjs tests/admission.test.cjs tests/backup.test.cjs tests/uploads.test.cjs tests/startup.test.cjs tests/passwords.test.cjs tests/proposal-privacy.test.cjs tests/ranking-sync.test.cjs && node tests/kits.test.cjs && node tests/tactics.test.cjs && node tests/badges.test.cjs",
+    "admin": "node --env-file=.env server/admin.cjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "csv-parse": "^7.0.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.5.0",
+    "nodemailer": "^10.3.1",
+    "sharp": "^0.35.5",
+    "validator": "^13.15.15"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.3"
+  }
+}

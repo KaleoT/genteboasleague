@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gente Boa's League · PES 21</title>
+  <meta name="description" content="Site oficial do campeonato de PES 21 entre amigos: Gente Boa's League." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="modal" id="passwordModal" hidden>
+    <section class="modal-box card secure-auth" role="dialog" aria-modal="true" aria-labelledby="passwordTitle">
+      <h2 id="passwordTitle">Gerenciamento de senha</h2>
+      <form id="forgotPasswordForm" hidden>
+        <label class="field">E-mail cadastrado<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+        <button class="btn btn-gold" type="submit">Enviar Link de Recuperação</button>
+      </form>
+      <form id="resetPasswordForm" hidden>
+        <label class="field">Nova senha<input name="new_password" type="password" autocomplete="new-password" minlength="10" required /></label>
+        <label class="field">Confirmar nova senha<input name="confirm_password" type="password" autocomplete="new-password" minlength="10" required /></label>
+        <meter class="password-strength" id="resetPasswordStrength" min="0" max="4" value="0" aria-label="Força da nova senha"></meter><p id="resetPasswordStrengthLabel">Use pelo menos 10 caracteres.</p>
+        <button class="btn btn-gold" type="submit">Redefinir Minha Senha</button>
+      </form>
+      <form id="changePasswordForm" hidden>
+        <label class="field">Senha atual<input name="current_password" type="password" autocomplete="current-password" required /></label>
+        <label class="field">Nova senha<input name="new_password" type="password" autocomplete="new-password" minlength="10" required /></label>
+        <label class="field">Confirmar nova senha<input name="confirm_password" type="password" autocomplete="new-password" minlength="10" required /></label>
+        <meter class="password-strength" id="changePasswordStrength" min="0" max="4" value="0" aria-label="Força da nova senha"></meter><p id="changePasswordStrengthLabel">Use pelo menos 10 caracteres.</p>
+        <p>Alterar a senha encerra todas as suas sessões. Você precisará entrar novamente.</p>
+        <button class="btn btn-gold" type="submit">Alterar Senha</button>
+      </form>
+      <p id="passwordFeedback" role="status" aria-live="polite"></p>
+      <button id="requestNewPasswordLink" class="btn btn-secondary" type="button" hidden>Solicitar novo link</button>
+      <button id="closePasswordModal" class="btn btn-ghost" type="button">Voltar ao login</button>
+    </section>
+  </div>
+  <div id="localBackupBanner" role="status" hidden>Restauração local em visualização. Gravações no servidor estão bloqueadas. Recarregar a página volta aos dados do servidor. <button id="exitLocalBackup" class="btn btn-secondary" type="button">Voltar aos dados do servidor</button></div>
+  <div class="stars" aria-hidden="true"></div>
+
+  <!-- ===== Cabeçalho / navegação ===== -->
+  <header class="topbar">
+    <a href="#inicio" class="brand" data-tab-link="inicio">
+      <img src="assets/logo.png" alt="Gente Boa's League" class="brand-logo" />
+      <span class="brand-text">Gente Boa's <strong>League</strong></span>
+    </a>
+    <nav class="tabs" role="tablist">
+      <a href="#inicio" class="tab" data-tab-link="inicio" role="tab">Início</a>
+      <a href="#agendamento" class="tab" data-tab-link="agendamento" role="tab">Agendamento</a>
+      <a href="#transferencias" class="tab" data-tab-link="transferencias" role="tab">Transferências</a>
+      <a href="#titulos" class="tab" data-tab-link="titulos" role="tab">Títulos</a>
+      <a href="#elencos" class="tab" data-tab-link="elencos" role="tab">Elencos</a>
+      <a href="#campeonatos" class="tab" data-tab-link="campeonatos" role="tab">Campeonatos</a>
+      <a href="#ranking" class="tab" data-tab-link="ranking" role="tab">Ranking</a>
+    </nav>
+    <div class="auth-widget" id="authWidget">
+      <button type="button" class="btn-admin-quick" id="openAdminPanelBtn" data-admin-only title="Abrir Painel de Administração">
+        🛡️ Painel Admin
+      </button>
+      <div class="auth-profile-group">
+        <button id="teamMediaBtn" class="btn btn-ghost" type="button" hidden>🖼 Escudo e Uniformes</button>
+        <button id="accountSettingsBtn" class="btn btn-ghost" type="button" hidden>⚙ Configurações da Conta</button>
+        <button type="button" class="auth-btn" id="openAuthModalBtn" title="Visualizar ou gerenciar meu perfil vinculado">
+          <span class="auth-crest" id="authHeaderCrest">👤</span>
+          <div class="auth-info">
+            <span class="auth-label" id="authHeaderLabel">Entrar / Perfil</span>
+            <strong class="auth-sub" id="authHeaderClub">Vincular Clube</strong>
+          </div>
+          <span class="role-pill" id="authHeaderRole">PLAYER</span>
+        </button>
+        <button type="button" class="btn-switch-profile" id="resetProfileBtn" title="Limpar identificação salva e trocar de perfil / sair">
+          Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Aba: Início (Portal Editorial de Notícias — Estilo GE) ===== -->
+    <section id="inicio" class="page page-editorial" data-tab="inicio">
+      <!-- Barra Editorial Superior (Masthead + Atalhos Rápidos) -->
+      <div class="ge-portal-bar">
+        <div class="ge-portal-brand">
+          <span class="ge-live-pill"><i class="live-dot" aria-hidden="true"></i> PLANTÃO GBL</span>
+          <div class="ge-portal-titles">
+            <h1>CENTRAL DE NOTÍCIAS · XUPÉ GENTE BOA'S LEAGUE</h1>
+            <span>Cobertura em tempo real da Temporada 9, bastidores dos 18 clubes e mercado do PES 21</span>
+          </div>
+        </div>
+
+        <div class="ge-portal-shortcuts">
+          <a href="#campeonatos" class="ge-quick-pill" data-tab-link="campeonatos">🏆 Campeonatos em curso</a>
+          <a href="#elencos" class="ge-quick-pill" data-tab-link="elencos">🛡️ Veja os elencos</a>
+          <a href="#sobre" class="ge-quick-pill" data-tab-link="sobre">📖 Sobre a Liga</a>
+          <button
+            type="button"
+            class="btn btn-gold btn-sm"
+            id="openNewArticleModalBtn"
+            data-admin-only
+            title="Publicar nova matéria na capa (Exclusivo Admin)"
+          >
+            + Publicar Matéria
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid Editorial Assimétrico em 2 Colunas (~70% Principal / ~30% Sidebar) -->
+      <div class="ge-editorial-grid">
+        <!-- COLUNA PRINCIPAL (~70% da largura): Super Manchete + Secundárias + Feed Contínuo -->
+        <div class="ge-main-column">
+          <!-- 1. Super Manchete Principal (Destaque do Topo) -->
+          <div id="geHeroHeadlineWrap"></div>
+
+          <!-- 2. Grade de Notícias Secundárias (3 cards lado a lado abaixo da manchete) -->
+          <div class="ge-secondary-grid" id="geSecondaryGrid"></div>
+
+          <!-- 3. Feed Contínuo de "Últimas Notícias" -->
+          <section class="ge-latest-section" aria-label="Últimas Notícias">
+            <header class="ge-section-head">
+              <div class="ge-section-title-group">
+                <span class="ge-section-bar" aria-hidden="true"></span>
+                <h2>Últimas Notícias da Liga</h2>
+              </div>
+              <div class="filter-pills ge-feed-filters" id="geFeedCategoryFilter" role="tablist">
+                <button type="button" class="pill active" data-news-cat="all">Todas</button>
+                <button type="button" class="pill" data-news-cat="MERCADO">Mercado</button>
+                <button type="button" class="pill" data-news-cat="DECISÃO">Decisão &amp; Jogos</button>
+                <button type="button" class="pill" data-news-cat="BASTIDORES">Bastidores</button>
+              </div>
+            </header>
+
+            <div class="ge-latest-feed" id="geLatestFeed"></div>
+          </section>
+        </div>
+
+        <!-- BARRA LATERAL / SIDEBAR INFORMATIVA (~30% da largura) -->
+        <aside class="ge-sidebar-column">
+          <!-- Widget 1: Ranking Geral da Liga (Top 5) -->
+          <section class="card ge-widget" id="geWidgetStandings">
+            <header class="ge-widget-head">
+              <div class="ge-widget-title">
+                <span class="ge-widget-accent accent-gold" aria-hidden="true"></span>
+                <h3>Ranking Geral da Liga</h3>
+              </div>
+              <span class="ge-widget-tag tag-gold">Top 5</span>
+            </header>
+            <div class="ge-widget-body" id="geMiniStandingsBody"></div>
+            <footer class="ge-widget-foot">
+              <a href="#ranking" class="ge-widget-link" data-tab-link="ranking">
+                Ver Ranking Completo <span>➔</span>
+              </a>
+            </footer>
+          </section>
+
+          <!-- Widget 2: Próxima Rodada / Agendamento (Data mais votada da resenha presencial) -->
+          <section class="card ge-widget ge-widget-schedule" id="geWidgetNextMatchday">
+            <header class="ge-widget-head">
+              <div class="ge-widget-title">
+                <span class="ge-widget-accent accent-gold" aria-hidden="true"></span>
+                <h3>Próxima Rodada · Presencial</h3>
+              </div>
+              <span class="ge-widget-tag tag-gold">Agendamento</span>
+            </header>
+            <div class="ge-widget-body" id="geNextMatchdayBody"></div>
+            <footer class="ge-widget-foot">
+              <a href="#agendamento" class="btn btn-primary btn-block ge-schedule-cta" data-tab-link="agendamento">
+                🗓️ Confirmar Presença
+              </a>
+            </footer>
+          </section>
+
+          <!-- Widget 3: Plantão do Mercado (Últimas 2 ou 3 trocas confirmadas) -->
+          <section class="card ge-widget" id="geWidgetTransfers">
+            <header class="ge-widget-head">
+              <div class="ge-widget-title">
+                <span class="ge-widget-accent accent-cyan" aria-hidden="true"></span>
+                <h3>Plantão do Mercado</h3>
+              </div>
+              <span class="ge-widget-tag tag-cyan">Ao Vivo</span>
+            </header>
+            <div class="ge-widget-body" id="geMarketTickerBody"></div>
+            <footer class="ge-widget-foot">
+              <a href="#transferencias" class="ge-widget-link" data-tab-link="transferencias">
+                Ir para Central de Transferências <span>→</span>
+              </a>
+            </footer>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== Aba: Agendamento ===== -->
+    <section id="agendamento" class="page" data-tab="agendamento" hidden>
+      <div class="page-head">
+        <h2>Agendamento</h2>
+        <p>Selecione um ou mais dias no calendário, escolha os períodos e confirme sua presença.</p>
+      </div>
+
+      <div class="booking">
+        <!-- Calendário -->
+        <div class="card calendar-card">
+          <div class="cal-header">
+            <button class="icon-btn" id="prevMonth" aria-label="Mês anterior">‹</button>
+            <h3 id="monthLabel">—</h3>
+            <button class="icon-btn" id="nextMonth" aria-label="Próximo mês">›</button>
+          </div>
+          <div class="cal-weekdays">
+            <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="legend">
+            <span><i class="lg lg-selected"></i>Selecionado</span>
+            <span><i class="lg lg-holiday"></i>Feriado</span>
+            <span><i class="lg lg-optional"></i>Ponto facultativo</span>
+            <span><i class="lg lg-weekend"></i>Fim de semana</span>
+            <span><i class="lg-people">👥</i>Pessoas disponíveis</span>
+          </div>
+        </div>
+
+        <!-- Resumo da reserva -->
+        <aside class="card summary-card">
+          <h3>Sua reserva</h3>
+          <div class="edit-banner" id="editBanner" hidden></div>
+          <label class="field">
+            <span>Seu nome</span>
+            <input type="text" id="playerName" placeholder="Ex.: Kalleby" maxlength="40" autocomplete="name" />
+          </label>
+
+          <div class="selected-head">
+            <span>Datas selecionadas</span>
+            <button class="link-btn" id="clearSelection" hidden>Limpar</button>
+          </div>
+          <div id="selectedList" class="selected-list"></div>
+
+          <div class="summary-footer">
+            <div class="summary-total" id="summaryTotal">Nenhuma data selecionada</div>
+            <button class="btn btn-primary btn-block" id="confirmBtn">Confirmar reserva</button>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Disponibilidade -->
+      <div class="page-head small">
+        <h2>Disponibilidade da galera</h2>
+        <p>Ranking das datas com mais gente confirmada. Clique em um dia para ver quem vai em cada turno.</p>
+      </div>
+      <div id="availability" class="availability"></div>
+
+      <button class="fab" id="editVotesBtn" title="Marcar ou editar meus votos">
+        <span class="fab-icon">✎</span><span class="fab-text">Marcar / editar meus votos</span>
+      </button>
+    </section>
+
+    <!-- ===== Aba: Transferências ===== -->
+    <section id="transferencias" class="page" data-tab="transferencias" hidden>
+      <div class="transfers-top">
+        <div class="page-head transfers-head">
+          <h2>Transferências</h2>
+          <p>O mercado da bola da Gente Boa's League.</p>
+        </div>
+        <div class="transfers-actions-bar">
+          <button class="btn btn-whatsapp" id="openProposalModalBtn" hidden>
+            <span class="wa-icon">💬</span> Fazer Proposta
+          </button>
+          <p id="whatsappProposalResult" role="status" hidden></p>
+          <button class="btn btn-ghost" id="loginToProposeHintBtn" hidden>
+            👤 Entre com seu Clube para Fazer Proposta
+          </button>
+          <button class="btn btn-primary" id="openNewTransferBtn" data-admin-only>+ Registar Negociação</button>
+        </div>
+      </div>
+
+      <!-- Painel de Propostas Enviadas / Pendentes via WhatsApp -->
+      <div id="proposalsHistorySection" class="proposals-history-wrap" hidden>
+        <div class="proposals-head">
+          <h4>📨 Propostas de Transferência (WhatsApp)</h4>
+          <span class="proposals-sub">Histórico de propostas enviadas e pendentes na liga</span>
+        </div>
+        <div id="proposalsList" class="proposals-list"></div>
+      </div>
+
+      <!-- Alternador mobile (Ver Mercado / Ver Limites dos Clubes) -->
+      <div class="mobile-view-toggle" id="transfersMobileToggle">
+        <button class="toggle-btn active" data-view="market">🔁 Ver Mercado</button>
+        <button class="toggle-btn" data-view="clubs">🛡️ Ver Limites dos Clubes</button>
+      </div>
+
+      <div class="transfers-dashboard" data-mobile-view="market">
+        <!-- Coluna da Esquerda (~35%): Situação dos Clubes -->
+        <aside class="card clubs-panel">
+          <div class="clubs-header">
+            <div class="clubs-title-row">
+              <h3>Situação dos Clubes</h3>
+              <button class="icon-btn small" id="addClubBtn" data-admin-only title="Adicionar novo clube">+</button>
+            </div>
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="search" id="clubSearchInput" placeholder="Filtrar pelo nome da equipa..." autocomplete="off" />
+            </div>
+          </div>
+          <div id="clubsList" class="clubs-list"></div>
+        </aside>
+
+        <!-- Coluna da Direita (~65%): Feed de Negociações -->
+        <div class="market-panel">
+          <div class="card market-toolbar">
+            <div class="filter-pills" id="transferTypeFilter" role="tablist">
+              <button class="pill active" data-filter="all">Todas</button>
+              <button class="pill" data-filter="definitivo">Apenas Definitivas</button>
+              <button class="pill" data-filter="emprestimo">Empréstimos Ativos</button>
+            </div>
+            <div class="club-filter-wrap">
+              <select id="transferClubFilter" class="select-input" aria-label="Filtrar histórico por clube">
+                <option value="all">Todos os clubes</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="transfersFeed" class="transfers-feed"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Aba: Títulos (Layout 2 Colunas: Galeria de Campeões + Momentos Históricos & Recordes) ===== -->
+    <section id="titulos" class="page page-wide" data-tab="titulos" hidden>
+      <div class="titles-two-col-layout">
+        <!-- COLUNA DA ESQUERDA (~62% da largura): Galeria de Campeões (Estilo UEFA) -->
+        <div class="titles-left-column">
+          <div class="titles-top">
+            <div class="page-head titles-head">
+              <h2>Galeria de Campeões</h2>
+              <p>Histórico oficial de vencedores e finais da Xupé Gente Boa's League ordenado por conquistas.</p>
+            </div>
+            <button class="btn btn-gold" id="openNewTitleBtn" data-admin-only>🏆 + Registar Título</button>
+          </div>
+
+          <!-- Cabeçalho e Lista Accordion da Tabela de Campeões estilo UEFA -->
+          <div class="uefa-winners-wrap">
+            <div class="uefa-table-head">
+              <span>Pos. / Clube &amp; Técnico</span>
+              <span>Total de Títulos</span>
+            </div>
+            <div id="championsAccordion" class="uefa-winners-list"></div>
+          </div>
+        </div>
+
+        <!-- COLUNA DA DIREITA (~38% da largura): Momentos Históricos & Recordes (Empilhados à Direita) -->
+        <aside class="titles-right-column" aria-label="Momentos Históricos e Recordes">
+          <div class="records-section-head">
+            <div class="page-head small records-head">
+              <h2>Momentos Históricos &amp; Recordes</h2>
+              <p>Feitos lendários, finais inesquecíveis e marcas que entraram para a história da liga.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" id="openNewRecordBtn" data-admin-only>⭐ + Adicionar Recorde</button>
+          </div>
+
+          <div id="recordsGrid" class="records-grid records-stack"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== Aba: Elencos ===== -->
+    <section id="elencos" class="page page-wide" data-tab="elencos" hidden>
+      <!-- Carrossel Horizontal de Escudos dos Clubes -->
+      <div class="crest-carousel" id="squadCrestCarousel" aria-label="Seleção rápida de clubes"></div>
+
+      <!-- Abas Mobile: Escalação (Titular + Reservas) vs Informações do Time -->
+      <div class="mobile-view-toggle squads-mobile-tabs" id="squadsMobileToggle">
+        <button class="toggle-btn active" data-squad-view="roster">⚽ Elenco (Titular &amp; Reservas)</button>
+        <button class="toggle-btn" data-squad-view="overview">🛡️ Informações do Time</button>
+      </div>
+
+      <!-- Layout em Duas Colunas (Coluna 1: Informações do Time | Coluna 2: Elenco Titular no Campo + 5 Reservas) -->
+      <div class="squads-hub-two-cols" id="squadsHub" data-squad-view="roster">
+        <!-- COLUNA 1 (Esquerda): Informações do Time (Banner Ampliado do Clube + Identidade, Kits 3D e Lista PES) -->
+        <aside class="fifa-club-board" id="fifaClubBoard">
+          <!-- Banner Ampliado de Identificação do Clube (ocupa todo o espaço lateral esquerdo + antigo espaço da Diretoria) -->
+          <div class="fifa-banner-strip fifa-banner-expanded">
+            <div class="fifa-strip-top">
+              <span class="fifa-country-label" id="fifaCountryLabel">BRASIL · LIGA OFICIAL</span>
+              <span class="fifa-flag-badge" aria-hidden="true">🇧🇷</span>
+            </div>
+
+            <div class="fifa-strip-body" id="fifaStripBody">
+              <div class="fifa-strip-header-block">
+                <span class="fifa-club-tag" id="fifaClubTag">CLUBE OFICIAL PES 21</span>
+                <h3 class="fifa-strip-clubname" id="fifaStripClubName">—</h3>
+                <div class="fifa-strip-manager-pill">
+                  <span>👔 Treinador:</span>
+                  <strong id="fifaStripManager">—</strong>
+                </div>
+              </div>
+
+              <div class="fifa-crest-nav">
+                <button type="button" class="fifa-arrow-btn" id="prevSquadClub" aria-label="Clube anterior">◀</button>
+                <div class="fifa-crest-circle gbl-aspect-crest" id="fifaCrestCircle">
+                  <img
+                    id="fifaCrestBadgeImg"
+                    class="gbl-badge-img fifa-crest-img"
+                    src="assets/default-shield.svg"
+                    alt="Escudo do Clube"
+                    onerror="window.GBLBadges && window.GBLBadges.onImgError(this)"
+                  />
+                  <span id="fifaCrestInitials" class="fifa-crest-fallback-initials" hidden>GB</span>
+                </div>
+                <button type="button" class="fifa-arrow-btn" id="nextSquadClub" aria-label="Próximo clube">▶</button>
+              </div>
+
+              <div class="fifa-strip-rating-block">
+                <div class="fifa-strip-stars" id="fifaStripStars"></div>
+                <span class="fifa-strip-ovr-badge" id="fifaStripOvrBadge">MÉDIA OVR 85</span>
+              </div>
+            </div>
+
+            <div class="fifa-strip-foot">
+              <span class="fifa-league-sub" id="fifaLeagueSub">XUPÉ GENTE BOA'S LEAGUE</span>
+              <div class="fifa-league-brand">
+                <img src="assets/logo.png" alt="" class="fifa-mini-logo" />
+                <div class="fifa-league-meta">
+                  <strong id="fifaSeasonTitle">Temporada PES 21</strong>
+                  <small id="fifaStripCaptain">Capitão: —</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Painel Direito da Coluna 1: Resumo do Clube, Uniformes com Render/Efeito 3D (Casa e Visitante), Estádio e Lista PES -->
+          <div class="fifa-details-col" id="fifaDetailsCol"></div>
+        </aside>
+
+        <!-- COLUNA 2 (Direita): Elenco (Destaque do Jogador, 11 Titulares no Campo 3D e 5 Substitutes / Reservas) -->
+        <section class="fifa-squad-panel" id="fifaSquadPanel">
+          <!-- Topo: Card do Jogador Selecionado + Informações do Elenco -->
+          <header class="fifa-top-inspector">
+            <div class="fifa-selected-player" id="fifaSelectedPlayerCard"></div>
+            <div class="fifa-squad-meta-box">
+              <span class="roster-count-badge" id="squadTotalCount">Elenco: 16 Jogadores</span>
+              <span class="fifa-formation-pill" id="fifaFormationPill">4-3-3 Ofensivo</span>
+              <label class="fifa-formation-control" hidden>
+                Esquema tático
+                <select id="squadFormationSelect" aria-label="Esquema tático do clube"></select>
+              </label>
+              <small class="fifa-swap-hint" id="fifaSwapHint">Clique em qualquer atleta para selecionar ou realizar substituições</small>
+            </div>
+          </header>
+
+          <!-- Campo de Futebol em Perspectiva com os 11 Titulares -->
+          <div class="fifa-pitch-wrapper">
+            <div class="fifa-pitch" id="fifaPitch">
+              <!-- Linhas do Gramado -->
+              <div class="pitch-line pitch-halfway"></div>
+              <div class="pitch-line pitch-center-circle"></div>
+              <div class="pitch-line pitch-penalty-top"></div>
+              <div class="pitch-line pitch-penalty-arc"></div>
+              <div class="pitch-line pitch-penalty-bottom"></div>
+              <div class="pitch-line pitch-goal-bottom"></div>
+
+              <!-- Camada dos 11 Jogadores Titulares -->
+              <div class="fifa-pitch-players" id="fifaPitchPlayers"></div>
+            </div>
+          </div>
+
+          <!-- Rodapé da Coluna 2: SUBSTITUTES (Exatamente até 5 Reservas) -->
+          <div class="fifa-substitutes-section">
+            <div class="fifa-subs-header">
+              <span class="fifa-subs-title" id="fifaSubsTitle">SUBSTITUTES · RESERVAS (5/5)</span>
+              <span class="fifa-subs-arrow" title="Banco de Reservas (Máx. 5 Substitutos)">⬆</span>
+              <span class="fifa-subs-info" id="fifaSubsInfo">Limite oficial: até 5 substitutos no banco</span>
+            </div>
+            <div class="fifa-subs-grid" id="fifaSubsGrid"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Configurações administrativas após todo o conteúdo do elenco -->
+      <section class="squads-admin-settings" data-admin-only hidden aria-labelledby="squadsAdminSettingsTitle">
+        <h3 id="squadsAdminSettingsTitle">Configurações do elenco</h3>
+        <div class="squads-admin-settings-controls">
+          <div class="squads-quick-picker">
+            <select id="squadClubSelect" class="select-input hub-club-dropdown" aria-label="Escolher clube"></select>
+            <span class="hub-counter" id="squadClubIndexLabel">1 / 17</span>
+          </div>
+          <div class="squads-top-actions">
+            <button class="btn btn-gold" id="openClubBadgeModalBtn" type="button" title="Adicionar, editar ou remover escudo do clube">🖼️ Gerenciar Escudo</button>
+            <button class="btn btn-secondary" id="openEditClubMetadataFromSquadsBtn" type="button" title="Editar atributos, estrelas, OVR e banner do clube">⚙️ Editar Dados do Clube</button>
+            <button class="btn btn-ghost" id="editSquadClubBtn" type="button">✎ Editar Clube</button>
+            <button class="btn btn-primary" id="addSquadPlayerBtn" type="button">+ Adicionar Jogador</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===== Aba: Campeonatos ===== -->
+    <section id="campeonatos" class="page" data-tab="campeonatos" hidden>
+      <div class="page-head">
+        <h2>Campeonatos</h2>
+        <p>Acompanhe a competição oficial em andamento no Copa Fácil.</p>
+      </div>
+
+      <!-- 1. SEÇÃO SUPERIOR: CAMPEONATO EM CURSO (EDIÇÃO ATIVA — COPA FÁCIL) -->
+      <div class="card active-champ-card" id="activeChampSection">
+        <header class="active-champ-header">
+          <div class="active-champ-title-group">
+            <div class="active-champ-badges">
+              <span class="status-live-badge" id="activeChampStatusBadge">
+                <i class="live-dot" aria-hidden="true"></i> 🔴 EM ANDAMENTO
+              </span>
+              <span class="champ-format-pill" id="activeChampFormatBadge">Pontos Corridos + Mata-Mata</span>
+              <span class="champ-edition-pill" id="activeChampSeasonBadge">Edição 2026 · 18 Clubes</span>
+            </div>
+            <h3 class="active-champ-title" id="activeChampTitle">Temporada 9 · Xupé Gente Boa's League</h3>
+            <p class="active-champ-subtitle" id="activeChampDesc">
+              Tabela de classificação oficial, rodadas, chaveamento e estatísticas integradas em tempo real via Copa Fácil.
+            </p>
+          </div>
+
+          <div class="active-champ-actions">
+            <button
+              type="button"
+              class="btn btn-ghost btn-sm"
+              id="reloadCopaFacilBtn"
+              title="Recarregar visualização da tabela"
+            >
+              ↻ Atualizar Tabela
+            </button>
+            <button
+              type="button"
+              class="btn btn-ghost btn-sm"
+              id="configActiveChampBtn"
+              data-admin-only
+              title="Configurar URL pública do Copa Fácil e dados da edição em curso (Exclusivo Admin)"
+            >
+              ⚙️ Configurar Link
+            </button>
+            <a
+              href="https://copafacil.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary active-champ-ext-btn"
+              id="openCopaFacilExtBtn"
+            >
+              Abrir no Copa Fácil <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </header>
+
+        <!-- Barra de endereço / status da integração -->
+        <div class="copafacil-embed-bar">
+          <div class="embed-url-indicator">
+            <span class="embed-lock-icon" aria-hidden="true">🔒</span>
+            <span class="embed-domain-label">Integração Copa Fácil:</span>
+            <code class="embed-url-code" id="activeChampUrlDisplay">https://copafacil.com/genteboasleague-t9</code>
+          </div>
+          <div class="embed-bar-controls">
+            <button type="button" class="embed-size-btn" id="toggleEmbedExpandBtn" title="Alternar altura expandida do painel">
+              ⤢ Expandir Painel
+            </button>
+          </div>
+        </div>
+
+        <!-- Container Responsivo do Iframe + Skeleton/Loading Fallback -->
+        <div class="copafacil-iframe-viewport" id="copaFacilViewport">
+          <!-- Skeleton / Loading State enquanto o iframe carrega -->
+          <div class="copafacil-skeleton-overlay" id="copaFacilSkeleton" aria-live="polite">
+            <div class="skeleton-top-loader">
+              <span class="skeleton-spinner" aria-hidden="true"></span>
+              <div>
+                <strong>Carregando tabela oficial do Copa Fácil...</strong>
+                <small>Sincronizando classificação, jogos e artilharia da edição ativa</small>
+              </div>
+            </div>
+            <div class="skeleton-mock-grid">
+              <div class="skeleton-bar sk-w-60"></div>
+              <div class="skeleton-table">
+                <div class="skeleton-row sk-header"></div>
+                <div class="skeleton-row"></div>
+                <div class="skeleton-row"></div>
+                <div class="skeleton-row"></div>
+                <div class="skeleton-row"></div>
+                <div class="skeleton-row"></div>
+                <div class="skeleton-row"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Iframe Responsivo do Copa Fácil -->
+          <iframe
+            id="copaFacilIframe"
+            class="copafacil-iframe"
+            title="Tabela e Jogos do Campeonato em Curso no Copa Fácil"
+            loading="lazy"
+             referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <footer class="active-champ-footer">
+          <span>💡 Caso o navegador bloqueie cookies de terceiros no quadro acima, utilize o botão <strong>"Abrir no Copa Fácil ↗"</strong> para acessar em tela cheia.</span>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ===== Aba: Ranking (#ranking) ===== -->
+    <section id="ranking" class="page page-wide" data-tab="ranking" hidden>
+      <div class="rk-top-bar">
+        <div class="page-head rk-page-head">
+          <h2>Ranking Oficial de Pontuação</h2>
+          <p>Pontuação acumulada oficial da Xupé Gente Boa's League (Histórico Geral por Jogador e Temporada 2026 por Clube).</p>
+        </div>
+
+        <!-- Seletor de Abas / Filtros no Topo -->
+        <div class="rk-mode-selector" id="rankingModeTabs" role="tablist" aria-label="Selecionar visualização do Ranking">
+          <button
+            type="button"
+            class="rk-mode-btn active"
+            data-ranking-mode="historico"
+            role="tab"
+            aria-selected="true"
+          >
+            👑 Ranking Geral / Histórico
+          </button>
+          <button
+            type="button"
+            class="rk-mode-btn"
+            data-ranking-mode="temporada2026"
+            role="tab"
+            aria-selected="false"
+          >
+            ⚽ Temporada 2026
+          </button>
+        </div>
+      </div>
+
+      <!-- Destaque Visual do G3 (1º Ouro, 2º Prata, 3º Bronze) -->
+      <div class="rk-podium-grid" id="rankingG3Podium" aria-label="Pódio G3 do Ranking"></div>
+
+      <!-- Barra de Ferramentas da Tabela: Título do Modo + Busca + Botão Admin -->
+      <div class="card rk-table-card">
+        <header class="rk-table-toolbar">
+          <div class="rk-toolbar-left">
+            <span class="rk-live-dot" aria-hidden="true"></span>
+            <strong id="rankingActiveModeLabel">RANKING GERAL / HISTÓRICO · JOGADORES INDIVIDUAIS</strong>
+            <small class="rk-sort-hint">Ordenado por <strong>PONTOS</strong> (decrescente) · Clique em qualquer coluna para reordenar</small>
+          </div>
+
+          <div class="rk-toolbar-right">
+            <div class="rk-search-wrap">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <input
+                type="search"
+                id="rankingSearchInput"
+                placeholder="Buscar jogador ou clube..."
+                autocomplete="off"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-gold btn-sm"
+              id="openAddRankingRowBtn"
+              data-admin-only
+              title="Adicionar novo registro na tabela atual (Exclusivo Admin)"
+            >
+              + Adicionar Registro
+            </button>
+          </div>
+        </header>
+
+        <!-- Container com Scroll Horizontal Suave e Coluna Times/Jogador Fixada (Sticky) -->
+        <div class="rk-table-scroll-wrap">
+          <table class="rk-full-table" id="rankingFullTable" aria-label="Tabela Completa de Pontuação">
+            <thead>
+              <tr>
+                <th class="rk-th-pos" data-rk-sort="officialPos" title="Ordenar por Posição">
+                  Posição (#) <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th class="rk-th-sticky" data-rk-sort="name" title="Ordenar por Nome">
+                  <span id="rkEntityColLabel">Times / Jogador</span> <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="posPts" title="Pontos Base por Posição">
+                  Posição <small>(pts base)</small> <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="oitavas" title="Participações em Oitavas de Final">
+                  Oitavas <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="quartas" title="Participações em Quartas de Final">
+                  Quartas <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="semi" title="Participações em Semifinais">
+                  Semi <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="conquista" title="Títulos Conquistados">
+                  Conquista <small>(Título)</small> <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="vice" title="Vice-campeonatos">
+                  Vice <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="terceiro" title="Terceiro Lugar">
+                  Terceiro <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="vitorias" title="Total de Vitórias">
+                  Vitórias <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="empates" title="Total de Empates">
+                  Empates <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th data-rk-sort="gols" title="Total de Gols Marcados">
+                  Gols <span class="rk-sort-arrow">↕</span>
+                </th>
+                <th class="rk-th-total is-sorted" data-rk-sort="pontos" title="Pontuação Total Acumulada">
+                  PONTOS <span class="rk-sort-arrow">↓</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="rankingTableBody"></tbody>
+          </table>
+        </div>
+
+        <footer class="rk-table-footer">
+          <div class="rk-legend-items">
+            <span><i class="rk-dot dot-gold"></i> 1º Lugar (Líder Geral)</span>
+            <span><i class="rk-dot dot-silver"></i> 2º Lugar (Vice-Líder)</span>
+            <span><i class="rk-dot dot-bronze"></i> 3º Lugar (Destaque G3)</span>
+          </div>
+          <span class="rk-scroll-tip">↔ Em telas menores, deslize horizontalmente para ver todas as 13 métricas</span>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ===== Aba / Rota: Sobre (#sobre) ===== -->
+    <section id="sobre" class="page" data-tab="sobre" hidden>
+      <div class="page-head">
+        <h2>Sobre a Liga</h2>
+        <p>A história, a tradição e o regulamento oficial da Xupé Gente Boa's League no PES 21.</p>
+      </div>
+
+      <div class="about-grid">
+        <article class="card about-card">
+          <div class="about-card-head">
+            <span class="about-badge-icon" aria-hidden="true">📖</span>
+            <div>
+              <span class="about-kicker">NOSSA HISTÓRIA</span>
+              <h3>A Resenha que Virou Tradição</h3>
+            </div>
+          </div>
+          <p>
+            A <strong>Xupé Gente Boa's League</strong> nasceu da paixão pelo <strong>eFootball PES 2021</strong> e dos encontros presenciais entre amigos.
+            Ao longo de diversas temporadas, o torneio evoluiu para uma liga estruturada com <strong>18 clubes oficiais</strong>, mercado de transferências próprio,
+            histórico de campeões e agendamento colaborativo para reunir a galera.
+          </p>
+          <p>
+            Mais do que levantar a taça, o espírito da liga celebra a competitividade saudável, as negociações de bastidores via WhatsApp e as finais eletrizantes decididas no controle.
+          </p>
+        </article>
+
+        <article class="card about-card">
+          <div class="about-card-head">
+            <span class="about-badge-icon" aria-hidden="true">⚖️</span>
+            <div>
+              <span class="about-kicker">REGULAMENTO BASE</span>
+              <h3>Regras Oficiais &amp; Formato</h3>
+            </div>
+          </div>
+          <ul class="about-rules-list">
+            <li>
+              <strong>18 Clubes &amp; Plantéis:</strong> Cada treinador comanda sua equipe com elenco ativo de até <strong>16 atletas</strong> (11 titulares + 5 substitutos no banco de reservas).
+            </li>
+            <li>
+              <strong>Mercado de Transferências:</strong> Cada clube possui limite padrão de <strong>3 negociações por temporada</strong> (trocas definitivas, picks de draft ou empréstimos com prazo de expiração).
+            </li>
+            <li>
+              <strong>Propostas via WhatsApp:</strong> As ofertas são montadas diretamente na plataforma e disparadas para o treinador adversário, sendo oficializadas pela Administração após acordo.
+            </li>
+            <li>
+              <strong>Agendamento Presencial:</strong> Os jogadores marcam disponibilidade por período (Manhã, Tarde e Noite) para definir as melhores datas das rodadas presenciais.
+            </li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="about-footer-actions">
+        <a href="#inicio" class="btn btn-ghost" data-tab-link="inicio">← Voltar ao Início</a>
+        <a href="#elencos" class="btn btn-primary" data-tab-link="elencos">🛡️ Ver os 18 Elencos</a>
+        <a href="#campeonatos" class="btn btn-gold" data-tab-link="campeonatos">🏆 Campeonatos em Curso</a>
+      </div>
+    </section>
+
+    <!-- ===== Aba Exclusiva: Painel Admin (#admin) ===== -->
+    <section id="admin" class="page" data-tab="admin" data-admin-only hidden>
+      <div class="admin-top">
+        <div class="page-head admin-head">
+          <h2>Painel de Administração</h2>
+          <p>Controle central exclusivo do Administrador: vincule usuários aos clubes, gerencie escudos personalizados, edite limites e elencos.</p>
+        </div>
+        <div class="admin-top-actions">
+          <button type="button" class="btn btn-gold btn-sm" id="openBadgeManagerFromAdminBtn">
+            🖼️ Gerenciar Escudos
+          </button>
+          <span class="admin-access-badge">🛡️ ACESSO RESTRITO · ADMIN</span>
+        </div>
+      </div>
+
+      <div class="card admin-nav-card">
+        <div class="filter-pills" id="adminSubTabs" role="tablist">
+          <button type="button" class="pill" data-admin-pane="backup">💾 Backup &amp; Migração</button>
+          <button type="button" class="pill" data-admin-pane="access">🔐 Controle de Acesso / Solicitações</button>
+          <button type="button" class="pill active" data-admin-pane="users">👥 1. Usuários &amp; Vínculo de Clubes</button>
+          <button type="button" class="pill" data-admin-pane="clubs">🛡️ 2. Editar Clubes &amp; Saldos</button>
+          <button type="button" class="pill" data-admin-pane="rosters">⚽ 3. Gerenciar &amp; Transferir Elencos</button>
+          <button type="button" class="pill" data-admin-pane="sync">🔄 6. Sincronizar Rankings</button>
+          <button type="button" class="pill" data-admin-pane="kits">👕 5. Gerenciar Uniformes 3D</button>
+          <button type="button" class="pill" data-admin-pane="badges">🖼️ 4. Gerenciar Escudos</button>
+        </div>
+      </div>
+
+      <!-- Sub-aba 1: Vincular ou Cadastrar Usuários e Definir Papel (admin / player) -->
+      <section id="adminPaneBackup" class="admin-pane card" hidden>
+        <h2>Backup &amp; Migração</h2><p>Resgate dados antigos deste navegador ou baixe uma cópia do servidor. Contas, senhas, tokens e contatos não fazem parte do pacote.</p>
+        <button id="exportLocalBackup" class="btn btn-gold" type="button">Exportar Dados Locais (.json)</button>
+        <button id="exportServerBackup" class="btn btn-secondary" type="button">Exportar Dados do Servidor (.json)</button>
+        <label class="field">Importar / Restaurar Dados<input id="backupFileInput" type="file" accept=".json,application/json" /></label>
+        <p id="backupStatus" role="status"></p><p id="backupSummary"></p>
+        <button id="restoreLocalBackup" class="btn btn-secondary" type="button" disabled>Restaurar no Navegador</button>
+        <button id="migrateServerBackup" class="btn btn-gold" type="button" disabled>Migrar para o Servidor</button>
+        <h3>Pontos de restauração anteriores às migrações</h3><button id="refreshRestorePoints" class="btn btn-ghost" type="button">Atualizar lista</button><div id="backupRestorePoints"></div>
+      </section>
+      <section id="adminPaneAccess" class="admin-pane card" hidden>
+        <h2>Controle de Acesso / Solicitações</h2>
+        <label class="field">Método de entrada<select id="admissionMode"><option value="moderation">Fila de moderação</option><option value="invite">Código de convite único</option></select></label>
+        <button id="saveAdmissionMode" class="btn btn-gold" type="button">Salvar método</button>
+        <button id="refreshAdmission" class="btn btn-ghost" type="button">Atualizar solicitações</button>
+        <p id="admissionStatus" role="status"></p><h3>Solicitações pendentes</h3><div id="pendingRegistrations"></div>
+        <h3>Convites por clube</h3><p>Os códigos são exibidos apenas ao gerar. Cada convite expira em sete dias e só pode ser usado uma vez. Gerar outro invalida o anterior.</p><div id="teamInvites"></div>
+      </section>
+      <div id="adminPaneUsers" class="admin-pane">
+        <div class="admin-grid-two">
+          <div class="card admin-card-box">
+            <h3>➕ Cadastrar Novo Usuário</h3>
+            <p class="admin-box-sub">Novos cadastros recebem automaticamente o nível de permissão <code>player</code> (ou defina como <code>admin</code>).</p>
+            <form id="adminNewUserForm" class="transfer-form" novalidate>
+              <label class="field">
+                <span>Nome do Jogador / Treinador</span>
+                <input type="text" id="admNewUserName" placeholder="Ex.: Marquinhos" maxlength="35" required />
+              </label>
+              <div class="form-row two-cols">
+                <label class="field">
+                  <span>WhatsApp (DDD + Número)</span>
+                  <input type="tel" id="admNewUserPhone" placeholder="Ex.: 11988887777" maxlength="20" />
+                </label>
+                <label class="field">
+                  <span>Nível de Permissão (Role)</span>
+                  <select id="admNewUserRole" class="select-input">
+                    <option value="player" selected>player (Jogador Comum)</option>
+                    <option value="admin">admin (Administrador)</option>
+                  </select>
+                </label>
+              </div>
+              <label class="field">
+                <span>Vincular a um dos 18 Times (team_id)</span>
+                <select id="admNewUserTeam" class="select-input"></select>
+              </label>
+              <button type="submit" class="btn btn-primary btn-block">Cadastrar Usuário</button>
+            </form>
+          </div>
+
+          <div class="card admin-card-box">
+            <h3>🔗 Usuários Cadastrados &amp; Vínculos</h3>
+            <p class="admin-box-sub">Altere rapidamente o clube vinculado (<code>team_id</code>), telefone ou nível de permissão (<code>admin</code> / <code>player</code>).</p>
+            <div id="adminUsersList" class="admin-users-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-aba 2: Editar Clubes, Atributos, Banner & Saldos -->
+      <div id="adminPaneClubs" class="admin-pane" hidden>
+        <div class="card admin-card-box admin-club-meta-selector-card">
+          <div class="admin-meta-selector-content">
+            <div class="admin-meta-selector-text">
+              <h3>⚙️ Atributos, Metadados &amp; Banner da Equipe</h3>
+              <p class="admin-box-sub">Selecione qualquer time para alterar estrelas (1 a 5★), overall médio (OVR), capitão, esquema tático, liga e temporada exibidos no banner oficial.</p>
+            </div>
+            <div class="admin-meta-selector-controls">
+              <select id="admSelectClubForMeta" class="select-input" aria-label="Selecione o clube"></select>
+              <button type="button" class="btn btn-gold" id="openEditClubMetaModalBtn">
+                ⚙️ Editar Dados do Clube
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card admin-card-box">
+          <div class="admin-roster-head">
+            <div>
+              <h3>🛡️ Gestão dos 18 Clubes da Liga</h3>
+              <p class="admin-box-sub">Edite dados rápidos, cores e limites ou acesse a edição completa de metadados de cada equipe.</p>
+            </div>
+          </div>
+          <div id="adminClubsTableWrap" class="admin-clubs-grid"></div>
+        </div>
+      </div>
+
+      <!-- Sub-aba 3: Gerenciar elencos (adicionar / transferir / remover jogadores manualmente) -->
+      <div id="adminPaneRosters" class="admin-pane" hidden>
+        <div class="admin-grid-two">
+          <div class="card admin-card-box">
+            <h3>🔁 Transferir ou Adicionar Atleta Manualmente</h3>
+            <p class="admin-box-sub">Mova um jogador de um clube para outro imediatamente ou adicione um novo atleta a qualquer elenco.</p>
+
+            <form id="adminTransferPlayerForm" class="transfer-form" novalidate>
+              <label class="field">
+                <span>Clube de Origem</span>
+                <select id="admRosterOriginClub" class="select-input"></select>
+              </label>
+              <label class="field">
+                <span>Jogador Selecionado</span>
+                <select id="admRosterPlayerSelect" class="select-input"></select>
+              </label>
+              <label class="field">
+                <span>Transferir para Clube de Destino</span>
+                <select id="admRosterTargetClub" class="select-input"></select>
+              </label>
+              <button type="submit" class="btn btn-gold btn-block">⇄ Transferir Jogador Agora</button>
+            </form>
+
+            <hr class="admin-divider" />
+
+            <h4>➕ Adicionar Novo Atleta Direto no Clube</h4>
+            <form id="adminQuickAddPlayerForm" class="transfer-form" novalidate>
+              <div class="form-row two-cols">
+                <label class="field">
+                  <span>Clube</span>
+                  <select id="admQuickClubSelect" class="select-input"></select>
+                </label>
+                <label class="field">
+                  <span>Nome do Atleta</span>
+                  <input type="text" id="admQuickPlayerName" placeholder="Ex.: Ronaldinho" maxlength="40" required />
+                </label>
+              </div>
+              <div class="form-row two-cols">
+                <label class="field">
+                  <span>Posição PES</span>
+                  <select id="admQuickPlayerPos" class="select-input">
+                    <option value="GK">GK</option>
+                    <option value="CB">CB</option>
+                    <option value="LB">LB</option>
+                    <option value="RB">RB</option>
+                    <option value="DMF">DMF</option>
+                    <option value="CMF">CMF</option>
+                    <option value="AMF">AMF</option>
+                    <option value="LWF">LWF</option>
+                    <option value="RWF">RWF</option>
+                    <option value="SS">SS</option>
+                    <option value="CF" selected>CF</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Overall (OVR)</span>
+                  <input type="number" id="admQuickPlayerOvr" value="85" min="50" max="99" required />
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">+ Incluir no Elenco</button>
+            </form>
+          </div>
+
+          <div class="card admin-card-box">
+            <div class="admin-roster-head">
+              <h3>📋 Elenco do Clube Selecionado</h3>
+              <span class="roster-count-badge" id="admRosterCountBadge">0 atletas</span>
+            </div>
+            <p class="admin-box-sub">Visualize ou remova jogadores diretamente do clube selecionado ao lado.</p>
+            <div id="adminRosterPlayersList" class="admin-roster-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-aba 4: Gerenciar Escudos Personalizados de Todas as Equipes -->
+      <section id="adminPaneSync" class="admin-pane card admin-card-box" hidden aria-labelledby="rankingSyncTitle">
+        <h3 id="rankingSyncTitle">Sincronização de Rankings (Google Sheets)</h3>
+        <p>Importa as abas Player_Statistics_Summary e Tabela_1. As duas tabelas são substituídas juntas após a validação.</p>
+        <form id="rankingSyncForm">
+          <label class="field">URL da planilha pública<input type="url" id="rankingSyncUrl" required value="https://docs.google.com/spreadsheets/d/1elWrb2pUjUKOB8wZFQCVk4sb_2cA_x8F5hCyPRDA-dY/edit?usp=sharing" /></label>
+          <button type="submit" class="btn btn-gold" id="rankingSyncBtn"><span class="ranking-sync-spinner" aria-hidden="true" hidden></span><span id="rankingSyncBtnLabel">Sincronizar Rankings Agora</span></button>
+        </form>
+        <p>Última sincronização bem-sucedida: <time id="rankingSyncTime">Ainda não realizada</time></p>
+        <p id="rankingSyncStatus" role="status" aria-live="polite"></p>
+      </section>
+      <div id="adminPaneKits" class="admin-pane" hidden>
+        <form id="clubKitsForm" class="admin-box">
+          <h3>Gerenciar Uniformes 3D</h3>
+          <label class="field">Clube<select id="kitsClubSelect" required></select></label>
+          <div class="kits-editor-grid">
+            <div class="kits-editor-side">
+              <h4>Uniforme Casa</h4>
+              <div class="kits-preview" id="kitsPreview_home" aria-label="Prévia do uniforme Casa"></div>
+              <label class="field">Arquivo PNG, JPG, WEBP ou SVG (até 5 MB)<input id="kitsFile_home" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" /></label>
+              <label class="field">URL direta<input id="kitsUrl_home" type="url" placeholder="https://exemplo.com/uniforme.png" /></label>
+              <button class="btn btn-ghost" id="kitsReset_home" type="button">Restaurar Padrão · Casa</button>
+            </div>
+            <div class="kits-editor-side">
+              <h4>Uniforme Visitante</h4>
+              <div class="kits-preview" id="kitsPreview_away" aria-label="Prévia do uniforme Visitante"></div>
+              <label class="field">Arquivo PNG, JPG ou WEBP<input id="kitsFile_away" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" /></label>
+              <label class="field">URL direta<input id="kitsUrl_away" type="url" placeholder="https://exemplo.com/uniforme.png" /></label>
+              <button class="btn btn-ghost" id="kitsReset_away" type="button">Restaurar Padrão · Visitante</button>
+            </div>
+          </div>
+          <p id="kitsStatus" role="status" aria-live="polite"></p>
+          <button class="btn btn-gold" id="kitsSaveBtn" type="submit">Salvar Uniformes</button>
+        </form>
+      </div>
+      <div id="adminPaneBadges" class="admin-pane" hidden>
+        <div class="card admin-card-box">
+          <div class="admin-roster-head">
+            <div>
+              <h3>🖼️ Central de Escudos Personalizados</h3>
+              <p class="admin-box-sub">Adicione, altere ou remova o escudo oficial de qualquer equipe (Upload PNG/JPG/WEBP/SVG ou URL direta). As alterações refletem em todo o site.</p>
+            </div>
+            <button type="button" class="btn btn-gold btn-sm" id="openBadgeModalFromPaneBtn">
+              + Enviar / Editar Escudo
+            </button>
+          </div>
+          <div id="adminBadgesGridWrap" class="admin-badges-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    ★ Xupé Gente Boa's League · PES 21 ★
+  </footer>
+
+
+  <div class="modal" id="secureAuthModal" hidden>
+    <section class="modal-box card secure-auth" role="dialog" aria-modal="true" aria-labelledby="secureAuthTitle">
+      <h2 id="secureAuthTitle">Entrar na liga</h2>
+      <div class="secure-auth-tabs"><button class="btn btn-secondary" id="secureLoginTab" type="button">Login</button><button class="btn btn-ghost" id="secureRegisterTab" type="button">Criar conta</button></div>
+      <form id="secureLoginForm">
+        <label class="field">E-mail ou Celular<input name="identifier" autocomplete="username" required maxlength="254" /></label>
+        <label class="field">Senha<input name="password" type="password" autocomplete="current-password" required /></label>
+        <button class="btn btn-gold" type="submit">Entrar</button>
+        <button class="btn btn-ghost" id="forgotPasswordLink" type="button">Esqueci minha senha</button>
+      </form>
+      <form id="secureRegisterForm" hidden>
+        <p id="registrationPolicyNotice" role="status">Seu cadastro será analisado pelo administrador. O time escolhido ficará reservado até a decisão.</p>
+        <label class="field" id="inviteCodeField" hidden>Código de Convite do Clube<input name="invite_code" id="inviteCodeInput" autocomplete="off" maxlength="128" /></label>
+        <label class="field">Nome<input name="name" autocomplete="nickname" required minlength="2" maxlength="80" /></label>
+        <label class="field">E-mail<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+        <label class="field">Celular com DDD<input name="phone" type="tel" autocomplete="tel-national" required maxlength="15" placeholder="(35) 99999-9999" /></label>
+        <label class="field">Senha (mínimo 10 caracteres)<input name="password" type="password" autocomplete="new-password" required minlength="10" /></label>
+        <label class="field">Confirme a senha<input name="confirmation" type="password" autocomplete="new-password" required minlength="10" /></label>
+        <label class="field">Time disponível<select name="team_id" id="secureAvailableTeams" required></select></label>
+        <button id="secureTeamsRetry" class="btn btn-ghost" type="button" hidden>Tentar carregar os times novamente</button>
+        <p id="secureLocalServerHint" hidden>Para usar o cadastro local, <a href="http://localhost:3000">abra o site com o backend</a>.</p>
+        <div id="secureTeamPreview" class="secure-team-preview"></div>
+        <button class="btn btn-gold" type="submit">Criar conta</button>
+      </form>
+      <button id="secureGuestBtn" class="btn btn-guest" type="button"><span aria-hidden="true">👁</span> Continuar como Visitante</button>
+      <p id="secureAuthStatus" role="status" aria-live="polite"></p>
+      <button id="secureAuthClose" class="btn btn-ghost" type="button">Fechar</button>
+    </section>
+  </div>
+
+  <!-- Modal de confirmação -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-box card">
+      <div class="modal-check">✓</div>
+      <h3>Reserva confirmada!</h3>
+      <p id="modalText"></p>
+      <ul id="modalList" class="modal-list"></ul>
+      <button class="btn btn-primary btn-block" id="modalClose">Beleza!</button>
+    </div>
+  </div>
+
+  <!-- Modal: Registar Negociação -->
+  <div class="modal" id="transferModal" hidden>
+    <div class="modal-box modal-lg card">
+      <header class="modal-head">
+        <h3>Registar Negociação</h3>
+        <button class="icon-btn small" id="closeTransferModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="transferForm" class="transfer-form" novalidate>
+        <div class="form-row three-cols">
+          <label class="field">
+            <span>Data</span>
+            <input type="date" id="trDate" required />
+          </label>
+          <label class="field">
+            <span>Hora</span>
+            <input type="time" id="trTime" required />
+          </label>
+          <label class="field">
+            <span>Tipo de negócio</span>
+            <select id="trType" class="select-input">
+              <option value="definitivo">Definitivo</option>
+              <option value="emprestimo">Empréstimo</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field" id="trExpiryWrap" hidden>
+          <span>Data de Expiração do Empréstimo</span>
+          <input type="date" id="trExpiry" />
+        </label>
+
+        <div class="trade-sides">
+          <div class="trade-side">
+            <span class="side-badge">Lado A</span>
+            <label class="field">
+              <span>Time A</span>
+              <select id="trTeamA" class="select-input" required></select>
+            </label>
+            <label class="field">
+              <span>Jogador(es) / Picks de Saída (cedidos ao Time B)</span>
+              <input type="text" id="trOutA" placeholder="Ex.: Di Maria, Saúl, PICK 11" required />
+              <small class="field-hint">Separe múltiplos nomes por vírgula ou "e". Use "PICK XX" para escolhas de draft.</small>
+            </label>
+          </div>
+
+          <div class="trade-swap-divider" aria-hidden="true">⇄</div>
+
+          <div class="trade-side">
+            <span class="side-badge side-b">Lado B</span>
+            <label class="field">
+              <span>Time B</span>
+              <select id="trTeamB" class="select-input" required></select>
+            </label>
+            <label class="field">
+              <span>Jogador(es) / Picks de Entrada (cedidos ao Time A)</span>
+              <input type="text" id="trOutB" placeholder="Ex.: Pavón, Kanté" required />
+              <small class="field-hint">Separe múltiplos nomes por vírgula ou "e". Use "PICK XX" para escolhas de draft.</small>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelTransferBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Confirmar Negociação</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Adicionar / Editar Clube -->
+  <div class="modal" id="clubModal" hidden>
+    <div class="modal-box modal-md card">
+      <header class="modal-head">
+        <h3 id="clubModalTitle">Adicionar Clube</h3>
+        <button class="icon-btn small" id="closeClubModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="clubForm" class="transfer-form" novalidate>
+        <input type="hidden" id="clubEditId" value="" />
+        <label class="field">
+          <span>Nome da Equipa</span>
+          <input type="text" id="clubNameInput" placeholder="Ex.: Real Matismo FC" maxlength="40" required />
+        </label>
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Limite de Trocas</span>
+            <input type="number" id="clubMaxTradesInput" value="3" min="1" max="20" required />
+          </label>
+          <label class="field">
+            <span>Vagas de Reserva</span>
+            <input type="number" id="clubReservesInput" value="5" min="0" max="30" required />
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelClubBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="saveClubSubmitBtn">Salvar Clube</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Registar / Editar Título (Final) -->
+  <div class="modal" id="titleModal" hidden>
+    <div class="modal-box modal-lg card">
+      <header class="modal-head">
+        <h3 id="titleModalHeading">Registar Final / Título</h3>
+        <button class="icon-btn small" id="closeTitleModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="titleForm" class="transfer-form" novalidate>
+        <input type="hidden" id="titleEditId" value="" />
+        <div class="form-row three-cols">
+          <label class="field">
+            <span>Edição / Temporada</span>
+            <input type="text" id="tiSeason" placeholder="Ex.: Temporada 9" required />
+          </label>
+          <label class="field">
+            <span>Ano</span>
+            <input type="number" id="tiYear" value="2026" min="2015" max="2050" required />
+          </label>
+          <label class="field">
+            <span>Detalhe de Desempate (opcional)</span>
+            <input type="text" id="tiExtraNote" placeholder="Ex.: 5-3 pen ou Prorrogação" />
+          </label>
+        </div>
+
+        <div class="trade-sides">
+          <div class="trade-side">
+            <span class="side-badge side-gold">🏆 Campeão</span>
+            <label class="field">
+              <span>Clube Campeão</span>
+              <input type="text" id="tiWinnerTeam" placeholder="Ex.: Gustavo FC" required />
+            </label>
+            <div class="form-row two-cols">
+              <label class="field">
+                <span>Jogador (Manager)</span>
+                <input type="text" id="tiWinnerManager" placeholder="Ex.: Gustavo" required />
+              </label>
+              <label class="field">
+                <span>Gols na Final</span>
+                <input type="number" id="tiWinnerScore" value="2" min="0" max="30" required />
+              </label>
+            </div>
+          </div>
+
+          <div class="trade-swap-divider" aria-hidden="true">✕</div>
+
+          <div class="trade-side">
+            <span class="side-badge">🥈 Vice-Campeão</span>
+            <label class="field">
+              <span>Clube Vice</span>
+              <input type="text" id="tiRunnerTeam" placeholder="Ex.: Joker FC" required />
+            </label>
+            <div class="form-row two-cols">
+              <label class="field">
+                <span>Jogador (Manager)</span>
+                <input type="text" id="tiRunnerManager" placeholder="Ex.: Kalleby" />
+              </label>
+              <label class="field">
+                <span>Gols na Final</span>
+                <input type="number" id="tiRunnerScore" value="1" min="0" max="30" required />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>Artilheiro / Craque da Final</span>
+          <input type="text" id="tiHighlight" placeholder="Ex.: Mbappé (2 gols) · MVP da Final" required />
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelTitleBtn">Cancelar</button>
+          <button type="submit" class="btn btn-gold">Salvar Conquista</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Adicionar / Editar Momento Histórico & Recorde -->
+  <div class="modal" id="recordModal" hidden>
+    <div class="modal-box modal-md card">
+      <header class="modal-head">
+        <h3 id="recordModalHeading">Adicionar Momento ou Recorde</h3>
+        <button class="icon-btn small" id="closeRecordModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="recordForm" class="transfer-form" novalidate>
+        <input type="hidden" id="recordEditId" value="" />
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Ícone</span>
+            <select id="recIcon" class="select-input">
+              <option value="👑">👑 Coroa (Hegemonia)</option>
+              <option value="🔥">🔥 Fogo (Jogaço / Épico)</option>
+              <option value="⚽">⚽ Bola (Artilharia)</option>
+              <option value="🏆">🏆 Troféu (Conquista)</option>
+              <option value="⚡">⚡ Raio (Relâmpago / Rápido)</option>
+              <option value="🧤">🧤 Luva (Defesa / Muralha)</option>
+              <option value="🎯">🎯 Alvo (Precisão / Golaço)</option>
+              <option value="🌟">🌟 Estrela (Lenda / MVP)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Categoria / Tag</span>
+            <input type="text" id="recTag" placeholder="Ex.: Hegemonia & Invencibilidade" maxlength="40" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Título do Recorde / Momento</span>
+          <input type="text" id="recTitle" placeholder="Ex.: Maior Campeão Invicto" maxlength="50" required />
+        </label>
+
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Marca / Placar em Destaque</span>
+            <input type="text" id="recMetric" placeholder="Ex.: 4 Taças · 100% na T5" maxlength="40" required />
+          </label>
+          <label class="field">
+            <span>Detentor (Clube / Jogador / Edição)</span>
+            <input type="text" id="recClub" placeholder="Ex.: Gustavo FC (Gustavo)" maxlength="45" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Descrição do Feito</span>
+          <textarea id="recDesc" class="textarea-input" rows="3" placeholder="Conte como foi esse momento histórico ou recorde..." required></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelRecordBtn">Cancelar</button>
+          <button type="submit" class="btn btn-gold" id="saveRecordSubmitBtn">Salvar Recorde</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Adicionar / Editar Jogador do Elenco -->
+  <div class="modal" id="squadPlayerModal" hidden>
+    <div class="modal-box modal-md card">
+      <header class="modal-head">
+        <h3 id="squadPlayerModalTitle">Adicionar Jogador ao Elenco</h3>
+        <button class="icon-btn small" id="closeSquadPlayerModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="squadPlayerForm" class="transfer-form" novalidate>
+        <input type="hidden" id="sqPlayerEditId" value="" />
+        <label class="field">
+          <span>Nome do Jogador</span>
+          <input type="text" id="sqPlayerName" placeholder="Ex.: Kylian Mbappé" maxlength="40" required />
+        </label>
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Posição Primária (PES)</span>
+            <select id="sqPlayerPos" class="select-input" required>
+              <optgroup label="Goleiros">
+                <option value="GK">GK — Goleiro</option>
+              </optgroup>
+              <optgroup label="Defensores">
+                <option value="CB">CB — Zagueiro</option>
+                <option value="LB">LB — Lateral Esquerdo</option>
+                <option value="RB">RB — Lateral Direito</option>
+              </optgroup>
+              <optgroup label="Meio-campistas">
+                <option value="DMF">DMF — Volante</option>
+                <option value="CMF">CMF — Meia Central</option>
+                <option value="AMF">AMF — Meia Atacante</option>
+                <option value="LMF">LMF — Meia Esquerda</option>
+                <option value="RMF">RMF — Meia Direita</option>
+              </optgroup>
+              <optgroup label="Atacantes">
+                <option value="LWF">LWF — Ponta Esquerda</option>
+                <option value="RWF">RWF — Ponta Direita</option>
+                <option value="SS">SS — Segundo Atacante</option>
+                <option value="CF">CF — Centroavante</option>
+              </optgroup>
+            </select>
+          </label>
+          <label class="field">
+            <span>Overall (OVR PES)</span>
+            <input type="number" id="sqPlayerOvr" value="84" min="50" max="99" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Status de Empréstimo (opcional)</span>
+          <input type="text" id="sqPlayerLoan" placeholder="Ex.: Empréstimo - Expira 26/07 (deixe vazio se definitivo)" maxlength="45" />
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelSquadPlayerBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Jogador</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Editar Informações do Clube (Team Hub) -->
+  <div class="modal" id="squadClubMetaModal" hidden>
+    <div class="modal-box modal-lg card">
+      <header class="modal-head">
+        <h3>Editar Perfil do Clube</h3>
+        <button class="icon-btn small" id="closeSquadClubMetaModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="squadClubMetaForm" class="transfer-form" novalidate>
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Nome do Clube</span>
+            <input type="text" id="sqMetaName" maxlength="40" required />
+          </label>
+          <label class="field">
+            <span>Treinador / Manager</span>
+            <input type="text" id="sqMetaManager" maxlength="35" required />
+          </label>
+        </div>
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Classificação (1 a 5 Estrelas)</span>
+            <select id="sqMetaStars" class="select-input">
+              <option value="5">★★★★★ (5.0 Estrelas)</option>
+              <option value="4.5">★★★★☆ (4.5 Estrelas)</option>
+              <option value="4">★★★★☆ (4.0 Estrelas)</option>
+              <option value="3.5">★★★☆☆ (3.5 Estrelas)</option>
+              <option value="3">★★★☆☆ (3.0 Estrelas)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Formação Tática Padrão</span>
+            <input type="text" id="sqMetaFormation" placeholder="Ex.: 4-3-3 Ofensivo" maxlength="30" required />
+          </label>
+        </div>
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Jogador Chave / Capitão</span>
+            <input type="text" id="sqMetaCaptain" placeholder="Ex.: K. Mbappé (93)" maxlength="40" required />
+          </label>
+          <label class="field">
+            <span>Desempenho Recente (5 jogos: W, D, L)</span>
+            <input type="text" id="sqMetaForm" placeholder="Ex.: W, W, D, W, L" maxlength="20" required />
+          </label>
+        </div>
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Cor Primária do Clube</span>
+            <input type="color" id="sqMetaPrimary" value="#2ee59d" />
+          </label>
+          <label class="field">
+            <span>Cor Secundária (Kit Reserva)</span>
+            <input type="color" id="sqMetaSecondary" value="#f5c84c" />
+          </label>
+        </div>
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Imagem/Textura Kit Casa (3D / PESMASTER)</span>
+            <input type="text" id="sqMetaKitHome" placeholder="assets/kit-home.png" />
+          </label>
+          <label class="field">
+            <span>Imagem/Textura Kit Visitante (3D / PESMASTER)</span>
+            <input type="text" id="sqMetaKitAway" placeholder="assets/kit-away.png" />
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelSquadClubMetaBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Gestão de Escudo Personalizado da Equipe (Exclusivo Admin) -->
+  <div class="modal" id="clubBadgeModal" hidden>
+    <div class="modal-box modal-md card badge-manager-modal-box">
+      <header class="modal-head">
+        <div>
+          <h3 id="clubBadgeModalTitle">🖼️ Gerenciar Escudo do Clube</h3>
+          <span class="modal-sub">Envie um arquivo local (PNG, JPG, WEBP, SVG) ou cole um link direto da imagem do escudo.</span>
+        </div>
+        <button class="icon-btn small" id="closeClubBadgeModal" aria-label="Fechar">✕</button>
+      </header>
+
+      <form id="clubBadgeForm" class="transfer-form" novalidate>
+        <label class="field">
+          <span>Selecionar Equipe</span>
+          <select id="badgeModalClubSelect" class="select-input" required></select>
+        </label>
+
+        <!-- Prévia em Tempo Real (Preview Circular e com Fundo Transparente) -->
+        <div class="badge-live-preview-stage">
+          <div class="badge-preview-checkerboard">
+            <div class="badge-preview-circle gbl-aspect-crest" id="badgePreviewCircle">
+              <img
+                id="badgePreviewImg"
+                class="gbl-badge-img"
+                src="assets/default-shield.svg"
+                alt="Prévia do Escudo"
+              />
+            </div>
+          </div>
+          <div class="badge-preview-meta">
+            <span class="badge-status-pill" id="badgePreviewStatusPill">Placeholder Padrão</span>
+            <strong id="badgePreviewClubName">—</strong>
+            <small id="badgePreviewHint">Proporção 1:1 (aspect-square) · object-contain sem distorção</small>
+          </div>
+        </div>
+
+        <!-- Opção 1: Upload de Arquivo Local -->
+        <div class="field">
+          <span>1. Upload de Arquivo Local (PNG, JPG, WEBP ou SVG)</span>
+          <label class="badge-upload-dropzone" for="badgeFileInput">
+            <input
+              type="file"
+              id="badgeFileInput"
+              accept=".png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml"
+              hidden
+            />
+            <span class="badge-upload-icon">📁</span>
+            <div class="badge-upload-text">
+              <strong id="badgeUploadFileName">Clique para escolher uma imagem do dispositivo</strong>
+              <small>Suporta fundo transparente · Redimensionamento automático para alta nitidez</small>
+            </div>
+          </label>
+        </div>
+
+        <!-- Opção 2: Inserção de Link / URL Direta -->
+        <label class="field">
+          <span>2. Ou Link / URL Direta da Imagem do Escudo</span>
+          <input
+            type="url"
+            id="badgeUrlInput"
+            placeholder="https://exemplo.com/escudo-time.png"
+            autocomplete="off"
+          />
+          <small class="field-hint">Cole um link direto de imagem ou faça upload acima para atualizar a prévia em tempo real.</small>
+        </label>
+
+        <div class="modal-actions badge-modal-actions">
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            id="removeClubBadgeBtn"
+            title="Restaurar para o escudo placeholder padrão da liga"
+          >
+            🗑️ Remover Escudo
+          </button>
+          <div class="badge-modal-actions-right">
+            <button type="button" class="btn btn-ghost" id="cancelClubBadgeBtn">Cancelar</button>
+            <button type="submit" class="btn btn-gold" id="saveClubBadgeBtn">💾 Salvar Escudo</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Admin: Edição Completa de Atributos, Metadados & Banner do Clube -->
+  <div class="modal" id="modalAdminClubMetadata" hidden>
+    <div class="modal-box modal-lg card admin-meta-modal-box">
+      <header class="modal-head">
+        <div class="admin-meta-modal-header-info">
+          <div class="admin-meta-crest-mini gbl-aspect-crest" id="metaModalClubCrest">
+            <img id="metaModalClubCrestImg" src="assets/default-shield.svg" alt="Escudo" class="gbl-badge-img" />
+          </div>
+          <div>
+            <h3 id="metaModalHeading">⚙️ Editar Dados do Clube</h3>
+            <span class="modal-sub" id="metaModalSub">Altere atributos, métricas e textos exibidos no banner oficial da equipe.</span>
+          </div>
+        </div>
+        <button class="icon-btn small" id="closeClubMetaModal" aria-label="Fechar">✕</button>
+      </header>
+
+      <!-- Abas internas do Modal de Metadados -->
+      <div class="filter-pills meta-modal-pills" id="metaModalTabs" role="tablist">
+        <button type="button" class="pill active" data-meta-tab="banner">📌 Banner &amp; Liga</button>
+        <button type="button" class="pill" data-meta-tab="force">⭐ Estrelas &amp; OVR</button>
+        <button type="button" class="pill" data-meta-tab="tactics">👔 Capitão &amp; Esquema</button>
+        <button type="button" class="pill" data-meta-tab="general">🎨 Cores &amp; Parâmetros</button>
+      </div>
+
+      <form id="adminClubMetadataForm" class="transfer-form" novalidate>
+        <input type="hidden" id="metaClubId" value="" />
+
+        <!-- Aba/Seção 1: Banner & Identidade da Liga -->
+        <div id="metaTabSectionBanner" class="meta-tab-section">
+          <div class="meta-section-desc">
+            <strong>Identidade Visual do Banner:</strong> Defina os títulos e subtítulos que compõem o cabeçalho e rodapé do banner na aba Elencos.
+          </div>
+          <div class="form-row two-cols">
+            <label class="field">
+              <span>Nome da Liga / Competição *</span>
+              <input type="text" id="metaFieldLeagueName" placeholder="Ex.: XUPÉ GENTE BOA'S LEAGUE" maxlength="60" />
+              <small class="field-hint">Exibido no rodapé do banner (ex.: XUPÉ GENTE BOA'S LEAGUE).</small>
+            </label>
+            <label class="field">
+              <span>Subtítulo / Temporada *</span>
+              <input type="text" id="metaFieldSeasonTitle" placeholder="Ex.: Temporada PES 21" maxlength="60" />
+              <small class="field-hint">Exibido ao lado do logo no banner (ex.: Temporada PES 21).</small>
+            </label>
+          </div>
+          <div class="form-row two-cols">
+            <label class="field">
+              <span>Rótulo Superior (País / Categoria)</span>
+              <input type="text" id="metaFieldCountryLabel" placeholder="Ex.: BRASIL · LIGA OFICIAL" maxlength="60" />
+              <small class="field-hint">Faixa superior do banner (ex.: BRASIL · LIGA OFICIAL).</small>
+            </label>
+            <label class="field">
+              <span>Tag de Destaque da Equipe</span>
+              <input type="text" id="metaFieldClubTag" placeholder="Ex.: CLUBE OFICIAL PES 21" maxlength="60" />
+              <small class="field-hint">Selo sobre o nome do clube (ex.: CLUBE OFICIAL PES 21).</small>
+            </label>
+          </div>
+        </div>
+
+        <!-- Aba/Seção 2: Estrelas & Overall Médio (OVR) -->
+        <div id="metaTabSectionForce" class="meta-tab-section" hidden>
+          <div class="meta-section-desc">
+            <strong>Métricas de Força &amp; Avaliação:</strong> Controle as estrelas de prestígio e a nota de overall médio em destaque no banner.
+          </div>
+          <div class="form-row two-cols">
+            <label class="field">
+              <span>Quantidade de Estrelas (Rating 1 a 5★)</span>
+              <select id="metaFieldStars" class="select-input">
+                <option value="1">1.0 ★ (1 estrela)</option>
+                <option value="1.5">1.5 ★☆ (1 estrela e meia)</option>
+                <option value="2">2.0 ★★ (2 estrelas)</option>
+                <option value="2.5">2.5 ★★☆ (2 estrelas e meia)</option>
+                <option value="3">3.0 ★★★ (3 estrelas)</option>
+                <option value="3.5">3.5 ★★★☆ (3 estrelas e meia)</option>
+                <option value="4">4.0 ★★★★ (4 estrelas)</option>
+                <option value="4.5">4.5 ★★★★☆ (4 estrelas e meia)</option>
+                <option value="5">5.0 ★★★★★ (5 estrelas)</option>
+              </select>
+              <div class="meta-stars-live-preview" id="metaStarsLivePreview"></div>
+            </label>
+            <label class="field">
+              <span>Overall Médio (OVR Geral do Time)</span>
+              <input type="number" id="metaFieldAvgOvr" min="50" max="99" placeholder="Ex.: 85 (vazio = automático do plantel)" />
+              <small class="field-hint">Defina um OVR fixo (ex.: 82, 85, 87) ou deixe em branco para calcular a média automática dos atletas.</small>
+            </label>
+          </div>
+          <div class="meta-ovr-preview-box">
+            <span class="meta-ovr-preview-label">Prévia do Selo de Métricas do Banner:</span>
+            <div class="meta-badge-stage">
+              <span class="fifa-strip-ovr-badge meta-ovr-preview-badge" id="metaBadgeLivePreview">OVR MÉDIO 85 · 4.5★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aba/Seção 3: Capitão & Esquema Tático -->
+        <div id="metaTabSectionTactics" class="meta-tab-section" hidden>
+          <div class="meta-section-desc">
+            <strong>Comando da Equipe &amp; Tática:</strong> Defina o capitão e o estilo tático que aparecem na linha de resumo de comando do banner.
+          </div>
+          <div class="form-row two-cols">
+            <label class="field">
+              <span>Capitão do Time (Seleção Rápida no Elenco)</span>
+              <select id="metaSelectRosterCaptain" class="select-input">
+                <option value="">-- Escolher atleta do elenco --</option>
+              </select>
+              <small class="field-hint">Selecione um jogador para preencher automaticamente com nome e OVR.</small>
+            </label>
+            <label class="field">
+              <span>Texto do Capitão (Edição Livre) *</span>
+              <input type="text" id="metaFieldCaptain" placeholder="Ex.: Dani Parejo (86)" maxlength="50" />
+              <small class="field-hint">Exibido na linha de comando: ex. "Dani Parejo (86)"</small>
+            </label>
+          </div>
+          <div class="form-row two-cols">
+            <label class="field">
+              <span>Esquema Tático / Estilo de Jogo *</span>
+              <input type="text" id="metaFieldFormation" placeholder="Ex.: Esquema 4-2-3-1 Equilibrado" maxlength="50" />
+              <small class="field-hint">Exibido na linha: "Capitão: [Nome] ([OVR]) • [Esquema e Estilo]".</small>
+            </label>
+            <div class="field">
+              <span>Sugestões Rápidas de Esquema</span>
+              <div class="meta-quick-formation-tags" id="metaQuickFormations">
+                <button type="button" class="btn-tag" data-formation="Esquema 4-2-3-1 Equilibrado">4-2-3-1</button>
+                <button type="button" class="btn-tag" data-formation="4-3-3 Ofensivo">4-3-3</button>
+                <button type="button" class="btn-tag" data-formation="4-2-1-3 Contra-Ataque">4-2-1-3</button>
+                <button type="button" class="btn-tag" data-formation="4-4-2 Losango">4-4-2</button>
+                <button type="button" class="btn-tag" data-formation="3-5-2 Posse de Bola">3-5-2</button>
+                <button type="button" class="btn-tag" data-formation="5-3-2 Retranca">5-3-2</button>
+              </div>
+            </div>
+          </div>
+          <label class="field">
+            <span>Dono / Treinador Responsável</span>
+            <input type="text" id="metaFieldManager" placeholder="Ex.: Kalleby" maxlength="40" />
+          </label>
+        </div>
+
+        <!-- Aba/Seção 4: Cores & Parâmetros Gerais -->
+        <div id="metaTabSectionGeneral" class="meta-tab-section" hidden>
+          <div class="meta-section-desc">
+            <strong>Cores e Limites da Liga:</strong> Altere as cores primária e secundária do clube e seus tetos de negociação.
+          </div>
+          <div class="form-row two-cols">
+            <label class="field">
+              <span>Nome do Clube *</span>
+              <input type="text" id="metaFieldName" placeholder="Nome do Clube" maxlength="40" required />
+            </label>
+            <div class="form-row two-cols" style="gap:0.75rem;">
+              <label class="field">
+                <span>Cor Primária</span>
+                <input type="color" id="metaFieldPrimaryColor" value="#991b1b" class="adm-color-picker" />
+              </label>
+              <label class="field">
+                <span>Cor Secundária</span>
+                <input type="color" id="metaFieldSecondaryColor" value="#f5c84c" class="adm-color-picker" />
+              </label>
+            </div>
+          </div>
+          <div class="form-row two-cols">
+            <label class="field">
+              <span>Limite de Transferências</span>
+              <input type="number" id="metaFieldMaxTrades" min="0" max="20" value="3" />
+            </label>
+            <label class="field">
+              <span>Vagas de Reserva</span>
+              <input type="number" id="metaFieldReserves" min="0" max="30" value="5" />
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-actions meta-modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelClubMetaModalBtn">Cancelar</button>
+          <button type="submit" class="btn btn-gold" id="btnSaveClubMetadata">
+            💾 Salvar Alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Autenticação / Perfil Vinculado a Clube & Agenda WhatsApp -->
+  
+
+  <!-- Modal: Fazer Proposta de Transferência (Integrado com WhatsApp) -->
+  <div class="modal" id="proposalModal" hidden>
+    <div class="modal-box modal-xl card">
+      <header class="modal-head">
+        <div>
+          <h3>💬 Fazer Proposta de Transferência</h3>
+          <span class="modal-sub">Monte sua oferta escolhendo até 5 atletas de cada elenco e envie direto no WhatsApp do treinador adversário.</span>
+        </div>
+        <button class="icon-btn small" id="closeProposalModal" aria-label="Fechar">✕</button>
+      </header>
+
+      <form id="proposalForm" class="transfer-form" novalidate>
+        <!-- Linha 1: Time de Origem (travado) x Time de Destino -->
+        <div class="proposal-clubs-bar">
+          <div class="proposal-club-box is-origin">
+            <span class="side-badge">Time de Origem (Seu Clube)</span>
+            <div class="locked-club-display" id="propOriginClubDisplay">
+              <span class="locked-crest" id="propOriginCrest">GB</span>
+              <div class="locked-text">
+                <strong id="propOriginTeamName">—</strong>
+                <small id="propOriginManagerName">Treinador: —</small>
+              </div>
+              <span class="locked-tag" title="Vinculado ao seu usuário">🔒 Vinculado</span>
+            </div>
+          </div>
+
+          <div class="proposal-versus-arrow" aria-hidden="true">⇄</div>
+
+          <div class="proposal-club-box is-target">
+            <span class="side-badge side-b">Time de Destino (Adversário)</span>
+            <label class="field">
+              <select id="propTargetTeamSelect" class="select-input" required></select>
+            </label>
+            <div class="target-manager-info" id="propTargetManagerInfo"></div>
+          </div>
+        </div>
+
+        <!-- Linha 2: Tipo de Negociação (Toggle/Radio) + Vigência se Empréstimo -->
+        <div class="proposal-type-row">
+          <div class="field">
+            <span>Tipo de Negociação</span>
+            <div class="nego-type-toggle" id="propTypeToggle" role="radiogroup" aria-label="Tipo de Negociação">
+              <button type="button" class="nego-opt active" data-nego-type="definitivo">
+                🔁 Troca Definitiva
+              </button>
+              <button type="button" class="nego-opt" data-nego-type="emprestimo">
+                ⏳ Empréstimo
+              </button>
+            </div>
+          </div>
+
+          <label class="field" id="propLoanPeriodWrap" hidden>
+            <span>Data ou Período de Vigência do Empréstimo (opcional)</span>
+            <input type="text" id="propLoanPeriod" placeholder="Ex.: Até 26/07 ou 1 Temporada" maxlength="40" />
+          </label>
+        </div>
+
+        <!-- Linha 3: Seleção de Atletas (Até 5 por equipe) -->
+        <div class="proposal-rosters-grid">
+          <!-- Coluna Esquerda: Ofereço (Meu Clube) -->
+          <div class="proposal-roster-col">
+            <header class="prop-col-head">
+              <div>
+                <h4>📤 Ofereço (Meu Clube)</h4>
+                <small>Selecione de 1 a 5 jogadores do seu elenco</small>
+              </div>
+              <span class="prop-counter-pill" id="propOfferCounter">0 / 5</span>
+            </header>
+            <div id="propOfferPlayersList" class="prop-players-picker"></div>
+          </div>
+
+          <!-- Coluna Direita: Quero Receber (Clube Alvo) -->
+          <div class="proposal-roster-col">
+            <header class="prop-col-head">
+              <div>
+                <h4>📥 Quero Receber (Clube Alvo)</h4>
+                <small>Selecione de 1 a 5 jogadores do elenco rival</small>
+              </div>
+              <span class="prop-counter-pill" id="propRequestCounter">0 / 5</span>
+            </header>
+            <div id="propRequestPlayersList" class="prop-players-picker"></div>
+          </div>
+        </div>
+
+        <label class="field">Compensação financeira (R$)<input id="propCashAmount" type="number" min="0" max="1000000000000" step="0.01" value="0" /></label>
+        <!-- Linha 4: Mensagem / Observação opcional -->
+        <label class="field">
+          <span>📝 Mensagem / Observação da Proposta (opcional)</span>
+          <input type="text" id="propObservation" placeholder="Ex.: Posso envolver uma pick de draft ou voltar um reserva" maxlength="140" />
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelProposalBtn">Cancelar</button>
+          <button id="sendProposalWhatsapp" type="submit" class="btn btn-whatsapp btn-lg" disabled>
+            <span class="wa-icon">📲</span> Enviar Proposta via WhatsApp
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Bloqueante de Primeiro Acesso (Onboarding / Identificação Inicial) -->
+  
+
+  <!-- Modal Personalizado de Confirmação de Exclusão -->
+  <div class="modal confirm-delete-modal" id="confirmDeleteModal" role="dialog" aria-modal="true" aria-labelledby="confirmDeleteTitle" hidden>
+    <div class="modal-box confirm-delete-box card">
+      <div class="confirm-delete-icon" aria-hidden="true">🗑️</div>
+      <h3 id="confirmDeleteTitle" class="confirm-delete-title">Confirmar Exclusão</h3>
+      <p id="confirmDeleteMessage" class="confirm-delete-msg">Tem certeza que deseja excluir este item?</p>
+      <div class="confirm-delete-actions">
+        <button type="button" class="btn btn-ghost" id="confirmDeleteCancelBtn">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteOkBtn">🗑️ Sim, Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Ver Tabela Arquivada / Detalhes de Edição Passada -->
+  <div class="modal" id="archivedChampModal" hidden>
+    <div class="modal-box modal-xl card archived-champ-modal-box">
+      <header class="modal-head">
+        <div>
+          <span class="archived-modal-kicker" id="archModalKicker">ARQUIVO HISTÓRICO OFICIAL</span>
+          <h3 id="archModalTitle">Temporada Encerrada</h3>
+        </div>
+        <button class="icon-btn small" id="closeArchivedChampModal" aria-label="Fechar">✕</button>
+      </header>
+
+      <div id="archModalBody" class="arch-modal-body"></div>
+
+      <div class="modal-actions arch-modal-footer">
+        <button type="button" class="btn btn-ghost" id="closeArchivedChampFooterBtn">Fechar</button>
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary"
+          id="archModalCopaFacilBtn"
+        >
+          Abrir Arquivo no Copa Fácil ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Admin: Configurar Campeonato em Curso (Copa Fácil) -->
+  <div class="modal" id="activeChampConfigModal" hidden>
+    <div class="modal-box modal-lg card">
+      <header class="modal-head">
+        <h3>⚙️ Configurar Campeonato em Curso (Copa Fácil)</h3>
+        <button class="icon-btn small" id="closeActiveChampConfigModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="activeChampConfigForm" class="transfer-form" novalidate>
+        <label class="field">
+          <span>Nome da Competição em Andamento</span>
+          <input type="text" id="cfgActiveTitle" placeholder="Ex.: Temporada 9 · Xupé Gente Boa's League" maxlength="70" required />
+        </label>
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Formato da Disputa</span>
+            <input type="text" id="cfgActiveFormat" placeholder="Ex.: Pontos Corridos + Mata-Mata" maxlength="50" required />
+          </label>
+          <label class="field">
+            <span>Edição / Temporada</span>
+            <input type="text" id="cfgActiveSeason" placeholder="Ex.: Edição 2026 · 18 Clubes" maxlength="40" required />
+          </label>
+        </div>
+        <label class="field">
+          <span>URL Pública do Campeonato no Copa Fácil (Link do Iframe) *</span>
+          <input type="url" id="cfgActiveUrl" placeholder="https://copafacil.com/..." required />
+          <small class="field-hint">Cole o link público de compartilhamento da competição no Copa Fácil.</small>
+        </label>
+        <label class="field">
+          <span>Subtítulo / Descrição Rápida</span>
+          <input type="text" id="cfgActiveDesc" placeholder="Ex.: Tabela de classificação oficial, rodadas e chaveamento em tempo real." maxlength="140" />
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelActiveChampConfigBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Configuração</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Admin: Arquivar / Editar Campeonato Anterior -->
+  <div class="modal" id="archivedChampFormModal" hidden>
+    <div class="modal-box modal-lg card">
+      <header class="modal-head">
+        <h3 id="archFormModalTitle">Arquivar Campeonato Concluído</h3>
+        <button class="icon-btn small" id="closeArchivedChampFormModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="archivedChampForm" class="transfer-form" novalidate>
+        <input type="hidden" id="archEditId" value="" />
+        <div class="form-row three-cols">
+          <label class="field">
+            <span>Nome da Edição *</span>
+            <input type="text" id="archNameInput" placeholder="Ex.: Copa de Inverno 2026" maxlength="55" required />
+          </label>
+          <label class="field">
+            <span>Ano / Data *</span>
+            <input type="number" id="archYearInput" value="2026" min="2018" max="2035" required />
+          </label>
+          <label class="field">
+            <span>Tipo de Competição *</span>
+            <select id="archCategoryInput" class="select-input">
+              <option value="liga">Liga (Pontos Corridos / Híbrido)</option>
+              <option value="copa">Copa (Mata-Mata / Eliminatória)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Formato Disputado *</span>
+            <input type="text" id="archFormatInput" placeholder="Ex.: Pontos Corridos + Mata-Mata" maxlength="50" required />
+          </label>
+          <label class="field">
+            <span>Link Histórico no Copa Fácil (opcional)</span>
+            <input type="url" id="archCopaFacilUrlInput" placeholder="https://copafacil.com/..." />
+          </label>
+        </div>
+
+        <div class="trade-sides">
+          <div class="trade-side">
+            <span class="side-badge">🏆 Campeão</span>
+            <label class="field">
+              <span>Clube Campeão</span>
+              <select id="archChampTeamInput" class="select-input" required></select>
+            </label>
+            <div class="form-row two-cols">
+              <label class="field">
+                <span>Treinador</span>
+                <input type="text" id="archChampManagerInput" placeholder="Ex.: Gustavo" required />
+              </label>
+              <label class="field">
+                <span>Gols na Final</span>
+                <input type="number" id="archChampScoreInput" value="3" min="0" max="25" required />
+              </label>
+            </div>
+          </div>
+
+          <div class="trade-swap-divider" aria-hidden="true">VS</div>
+
+          <div class="trade-side">
+            <span class="side-badge side-b">🥈 Vice-Campeão</span>
+            <label class="field">
+              <span>Clube Vice-Campeão</span>
+              <select id="archRunnerTeamInput" class="select-input" required></select>
+            </label>
+            <div class="form-row two-cols">
+              <label class="field">
+                <span>Treinador</span>
+                <input type="text" id="archRunnerManagerInput" placeholder="Ex.: Kalleby" required />
+              </label>
+              <label class="field">
+                <span>Gols na Final</span>
+                <input type="number" id="archRunnerScoreInput" value="2" min="0" max="25" required />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Detalhe do Placar (ex.: Prorrogação, 5-3 pen)</span>
+            <input type="text" id="archExtraNoteInput" placeholder="Ex.: Prorrogação" maxlength="40" />
+          </label>
+          <label class="field">
+            <span>Resumo Rápido / Craque &amp; Artilheiro da Edição</span>
+            <input type="text" id="archSummaryInput" placeholder="Ex.: Mbappé artilheiro (14 gols) · Gol decisivo aos 118’" maxlength="110" required />
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelArchivedChampFormBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar no Histórico</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Leitura Completa de Matéria / Notícia (Portal GE) -->
+  <div class="modal" id="newsArticleModal" hidden>
+    <div class="modal-box modal-lg card ge-article-modal-box">
+      <header class="modal-head">
+        <div>
+          <span class="ge-tag-badge" id="newsModalCategory">MERCADO</span>
+          <small class="ge-article-modal-time" id="newsModalTime">Há 2 horas · Redação GBL</small>
+        </div>
+        <button class="icon-btn small" id="closeNewsArticleModal" aria-label="Fechar">✕</button>
+      </header>
+      <div class="ge-article-modal-body" id="newsModalBody"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="closeNewsArticleFooterBtn">Fechar Leitura</button>
+        <a href="#transferencias" class="btn btn-primary" id="newsModalActionLink" data-tab-link="transferencias">
+          Ir para Seção Relacionada →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Admin: Publicar / Editar Matéria no Portal -->
+  <div class="modal" id="newsFormModal" hidden>
+    <div class="modal-box modal-lg card">
+      <header class="modal-head">
+        <h3 id="newsFormModalTitle">📰 Publicar Nova Matéria na Capa</h3>
+        <button class="icon-btn small" id="closeNewsFormModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="newsArticleForm" class="transfer-form" novalidate>
+        <input type="hidden" id="newsEditId" value="" />
+        <div class="form-row three-cols">
+          <label class="field">
+            <span>Categoria / Chapéu *</span>
+            <select id="newsCatInput" class="select-input">
+              <option value="DECISÃO">DECISÃO</option>
+              <option value="MERCADO">MERCADO</option>
+              <option value="BASTIDORES">BASTIDORES</option>
+              <option value="TÁTICA & ELENCOS">TÁTICA &amp; ELENCOS</option>
+              <option value="GIRO DA RODADA">GIRO DA RODADA</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Destaque na Página *</span>
+            <select id="newsPlacementInput" class="select-input">
+              <option value="feed">Feed de Últimas Notícias</option>
+              <option value="secondary">Notícia Secundária (Grid Topo)</option>
+              <option value="hero">Super Manchete Principal (Capa)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Tempo / Publicação</span>
+            <input type="text" id="newsTimeInput" value="Agora mesmo" placeholder="Ex.: há 15 minutos" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Título / Manchete *</span>
+          <input type="text" id="newsTitleInput" placeholder="Ex.: Al Kabib anuncia pacotão de reforços e mira liderança na T9" maxlength="120" required />
+        </label>
+
+        <label class="field">
+          <span>Subtítulo / Lead Explicativo *</span>
+          <input type="text" id="newsSubtitleInput" placeholder="Ex.: Clube comandado por Kalled fecha troca tripla e altera esquema para 4-3-3 ofensivo." maxlength="200" required />
+        </label>
+
+        <label class="field">
+          <span>Texto Completo da Matéria</span>
+          <textarea id="newsBodyInput" class="textarea-input" rows="4" placeholder="Escreva os detalhes completos da notícia, declarações dos treinadores e impacto na tabela..."></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelNewsFormBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Publicar no Portal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Admin: Adicionar / Editar Pontuação do Ranking -->
+  <div class="modal" id="rankingFormModal" hidden>
+    <div class="modal-box modal-lg card">
+      <header class="modal-head">
+        <h3 id="rankingModalTitle">✎ Editar Pontuação do Ranking</h3>
+        <button class="icon-btn small" id="closeRankingFormModal" aria-label="Fechar">✕</button>
+      </header>
+      <form id="rankingEditForm" class="transfer-form" novalidate>
+        <input type="hidden" id="rkEditId" value="" />
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Nome do Jogador / Clube *</span>
+            <input type="text" id="rkNameInput" placeholder="Ex.: Kalled ou Al Kabib" maxlength="45" required />
+          </label>
+          <label class="field">
+            <span>Subtítulo (Clube / Treinador)</span>
+            <input type="text" id="rkSubtitleInput" placeholder="Ex.: Al Kabib · Histórico GBL" maxlength="50" />
+          </label>
+        </div>
+
+        <div class="form-row three-cols">
+          <label class="field">
+            <span>Posição (pts base)</span>
+            <input type="text" id="rkPosPtsInput" value="10" required />
+          </label>
+          <label class="field">
+            <span>Oitavas</span>
+            <input type="number" id="rkOitavasInput" value="0" min="0" required />
+          </label>
+          <label class="field">
+            <span>Quartas</span>
+            <input type="number" id="rkQuartasInput" value="0" min="0" required />
+          </label>
+        </div>
+
+        <div class="form-row three-cols">
+          <label class="field">
+            <span>Semi</span>
+            <input type="number" id="rkSemiInput" value="0" min="0" required />
+          </label>
+          <label class="field">
+            <span>Conquista (Título)</span>
+            <input type="number" id="rkConquistaInput" value="0" min="0" required />
+          </label>
+          <label class="field">
+            <span>Vice</span>
+            <input type="number" id="rkViceInput" value="0" min="0" required />
+          </label>
+        </div>
+
+        <div class="form-row three-cols">
+          <label class="field">
+            <span>Terceiro</span>
+            <input type="number" id="rkTerceiroInput" value="0" min="0" required />
+          </label>
+          <label class="field">
+            <span>Vitórias</span>
+            <input type="number" id="rkVitoriasInput" value="0" min="0" required />
+          </label>
+          <label class="field">
+            <span>Empates</span>
+            <input type="number" id="rkEmpatesInput" value="0" min="0" required />
+          </label>
+        </div>
+
+        <div class="form-row two-cols">
+          <label class="field">
+            <span>Gols Marcados</span>
+            <input type="number" id="rkGolsInput" value="0" min="0" required />
+          </label>
+          <label class="field">
+            <span>PONTOS TOTAIS (ex: 107,4 ou 42,94) *</span>
+            <input type="text" id="rkPontosInput" value="0" required />
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelRankingFormBtn">Cancelar</button>
+          <button type="submit" class="btn btn-gold">Salvar no Ranking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="application/json" data-module="js/holidays.js"></script>
+  <script type="application/json" data-module="js/storage.js"></script>
+  <script type="application/json" data-module="js/rbac.js"></script>
+<script type="application/json" data-module="js/uploads.js"></script>
+  <script type="application/json" data-module="js/app.js"></script>
+  <script type="application/json" data-module="js/transfers.js"></script>
+  <script type="application/json" data-module="js/teams.js"></script>
+  <script type="application/json" data-module="js/kits.js"></script>
+  <script type="application/json" data-module="js/squads.js"></script>
+  <script type="application/json" data-module="js/titles.js"></script>
+  <script type="application/json" data-module="js/auth.js"></script>
+  <script type="application/json" data-module="js/proposals.js"></script>
+  <script type="application/json" data-module="js/championships.js"></script>
+  <script type="application/json" data-module="js/ranking.js"></script>
+  <script type="application/json" data-module="js/ranking-sync.js"></script>
+  <script type="application/json" data-module="js/news.js"></script>
+<button id="reloadSharedData" class="btn btn-ghost" type="button" onclick="location.reload()">Recarregar dados</button>
+<script type="application/json" data-module="js/admission.js"></script>
+<script type="application/json" data-module="js/passwords.js"></script>
+<script type="application/json" data-module="js/backup-format.js"></script>
+<script type="application/json" data-module="js/backup.js"></script>
+<script type="application/json" data-module="js/media-manager.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

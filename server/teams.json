@@ -1,0 +1,87 @@
+[
+  {
+    "id": "sq1",
+    "name": "Joker FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq2",
+    "name": "Al Kabib",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq3",
+    "name": "Frog FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq4",
+    "name": "Sorriso FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq5",
+    "name": "Carvalhaes FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq6",
+    "name": "Beni FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq7",
+    "name": "Crew FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq8",
+    "name": "Mazili M.D FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq9",
+    "name": "The Beatles",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq10",
+    "name": "Gustavo FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq11",
+    "name": "Ashen Lords",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq12",
+    "name": "Fabricio FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq13",
+    "name": "Cannabis Crew",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq14",
+    "name": "Justin FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq15",
+    "name": "Augusto FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq16",
+    "name": "Adevogados FC",
+    "badge_url": "assets/default-shield.svg"
+  },
+  {
+    "id": "sq17",
+    "name": "Panissa FC",
+    "badge_url": "assets/default-shield.svg"
+  }
+]
