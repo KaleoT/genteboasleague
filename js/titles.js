@@ -427,7 +427,6 @@
         <div class="record-top">
           <div class="record-top-left">
             <span class="record-icon">${escapeHtml(rec.icon || '⭐')}</span>
-            <span class="record-tag">${escapeHtml(rec.tag)}</span>
           </div>
           ${
             admin

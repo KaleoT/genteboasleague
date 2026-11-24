@@ -38,7 +38,7 @@ window.GBLPasswords=(()=>{
     }catch(error){feedback(error.message||'Falha de conexão. Tente novamente.');if(error.code==='INVALID_RESET_TOKEN'){$('requestNewPasswordLink').hidden=false;form.hidden=true;}}
     finally{busy=false;button.disabled=false;button.removeAttribute('aria-busy');button.textContent=label;}
   };
-  function profile(){const identified=RBAC.isIdentified();$('accountSettingsBtn').hidden=!identified;if(!identified&&!$('changePasswordForm').hidden){modal.hidden=true;forms.forEach(id=>$(id).reset());}}
+  function profile(){const identified=RBAC.isIdentified();$('accountSettingsBtn').hidden=!identified||RBAC.isAdmin();if(!identified&&!$('changePasswordForm').hidden){modal.hidden=true;forms.forEach(id=>$(id).reset());}}
   window.addEventListener('gbl:profilechange',profile);profile();
   document.addEventListener('DOMContentLoaded',()=>{
     if(location.pathname!=='/redefinir-senha')return;

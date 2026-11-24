@@ -15,7 +15,7 @@
       timeAgo: 'há 35 minutos',
       author: 'Redação GBL',
       relatedTab: '#campeonatos',
-      relatedLabel: 'Ver Tabela da Temporada 9 no Copa Fácil →',
+      relatedLabel: 'Ver Tabela da Temporada 9 no Copa Fácil',
       visualTheme: 'hero-championship',
       clubs: ['Joker FC', 'Al Kabib', 'Frog FC'],
       title: "Temporada 9 pega fogo: G4 embolado e clássicos diretos prometem sacudir a próxima resenha presencial",
@@ -34,7 +34,7 @@
       timeAgo: 'há 2 horas',
       author: 'Plantão do Mercado',
       relatedTab: '#transferencias',
-      relatedLabel: 'Conferir Feed de Transferências →',
+      relatedLabel: 'Conferir Feed de Transferências',
       visualTheme: 'theme-market',
       clubs: ['Al Kabib', 'Mazili M.D FC'],
       title: 'Janela fervendo: propostas via WhatsApp aceleram trocas de estrelas e picks de draft',
@@ -49,7 +49,7 @@
       timeAgo: 'há 4 horas',
       author: 'Análise Tática GBL',
       relatedTab: '#elencos',
-      relatedLabel: 'Explorar os Elencos e Kits 3D →',
+      relatedLabel: 'Explorar os Elencos e Kits 3D',
       visualTheme: 'theme-kits',
       clubs: ['Al Kabib', 'Joker FC'],
       title: 'Novos mantos em campo: clubes exibem uniformes 3D e ajustam esquemas 4-3-3 com 5 reservas',
@@ -64,7 +64,7 @@
       timeAgo: 'há 5 horas',
       author: 'Redação GBL',
       relatedTab: '#titulos',
-      relatedLabel: 'Ver Galeria de Títulos & Recordes →',
+      relatedLabel: 'Ver Galeria de Títulos & Recordes',
       visualTheme: 'theme-trophy',
       clubs: ['Al Kabib', 'Frog FC'],
       title: 'Hegemonia e tradição: confira todos os campeões que já levantaram a taça da liga',
@@ -79,7 +79,7 @@
       timeAgo: 'há 7 horas',
       author: 'Agenda Presencial',
       relatedTab: '#agendamento',
-      relatedLabel: 'Votar nas Datas da Próxima Resenha →',
+      relatedLabel: 'Votar nas Datas da Próxima Resenha',
       visualTheme: 'theme-schedule',
       clubs: ['Sorriso FC', 'Carvalhaes FC'],
       title: 'Quórum em alta: votação para o próximo encontro presencial já reúne treinadores nos 3 períodos',
@@ -94,7 +94,7 @@
       timeAgo: 'há 9 horas',
       author: 'Plantão do Mercado',
       relatedTab: '#transferencias',
-      relatedLabel: 'Abrir Simulador de Propostas →',
+      relatedLabel: 'Abrir Simulador de Propostas',
       visualTheme: 'theme-market',
       clubs: ['Joker FC', 'Beni FC'],
       title: 'Empréstimos estratégicos viram arma para reforçar defesas sem comprometer estrelas do time titular',
@@ -109,7 +109,7 @@
       timeAgo: 'há 12 horas',
       author: 'Estatísticas GBL',
       relatedTab: '#campeonatos',
-      relatedLabel: 'Consultar Campeonato em Curso →',
+      relatedLabel: 'Consultar Campeonato em Curso',
       visualTheme: 'theme-trophy',
       clubs: ['Al Kabib', 'Gustavo FC'],
       title: 'Raio-X dos ataques: média de gols da liga supera 3,8 por partida e consagra esquemas ofensivos',
@@ -123,8 +123,7 @@
       category: 'BASTIDORES',
       timeAgo: 'há 1 dia',
       author: 'Comissão Organizadora',
-      relatedTab: '#sobre',
-      relatedLabel: 'Ler Regulamento Oficial na Aba Sobre →',
+
       visualTheme: 'theme-kits',
       clubs: ['Mazili M.D FC', 'Joker FC'],
       title: 'Guia da Temporada: confira as regras atualizadas de limite de elenco, reservas e saldo de negociações',
@@ -150,7 +149,23 @@
 
   const state = {
     feedCategory: 'all',
+    articleId: null,
+    isEditing: false,
+    isSaving: false,
+    originalArticle: null,
+    coverFile: null,
+    coverPreviewUrl: null,
   };
+
+  // Only allow web images and local paths; never interpolate arbitrary URL schemes.
+  function coverUrl(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    try {
+      const url = new URL(raw, location.href);
+      return ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password ? url.href : '';
+    } catch { return ''; }
+  }
 
   /* ---------- Persistência de Notícias ---------- */
   function readNews() {
@@ -220,6 +235,8 @@
 
   /** Gera a ilustração de capa temática para os cards secundários e miniaturas do feed */
   function renderArticleCoverThumb(item) {
+    const cover = coverUrl(item.cover_url || item.image);
+    if (cover) return `<img class="ge-news-cover" src="${escapeHtml(cover)}" alt="${escapeHtml(item.title)}" loading="lazy" />`;
     const clubs = Array.isArray(item.clubs) && item.clubs.length ? item.clubs : ['Al Kabib', 'Joker FC'];
     const crestsHtml = clubs.slice(0, 2).map((c) => renderMiniCrest(c)).join('');
     const theme = item.visualTheme || 'theme-market';
@@ -235,7 +252,6 @@
     if (theme === 'theme-trophy') {
       return `
         <div class="ge-thumb-art art-trophy">
-          <span class="ge-thumb-big-icon" aria-hidden="true">🏆</span>
           <div class="ge-thumb-crests">${crestsHtml}</div>
           <span class="ge-thumb-watermark">HISTÓRICO GBL</span>
         </div>`;
@@ -243,14 +259,12 @@
     if (theme === 'theme-schedule') {
       return `
         <div class="ge-thumb-art art-schedule">
-          <span class="ge-thumb-big-icon" aria-hidden="true">🗓️</span>
           <div class="ge-thumb-crests">${crestsHtml}</div>
           <span class="ge-thumb-watermark">RESENHA PRESENCIAL</span>
         </div>`;
     }
     return `
       <div class="ge-thumb-art art-market">
-        <span class="ge-thumb-big-icon" aria-hidden="true">⇄</span>
         <div class="ge-thumb-crests">${crestsHtml}</div>
         <span class="ge-thumb-watermark">MERCADO PES 21</span>
       </div>`;
@@ -282,8 +296,7 @@
       heroWrap.innerHTML = `
         <article class="card ge-hero-card" data-open-article="${escapeHtml(heroItem.id)}" role="button" tabindex="0">
           <div class="ge-hero-media">
-            <img src="assets/banner.png" alt="Destaque Gente Boa's League" class="ge-hero-bg-img" />
-            <div class="ge-hero-overlay"></div>
+            <img src="${escapeHtml(coverUrl(heroItem.cover_url || heroItem.image) || 'assets/banner.png')}" alt="Destaque Gente Boa's League" class="ge-hero-bg-img" />
           </div>
 
           <div class="ge-hero-content">
@@ -293,7 +306,7 @@
               ${
                 admin
                   ? `<div class="ge-admin-card-btns">
-                       <button type="button" class="club-action-btn" data-edit-article="${escapeHtml(heroItem.id)}" title="Editar manchete">✎</button>
+                       <button type="button" class="club-action-btn" data-edit-article="${escapeHtml(heroItem.id)}" title="Editar manchete">Editar</button>
                      </div>`
                   : ''
               }
@@ -304,8 +317,8 @@
             ${bulletsHtml}
 
             <div class="ge-hero-foot">
-              <span class="ge-time-meta">🕒 ${escapeHtml(heroItem.timeAgo)} — Por <strong>${escapeHtml(heroItem.author || 'Redação GBL')}</strong></span>
-              <span class="ge-read-more-cta">Ler matéria completa →</span>
+              <span class="ge-time-meta">${escapeHtml(heroItem.timeAgo)} — Por <strong>${escapeHtml(heroItem.author || 'Redação GBL')}</strong></span>
+              <span class="ge-read-more-cta">Ler matéria completa</span>
             </div>
           </div>
         </article>
@@ -323,20 +336,20 @@
               <div class="ge-sec-thumb-wrap">
                 ${renderArticleCoverThumb(item)}
                 <span class="ge-tag-badge ${catCls} ge-sec-floating-tag">${escapeHtml(item.category)}</span>
+              </div>
+              <div class="ge-sec-body">
                 ${
                   admin
                     ? `<div class="ge-sec-admin-btns">
-                         <button type="button" class="club-action-btn" data-edit-article="${escapeHtml(item.id)}" title="Editar matéria">✎</button>
-                         <button type="button" class="club-action-btn danger" data-delete-article="${escapeHtml(item.id)}" title="Excluir matéria">🗑️</button>
+                         <button type="button" class="club-action-btn" data-edit-article="${escapeHtml(item.id)}" title="Editar matéria">Editar</button>
+                         <button type="button" class="club-action-btn danger" data-delete-article="${escapeHtml(item.id)}" title="Excluir matéria">Excluir</button>
                        </div>`
                     : ''
                 }
-              </div>
-              <div class="ge-sec-body">
                 <h3 class="ge-sec-title">${escapeHtml(item.title)}</h3>
                 <p class="ge-sec-lead">${escapeHtml(item.subtitle)}</p>
                 <div class="ge-sec-meta">
-                  <span>🕒 ${escapeHtml(item.timeAgo)}</span>
+                  <span>${escapeHtml(item.timeAgo)}</span>
                   <span class="ge-sec-dot">•</span>
                   <span>${escapeHtml(item.author || 'Redação GBL')}</span>
                 </div>
@@ -375,8 +388,8 @@
                     ${
                       admin
                         ? `<div class="ge-feed-admin-btns">
-                             <button type="button" class="club-action-btn" data-edit-article="${escapeHtml(item.id)}" title="Editar matéria">✎</button>
-                             <button type="button" class="club-action-btn danger" data-delete-article="${escapeHtml(item.id)}" title="Excluir matéria">🗑️</button>
+                             <button type="button" class="club-action-btn" data-edit-article="${escapeHtml(item.id)}" title="Editar matéria">Editar</button>
+                             <button type="button" class="club-action-btn danger" data-delete-article="${escapeHtml(item.id)}" title="Excluir matéria">Excluir</button>
                            </div>`
                         : ''
                     }
@@ -384,7 +397,7 @@
                   <h3 class="ge-feed-title">${escapeHtml(item.title)}</h3>
                   <p class="ge-feed-excerpt">${escapeHtml(item.subtitle)}</p>
                   <div class="ge-feed-meta">
-                    <span>🕒 ${escapeHtml(item.timeAgo)}</span>
+                    <span>${escapeHtml(item.timeAgo)}</span>
                     <span>— Em ${escapeHtml(item.category)}</span>
                   </div>
                 </div>
@@ -501,7 +514,7 @@
       const weekdayName = WEEKDAYS_FULL[dateObj.getDay()];
       const holiday = typeof Holidays !== 'undefined' ? Holidays.get(bestDateKey) : null;
 
-      const periodLabels = { manha: '☀️ Manhã', tarde: '🌤️ Tarde', noite: '🌙 Noite' };
+      const periodLabels = { manha: 'Manhã', tarde: 'Tarde', noite: 'Noite' };
       const bestPeriodKey = Object.keys(info.periods).sort((a, b) => info.periods[b] - info.periods[a])[0] || 'noite';
       const playerList = Array.from(info.players);
 
@@ -512,16 +525,16 @@
             <strong class="cal-day">${pad(d)}</strong>
           </div>
           <div class="ge-matchday-info">
-            <span class="ge-most-voted-tag">🔥 DATA LÍDER EM VOTOS</span>
+            <span class="ge-most-voted-tag">DATA LÍDER EM VOTOS</span>
             <strong>${escapeHtml(weekdayName)}, ${pad(d)}/${pad(m)}</strong>
             <small>Turno favorito: <strong>${periodLabels[bestPeriodKey]}</strong></small>
-            ${holiday ? `<span class="ge-holiday-mini">🎉 ${escapeHtml(holiday.name)}</span>` : ''}
+            ${holiday ? `<span class="ge-holiday-mini">${escapeHtml(holiday.name)}</span>` : ''}
           </div>
         </div>
 
         <div class="ge-confirmed-box">
           <div class="ge-confirmed-head">
-            <span>👥 Treinadores disponíveis</span>
+            <span>Treinadores disponíveis</span>
             <strong>${playerList.length} confirmado(s)</strong>
           </div>
           <div class="ge-confirmed-chips">
@@ -548,7 +561,7 @@
             <strong class="cal-day">${d}</strong>
           </div>
           <div class="ge-matchday-info">
-            <span class="ge-most-voted-tag">📢 VOTAÇÃO ABERTA</span>
+            <span class="ge-most-voted-tag">VOTAÇÃO ABERTA</span>
             <strong>Próximo Fim de Semana</strong>
             <small>Marque seus dias e turnos livres no calendário da liga!</small>
           </div>
@@ -598,12 +611,11 @@
                 </div>
                 <div class="ge-market-clubs">
                   <span class="ge-m-club">${renderMiniCrest(tr.teamA)} <strong>${escapeHtml(tr.teamA)}</strong></span>
-                  <span class="ge-m-swap" aria-hidden="true">⇄</span>
                   <span class="ge-m-club">${renderMiniCrest(tr.teamB)} <strong>${escapeHtml(tr.teamB)}</strong></span>
                 </div>
                 <div class="ge-market-assets">
-                  <span>📤 ${escapeHtml(assetsA)}</span>
-                  <span>📥 ${escapeHtml(assetsB)}</span>
+                  <span>${escapeHtml(tr.teamA)}: ${escapeHtml(assetsA)}</span>
+                  <span>${escapeHtml(tr.teamB)}: ${escapeHtml(assetsB)}</span>
                 </div>
               </div>
             `;
@@ -621,10 +633,67 @@
   }
 
   /* ---------- Modal de Leitura Completa da Matéria ---------- */
+  const canEditArticle = () => typeof RBAC !== 'undefined' && RBAC.isAdmin() === true;
+
+  function clearCoverDraft(resetInput = true) {
+    if (state.coverPreviewUrl) URL.revokeObjectURL(state.coverPreviewUrl);
+    state.coverPreviewUrl = null;
+    state.coverFile = null;
+    if (resetInput) $('#newsCoverFile').value = '';
+    $('#newsCoverFile').setCustomValidity('');
+  }
+
+  function renderCoverPreview() {
+    const preview = $('#newsCoverPreview');
+    const src = state.coverPreviewUrl || coverUrl(state.originalArticle?.cover_url || state.originalArticle?.image);
+    preview.hidden = !src;
+    if (src) preview.src = src;
+    else preview.removeAttribute('src');
+  }
+
+  function selectCoverFile() {
+    if (!state.isEditing || state.isSaving || !canEditArticle()) return;
+    const input = $('#newsCoverFile'), file = input.files?.[0];
+    clearCoverDraft(false);
+    try {
+      if (file) {
+        state.coverPreviewUrl = GBLUploads.preview(file);
+        state.coverFile = file;
+      }
+      $('#newsInlineEditStatus').hidden = true;
+    } catch (error) {
+      input.value = '';
+      $('#newsInlineEditStatus').hidden = false;
+      $('#newsInlineEditStatus').textContent = error.message;
+    }
+    renderCoverPreview();
+  }
+
+  function syncArticleMode() {
+    const editing = state.isEditing && canEditArticle();
+    $('#newsInlineEditForm').hidden = !editing;
+    $('#newsModalBody').hidden = editing;
+    $('#editNewsArticleBtn').hidden = editing || !canEditArticle();
+    $('#editNewsArticleBtn').parentElement.hidden = editing;
+    $('#closeNewsArticleFooterBtn').hidden = editing;
+    $('#cancelNewsInlineEditBtn').hidden = !editing;
+    $('#saveNewsInlineEditBtn').hidden = !editing;
+    $('#newsInlineEditFields').disabled = state.isSaving;
+    $('#cancelNewsInlineEditBtn').disabled = state.isSaving;
+    $('#saveNewsInlineEditBtn').disabled = state.isSaving;
+    $('#saveNewsInlineEditBtn').textContent = state.isSaving ? 'Salvando…' : 'Salvar';
+    if (editing) $('#newsModalActionLink').hidden = true;
+  }
+
   function openArticleModal(articleId) {
     const list = readNews();
     const item = list.find((n) => n.id === articleId);
     if (!item) return;
+    clearCoverDraft();
+    state.articleId = articleId;
+    state.isEditing = false;
+    state.originalArticle = null;
+    $('#newsInlineEditStatus').hidden = true;
 
     const catEl = $('#newsModalCategory');
     if (catEl) {
@@ -633,13 +702,15 @@
     }
 
     if ($('#newsModalTime')) {
-      $('#newsModalTime').textContent = `🕒 ${item.timeAgo} · Por ${item.author || 'Redação GBL'}`;
+      $('#newsModalTime').textContent = `${item.timeAgo} · Por ${item.author || 'Redação GBL'}`;
     }
 
     const actionLink = $('#newsModalActionLink');
     if (actionLink) {
+      actionLink.hidden = !item.relatedTab || item.relatedTab === '#sobre';
       actionLink.href = item.relatedTab || '#campeonatos';
-      actionLink.textContent = item.relatedLabel || 'Ir para Seção Relacionada →';
+      actionLink.dataset.tabLink = (item.relatedTab || '#campeonatos').slice(1);
+      actionLink.textContent = item.relatedLabel || 'Ir para Seção Relacionada';
     }
 
     const paragraphs = String(item.body || item.subtitle || '')
@@ -651,6 +722,7 @@
     const bodyEl = $('#newsModalBody');
     if (bodyEl) {
       bodyEl.innerHTML = `
+        ${coverUrl(item.cover_url || item.image) ? `<img class="ge-news-cover ge-modal-cover" src="${escapeHtml(coverUrl(item.cover_url || item.image))}" alt="${escapeHtml(item.title)}" />` : ''}
         <h2 class="ge-modal-headline">${escapeHtml(item.title)}</h2>
         <p class="ge-modal-lead">${escapeHtml(item.subtitle)}</p>
         <div class="ge-modal-clubs-strip">
@@ -663,10 +735,103 @@
     }
 
     $('#newsArticleModal').hidden = false;
+    syncArticleMode();
   }
 
   function closeArticleModal() {
+    if (state.isSaving) return;
+    clearCoverDraft();
     $('#newsArticleModal').hidden = true;
+    state.isEditing = false;
+    state.originalArticle = null;
+    state.articleId = null;
+  }
+
+  function startArticleEdit() {
+    if (!canEditArticle() || state.isSaving) return;
+    const item = readNews().find(n => n.id === state.articleId);
+    if (!item) return;
+    state.originalArticle = JSON.parse(JSON.stringify(item));
+    const form = $('#newsInlineEditForm');
+    for (const key of ['title', 'subtitle', 'body', 'category', 'timeAgo', 'author']) {
+      form.elements[key].value = item[key] || (key === 'author' ? 'Redação GBL' : key === 'timeAgo' ? 'Agora mesmo' : '');
+    }
+    clearCoverDraft();
+    renderCoverPreview();
+    // Retain legacy linked clubs even if they are no longer in the current roster.
+    const clubs = [...new Set([...readSquadClubs().map(c => c.name), ...(item.clubs || [])])];
+    $('#newsInlineClubs').replaceChildren(...clubs.map(name => {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox'; input.name = 'clubs'; input.value = name;
+      input.checked = (item.clubs || []).includes(name);
+      label.append(input, document.createTextNode(name));
+      return label;
+    }));
+    state.isEditing = true;
+    $('#newsInlineEditStatus').hidden = true;
+    syncArticleMode();
+    form.elements.title.focus();
+  }
+
+  function cancelArticleEdit() {
+    if (state.isSaving) return;
+    openArticleModal(state.articleId);
+    if (canEditArticle()) $('#editNewsArticleBtn').focus();
+  }
+
+  async function saveArticleEdit(event) {
+    event.preventDefault();
+    if (!canEditArticle() || !state.isEditing || state.isSaving) return;
+    const form = $('#newsInlineEditForm'), status = $('#newsInlineEditStatus');
+    const patch = {};
+    for (const key of ['title', 'subtitle', 'body', 'category', 'timeAgo', 'author']) patch[key] = form.elements[key].value.trim();
+    for (const key of ['title', 'body', 'category', 'timeAgo', 'author']) form.elements[key].setCustomValidity(patch[key] ? '' : 'Preencha este campo.');
+    if (!form.reportValidity()) return;
+    patch.clubs = [...form.querySelectorAll('[name="clubs"]:checked')].map(input => input.value);
+    const original = state.originalArticle, id = state.articleId, coverFile = state.coverFile;
+    state.isSaving = true;
+    status.hidden = false; status.textContent = 'Salvando alterações…';
+    syncArticleMode();
+    try {
+      await GBLShared.enqueue(async () => {
+        const remote = (await GBLShared.request('/api/state')).news;
+        const current = remote.value.find(n => n.id === id);
+        if (!current || JSON.stringify(current) !== JSON.stringify(original)) throw Error('Esta notícia foi alterada ou removida por outra pessoa. Cancele e reabra a edição para atualizar.');
+        let saved;
+        if (coverFile) {
+          const data = new FormData();
+          data.append('file', coverFile);
+          data.append('payload', JSON.stringify({revision: remote.revision, article: patch}));
+          // Let the browser add the multipart boundary; the JSON request helper sets Content-Type.
+          const token = localStorage.getItem('gbl.accessToken.v1');
+          if (GBLShared.isLocalPreview()) throw Error('Volte aos dados do servidor antes de enviar imagens.');
+          const response = await fetch('/api/news/' + encodeURIComponent(id) + '/upload-cover', {
+            method: 'POST', body: data, signal: AbortSignal.timeout(60000),
+            headers: token ? {Authorization: 'Bearer ' + token} : {},
+          });
+          const result = await response.json();
+          if (!response.ok) throw Error(result.message || 'Não foi possível enviar a capa.');
+          saved = result;
+        } else {
+          saved = await GBLShared.request('/api/collections/news', {method: 'PUT', body: JSON.stringify({revision: remote.revision, value: remote.value.map(n => n.id === id ? {...n, ...patch} : n)})});
+        }
+        GBLShared.hydrate('news', saved.value);
+      });
+      state.isSaving = false;
+      // A changed session must never reopen admin controls after the request.
+      if (state.articleId === id && state.isEditing) {
+        openArticleModal(id);
+        $('#closeNewsArticleFooterBtn').focus();
+      }
+      renderHomePortal();
+      showToast('Matéria atualizada com sucesso!', 'info');
+    } catch (error) {
+      status.hidden = false; status.textContent = 'Não foi possível salvar: ' + error.message;
+    } finally {
+      state.isSaving = false;
+      syncArticleMode();
+    }
   }
 
   /* ---------- Admin: Publicar / Editar Matéria ---------- */
@@ -683,7 +848,7 @@
   function openNewArticleModal() {
     if (typeof RBAC !== 'undefined' && !RBAC.requireAdmin('publicar matérias')) return;
     $('#newsEditId').value = '';
-    $('#newsFormModalTitle').textContent = '📰 Publicar Nova Matéria na Capa';
+    $('#newsFormModalTitle').textContent = 'Publicar Nova Matéria na Capa';
     $('#newsCatInput').value = 'MERCADO';
     $('#newsPlacementInput').value = 'feed';
     $('#newsTimeInput').value = 'Agora mesmo';
@@ -700,7 +865,7 @@
     if (!item) return;
 
     $('#newsEditId').value = item.id;
-    $('#newsFormModalTitle').textContent = '✎ Editar Matéria';
+    $('#newsFormModalTitle').textContent = 'Editar Matéria';
     $('#newsCatInput').value = item.category || 'MERCADO';
     $('#newsPlacementInput').value = item.placement || 'feed';
     $('#newsTimeInput').value = item.timeAgo || 'Agora mesmo';
@@ -724,7 +889,7 @@
     const ok = await RBAC.confirmDelete({
       title: 'Excluir Matéria do Portal',
       message: `Deseja realmente remover a notícia "${target.title}" do portal inicial?`,
-      confirmText: '🗑️ Sim, Excluir',
+      confirmText: 'Sim, Excluir',
     });
     if (!ok) return;
 
@@ -766,6 +931,11 @@
   });
 
   $('#closeNewsArticleModal')?.addEventListener('click', closeArticleModal);
+  $('#editNewsArticleBtn')?.addEventListener('click', startArticleEdit);
+  $('#newsCoverFile')?.addEventListener('change', selectCoverFile);
+  $('#cancelNewsInlineEditBtn')?.addEventListener('click', cancelArticleEdit);
+  $('#newsInlineEditForm')?.addEventListener('submit', saveArticleEdit);
+  $('#newsInlineEditForm')?.addEventListener('input', e => { if (e.target.setCustomValidity) e.target.setCustomValidity(''); });
   $('#closeNewsArticleFooterBtn')?.addEventListener('click', closeArticleModal);
   $('#newsModalActionLink')?.addEventListener('click', closeArticleModal);
   $('#newsArticleModal')?.addEventListener('click', (e) => {
@@ -814,7 +984,7 @@
         timeAgo,
         author: 'Redação GBL',
         relatedTab: category === 'MERCADO' ? '#transferencias' : '#campeonatos',
-        relatedLabel: 'Ver Seção Relacionada →',
+        relatedLabel: 'Ver Seção Relacionada',
         visualTheme: category === 'MERCADO' ? 'theme-market' : 'theme-trophy',
         clubs: ['Al Kabib', 'Gustavo FC'],
         title,
@@ -834,6 +1004,15 @@
     if (!location.hash || location.hash === '#inicio') renderHomePortal();
   });
   window.addEventListener('gbl:rolechange', renderHomePortal);
+  window.addEventListener('gbl:rolechange', () => {
+    if (!canEditArticle() && state.isEditing) {
+      state.isEditing = false;
+      state.originalArticle = null;
+      $('#newsInlineEditForm').reset();
+      if (state.articleId) openArticleModal(state.articleId);
+    }
+    syncArticleMode();
+  });
   window.addEventListener('gbl:datachange', renderHomePortal);
   window.addEventListener('gbl:badgechange', renderHomePortal);
 

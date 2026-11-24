@@ -64,7 +64,7 @@ test('Full frontend boots, registers, restores and logs out through REST',async 
  assert.ok(rk.historico.find(r=>r.team_id==='sq2'));
  w.document.querySelector('[data-ranking-mode="temporada2026"]').click();
  assert.match(w.document.getElementById('rankingTableBody').textContent,/Técnico Atualizado/);
- w.document.querySelector('[data-select-club="1"]').click();
+ w.document.querySelector('[data-select-club="sq2"]').click();
  assert.match(w.document.getElementById('fifaStripManager').textContent,/Técnico Atualizado/);
  assert.equal(w.document.getElementById('toast').textContent,'Dados do clube e treinador atualizados com sucesso em todas as seções!');
  // Re-reading persisted data also resolves the current manager via the stable ID.

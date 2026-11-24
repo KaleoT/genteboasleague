@@ -1,5 +1,35 @@
 /* ===== Gente Boa's League — app ===== */
 (() => {
+  // Normaliza somente o texto exibido, preservando valores e dados salvos.
+  const emojiPattern = /\p{Regional_Indicator}{2}|[\p{Extended_Pictographic}\p{Emoji_Modifier}](?:[\uFE0E\uFE0F\u200D]|[\p{Extended_Pictographic}\p{Emoji_Modifier}])*|[0-9#*]\uFE0F?\u20E3/gu;
+  function removeTextEmojis(root) {
+    if (root.nodeType === Node.TEXT_NODE) {
+      const parent = root.parentElement;
+      if (!parent || parent.closest('script, style, textarea, svg, [contenteditable="true"]')) return;
+      const text = root.nodeValue;
+      const plainText = text.replace(emojiPattern, '');
+      if (plainText === text) return;
+      const button = parent.closest('button');
+      if (button && !button.textContent.replace(emojiPattern, '').trim()) {
+        const label = button.getAttribute('aria-label') || button.title;
+        root.nodeValue = label || (/🗑/.test(text) ? 'Excluir' : /💾/.test(text) ? 'Salvar' : /🔍/.test(text) ? 'Buscar' : 'Editar');
+      } else {
+        root.nodeValue = plainText;
+      }
+      return;
+    }
+    if (root.nodeType !== Node.ELEMENT_NODE) return;
+    for (const child of root.childNodes) removeTextEmojis(child);
+  }
+
+  removeTextEmojis(document.body);
+  new MutationObserver((changes) => {
+    for (const change of changes) {
+      if (change.type === 'characterData') removeTextEmojis(change.target);
+      for (const node of change.addedNodes) removeTextEmojis(node);
+    }
+  }).observe(document.body, { childList: true, characterData: true, subtree: true });
+
   const PERIODS = [
     { id: 'manha', label: 'Manhã', hours: '08h–12h', icon: '☀️' },
     { id: 'tarde', label: 'Tarde', hours: '12h–18h', icon: '🌤️' },
@@ -376,7 +406,7 @@
         return `
         <article class="rank-card ${open ? 'open' : ''} ${pos === 1 ? 'top' : ''}" data-key="${d.key}">
           <button class="rank-head" aria-expanded="${open}" aria-controls="rank-body-${d.key}">
-            <span class="rank-pos">${pos === 1 ? '🏆' : `#${pos}`}</span>
+            <span class="rank-pos">#${pos}</span>
             <span class="rank-date">
               <span class="sel-weekday ${d.info.isWeekend ? 'is-weekend' : ''}">${d.info.weekday}</span>
               <span class="avail-date">${d.info.label}</span>

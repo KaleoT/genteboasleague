@@ -784,13 +784,12 @@
   /* ---------- Renderização do Pódio G3 + Tabela Completa na Aba RANKING ---------- */
   function renderRankingPage() {
     const tableBody = $('#rankingTableBody');
-    const podiumContainer = $('#rankingG3Podium');
     const modeLabel = $('#rankingActiveModeLabel');
     const entityHeader = $('#rkEntityColLabel');
     if (!tableBody) return;
 
     const isAdmin = typeof RBAC !== 'undefined' ? RBAC.isAdmin() : false;
-    const { sorted, podiumTop3 } = getSortedList(state.activeView);
+    const { sorted } = getSortedList(state.activeView);
 
     if (modeLabel) {
       modeLabel.textContent =
@@ -820,43 +819,7 @@
       }
     });
 
-    // 1. Renderiza os 3 cards de destaque do G3 (Ouro, Prata e Bronze)
-    if (podiumContainer) {
-      const medals = [
-        { cls: 'podium-gold', badge: '🥇 1º LUGAR · LÍDER GERAL', label: 'OURO' },
-        { cls: 'podium-silver', badge: '🥈 2º LUGAR · VICE-LÍDER', label: 'PRATA' },
-        { cls: 'podium-bronze', badge: '🥉 3º LUGAR · DESTAQUE G3', label: 'BRONZE' },
-      ];
-
-      podiumContainer.innerHTML = podiumTop3
-        .map((item, idx) => {
-          const m = medals[idx] || medals[2];
-          return `
-            <article class="card rk-podium-card ${m.cls}">
-              <div class="rk-podium-top">
-                <span class="rk-podium-rank-pill">${m.badge}</span>
-                <span class="rk-podium-pts-badge">${formatDecimalBR(item.pontos)} <small>PTS</small></span>
-              </div>
-              <div class="rk-podium-identity">
-                ${renderCrestAvatar(item)}
-                <div class="rk-podium-text">
-                  <h3>${escapeHtml(item.name)}</h3>
-                  <span>${escapeHtml(item.subtitle || '')}</span>
-                </div>
-              </div>
-              <div class="rk-podium-stats">
-                <div><span>🏆 Títulos</span><strong>${item.conquista}</strong></div>
-                <div><span>🥈 Vices</span><strong>${item.vice}</strong></div>
-                <div><span>✅ Vitórias</span><strong>${item.vitorias}</strong></div>
-                <div><span>⚽ Gols</span><strong>${item.gols}</strong></div>
-              </div>
-            </article>
-          `;
-        })
-        .join('');
-    }
-
-    // 2. Renderiza as linhas da Tabela Completa (13 colunas exatas)
+    // Renderiza as linhas da Tabela Completa (13 colunas exatas)
     if (!sorted.length) {
       tableBody.innerHTML = `
         <tr>

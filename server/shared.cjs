@@ -127,7 +127,23 @@ module.exports=function shared({app,db,auth,admin,security,options}) {
       db.exec('COMMIT');
     }catch(e){db.exec('ROLLBACK');throw e;}finally{transaction=false;}app.locals.cleanupUploads?.();publish();
   }});
-  require('./uploads.cjs')({app,db,auth,security,read,options,setMedia(id,field,url,asset){
+  require('./uploads.cjs')({app,db,auth,security,read,options,setNews(id,payload,url,asset,user){
+    const previous=read('news');
+    if(!previous.value.some(n=>n.id===id))throw Object.assign(Error('Notícia não encontrada.'),{status:404});
+    if(previous.revision!==payload.revision)throw Object.assign(Error('Os dados mudaram. Recarregue e tente novamente.'),{status:409});
+    const fields=['title','subtitle','body','category','timeAgo','author','clubs'];
+    const patch=Object.fromEntries(fields.filter(k=>Object.hasOwn(payload.article,k)).map(k=>[k,payload.article[k]]));
+    if(patch.clubs!==undefined&&(!Array.isArray(patch.clubs)||patch.clubs.some(c=>typeof c!=='string')))throw Error('Times inválidos.');
+    const value=previous.value.map(n=>n.id===id?{...n,...patch,cover_url:url,image:url}:n);
+    validate('news',value,user);
+    db.exec('BEGIN IMMEDIATE');transaction=true;
+    try{
+      db.prepare('INSERT INTO uploaded_assets VALUES(?,?,?,?)').run(asset.url,asset.category,asset.filename,new Date().toISOString());
+      const saved=put('news',value,payload.revision);
+      db.exec('COMMIT');return saved;
+    }catch(e){db.exec('ROLLBACK');throw e;}
+    finally{transaction=false;app.locals.cleanupUploads?.();publish();}
+  },setMedia(id,field,url,asset){
     const teams=read('teams').value,team=teams.find(t=>t.id===id);if(!team)throw Error('Clube não encontrado.');
     team[field]=url;
     db.exec('BEGIN IMMEDIATE');transaction=true;

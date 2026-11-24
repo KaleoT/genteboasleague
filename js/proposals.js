@@ -147,6 +147,7 @@
       const isAdmin = RBAC.isAdmin();
 
       if (crestEl) {
+        crestEl.hidden = false;
         const badgeInfo = typeof window.GBLBadges !== 'undefined' ? window.GBLBadges.getClubBadgeData(club || clubName) : null;
         if (badgeInfo && badgeInfo.hasCustom) {
           crestEl.innerHTML = window.GBLBadges.renderBadgeImg(club || clubName, 'gbl-badge-img has-custom-badge');
@@ -177,9 +178,8 @@
       if (loginHintBtn) loginHintBtn.hidden = true;
     } else {
       if (crestEl) {
-        crestEl.textContent = '👤';
-        crestEl.style.background = 'rgba(255,255,255,0.12)';
-        crestEl.style.color = '#ffffff';
+        crestEl.hidden = true;
+        crestEl.textContent = '';
       }
       if (labelEl) labelEl.textContent = 'Não identificado';
       if (clubEl) clubEl.textContent = 'Vincular Clube';

@@ -649,13 +649,14 @@
 
   /* ---------- Estado ---------- */
   const state = {
-    currentIndex: Math.max(0,readSquads().findIndex(t=>t.id===new URLSearchParams(location.search).get('team'))),
+    selectedTeamId: new URLSearchParams(location.search).get('team') || readSquads()[0]?.id || null,
+    selectedFormation: '4-3-3',
     selectedPlayerId: null, // Jogador em foco no topo (Spotlight + Radar)
     swapSourceId: null,     // ID do jogador aguardando substituição (Titular <-> Reserva)
   };
 
   /* Coordenadas relativas: [posição PES, esquerda %, topo %]. */
-  const FORMATION_PRESETS = Object.fromEntries(Object.entries({
+  const FORMATIONS_DATA = Object.fromEntries(Object.entries({
     '4-3-3': [['GK',50,88], ['LB',14,70], ['CB',38,70], ['CB',62,70], ['RB',86,70], ['DMF',50,53], ['CMF',30,37], ['CMF',70,37], ['LWF',18,18], ['CF',50,14], ['RWF',82,18]],
     '4-2-1-3': [['GK',50,88], ['LB',14,70], ['CB',38,70], ['CB',62,70], ['RB',86,70], ['DMF',34,53], ['DMF',66,53], ['AMF',50,35], ['LWF',18,18], ['CF',50,14], ['RWF',82,18]],
     '4-4-2': [['GK',50,88], ['LB',14,70], ['CB',38,70], ['CB',62,70], ['RB',86,70], ['LMF',14,43], ['CMF',38,43], ['CMF',62,43], ['RMF',86,43], ['CF',35,18], ['CF',65,18]],
@@ -668,27 +669,14 @@
     '4-1-2-1-2': [['GK',50,88], ['LB',14,70], ['CB',38,70], ['CB',62,70], ['RB',86,70], ['DMF',50,55], ['CMF',25,43], ['CMF',75,43], ['AMF',50,31], ['CF',35,13], ['CF',65,13]],
     '3-4-1-2': [['GK',50,88], ['CB',25,70], ['CB',50,70], ['CB',75,70], ['LMF',14,47], ['CMF',38,49], ['CMF',62,49], ['RMF',86,47], ['AMF',50,31], ['CF',35,13], ['CF',65,13]],
   }).map(([key, positions]) => [key, positions.map(([role, left, top], index) => ({
-    id: index + 1, role, left: `${left}%`, top: `${top}%`,
+    id: index + 1, role, x: left, y: top,
   }))]));
-
-  function getFormationKey(formation) {
-    const code = String(formation || '').match(/\b\d(?:\s*[-–]\s*\d){2,4}\b/)?.[0].replace(/\s/g, '').replace(/–/g, '-');
-    // O texto legado "4-4-2 Losango" representa o meio-campo em diamante.
-    if (code === '4-4-2' && /losango/i.test(formation)) return '4-1-2-1-2';
-    return Object.hasOwn(FORMATION_PRESETS, code) ? code : '4-3-3';
-  }
 
   const POSITION_LABELS = { GK: 'GK', LB: 'LE', CB: 'ZAG', RB: 'LD', DMF: 'VOL', CMF: 'MC', AMF: 'MAT', LMF: 'ME', RMF: 'MD', LWF: 'PTE', RWF: 'PTD', SS: 'SA', CF: 'CA' };
 
   function abbreviatePlayerName(name) {
     const words = String(name || '').trim().split(/\s+/);
     return words.length > 1 ? `${words[0][0]}. ${words.slice(1).join(' ')}` : words[0];
-  }
-
-  function canManageFormation(club) {
-    if (typeof RBAC === 'undefined') return false;
-    if(RBAC.getCurrentUser?.()?.status==='pending_approval')return false;
-    return RBAC.isAdmin() || RBAC.getProfile()?.team_id === club.id;
   }
 
   // Reserva primeiro todas as correspondências exatas, antes de improvisar atletas.
@@ -710,28 +698,10 @@
   }
 
   $('#squadFormationSelect')?.addEventListener('change', (event) => {
-    if(RBAC.isGuest?.()){RBAC.requireMember();renderSquadsHub();return;}
-    const squads = readSquads();
-    const club = squads[state.currentIndex];
     const formation = event.target.value;
-    if (!club || !canManageFormation(club) || !Object.hasOwn(FORMATION_PRESETS, formation)) return;
-
-    // Mantém os onze escolhidos e os redistribui pelas posições do novo esquema.
-    const { starters } = splitStartersAndSubs(club);
-    club.starterIds = assignPlayersToFormation(starters, FORMATION_PRESETS[formation]).filter(Boolean).map((p) => p.id);
-    club.starterFormation = formation;
-    club.formation = formation;
-    writeSquads(squads);
-    let clubs = [];
-    try { clubs = JSON.parse(GBLShared.getItem(CLUBS_KEY) || '[]'); } catch {}
-    if (!Array.isArray(clubs)) clubs = [];
-    const linkedClub = clubs.find((c) => c.id === club.id || norm(c.name) === norm(club.name));
-    if (linkedClub) {
-      linkedClub.formation = formation;
-      GBLShared.setItem(CLUBS_KEY, JSON.stringify(clubs));
-    }
-    if ($('#sqMetaFormation')) $('#sqMetaFormation').value = formation;
-    window.dispatchEvent(new CustomEvent('gbl:datachange'));
+    if (!Object.hasOwn(FORMATIONS_DATA, formation)) return;
+    state.selectedFormation = formation;
+    renderSquadsHub();
   });
 
   /* ---------- Helpers Visuais ---------- */
@@ -817,10 +787,10 @@
 
   function getPosDotColor(pos) {
     const p = String(pos || '').toUpperCase();
-    if (p === 'GK') return '#f5c84c';
-    if (['CB', 'LB', 'RB'].includes(p)) return '#facc15';
-    if (['DMF', 'CMF', 'AMF', 'LMF', 'RMF'].includes(p)) return '#22e07a';
-    return '#3b82f6';
+    if (p === 'GK') return '#b58900';
+    if (['CB', 'LB', 'RB'].includes(p)) return '#081d55';
+    if (['DMF', 'CMF', 'AMF', 'LMF', 'RMF'].includes(p)) return '#15803d';
+    return '#b91c1c';
   }
 
   /**
@@ -836,11 +806,7 @@
     if (Array.isArray(club.starterIds) && club.starterIds.length === Math.min(11, roster.length)) {
       let customStarters = club.starterIds.map((id) => byId.get(id)).filter(Boolean);
       if (customStarters.length === Math.min(11, roster.length) && new Set(club.starterIds).size === customStarters.length) {
-        const formation = getFormationKey(club.formation);
-        // Também redistribui titulares quando a formação muda nos modais de gestão.
-        const lineup = (club.starterFormation || '4-3-3') !== formation || customStarters.length < 11
-          ? assignPlayersToFormation(customStarters, FORMATION_PRESETS[formation])
-          : customStarters;
+        const lineup = customStarters;
         customStarters = lineup.filter(Boolean);
         const starterSet = new Set(customStarters.map((p) => p.id));
         const subs = roster.filter((p) => !starterSet.has(p.id)).slice(0, MAX_SUBSTITUTES);
@@ -848,7 +814,8 @@
       }
     }
 
-    const lineup = assignPlayersToFormation(roster, FORMATION_PRESETS[getFormationKey(club.formation)]);
+    // Clubes antigos sem escalação salva recebem um onze inicial estável.
+    const lineup = assignPlayersToFormation(roster, FORMATIONS_DATA['4-3-3']);
     const starters = lineup.filter(Boolean);
     const usedIds = new Set(starters.map((p) => p.id));
     const subs = roster.filter((p) => !usedIds.has(p.id)).slice(0, MAX_SUBSTITUTES);
@@ -859,7 +826,7 @@
   function swapPlayersInClub(playerIdA, playerIdB) {
     if (!playerIdA || !playerIdB || playerIdA === playerIdB) return;
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     if (!club || !Array.isArray(club.roster)) return;
 
     const { starters } = splitStartersAndSubs(club);
@@ -881,7 +848,6 @@
     }
 
     club.starterIds = currentStarterIds;
-    club.starterFormation = getFormationKey(club.formation);
     writeSquads(squads);
 
     const pA = club.roster.find((p) => p.id === playerIdA);
@@ -899,10 +865,9 @@
     const squads = readSquads();
     if (!squads.length) return;
 
-    if (state.currentIndex < 0) state.currentIndex = squads.length - 1;
-    if (state.currentIndex >= squads.length) state.currentIndex = 0;
-
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId) || squads[0];
+    state.selectedTeamId = club.id;
+    const currentIndex = squads.indexOf(club);
     const roster = club.roster || [];
     const { starters, subs, lineup = [] } = splitStartersAndSubs(club);
     const admin = typeof RBAC !== 'undefined' ? RBAC.isAdmin() : true;
@@ -923,23 +888,23 @@
     const select = $('#squadClubSelect');
     if (select) {
       select.innerHTML = squads
-        .map((c, idx) => `<option value="${idx}" ${idx === state.currentIndex ? 'selected' : ''}>${escapeHtml(c.name)} (${escapeHtml(c.manager)})</option>`)
+        .map((c, idx) => `<option value="${escapeHtml(c.id)}" ${idx === currentIndex ? 'selected' : ''}>${escapeHtml(c.name)} (${escapeHtml(c.manager)})</option>`)
         .join('');
     }
     const idxLabel = $('#squadClubIndexLabel');
-    if (idxLabel) idxLabel.textContent = `Clube ${state.currentIndex + 1} de ${squads.length}`;
+    if (idxLabel) idxLabel.textContent = `Clube ${currentIndex + 1} de ${squads.length}`;
 
     const carousel = $('#squadCrestCarousel');
     if (carousel) {
       carousel.innerHTML = squads
         .map((c, idx) => {
-          const active = idx === state.currentIndex;
+          const active = idx === currentIndex;
           const crestShellHtml =
             typeof window.GBLBadges !== 'undefined'
               ? window.GBLBadges.renderCrestShell(c, { shellClass: 'carousel-crest-badge' })
               : `<span class="carousel-crest-badge gbl-aspect-crest">${escapeHtml(getInitials(c.name))}</span>`;
           return `
-            <button type="button" class="carousel-crest-btn ${active ? 'active' : ''}" data-select-club="${idx}" title="${escapeHtml(c.name)}" style="--cc: ${escapeHtml(c.primaryColor || '#4fd8ff')}">
+            <button type="button" class="carousel-crest-btn ${active ? 'active' : ''}" data-select-club="${escapeHtml(c.id)}" title="${escapeHtml(c.name)}" style="--cc: ${escapeHtml(c.primaryColor || '#4fd8ff')}">
               ${crestShellHtml}
               <span class="carousel-crest-name">${escapeHtml(c.name)}</span>
             </button>`;
@@ -968,9 +933,8 @@
 
     if ($('#fifaStripClubName')) $('#fifaStripClubName').textContent = club.name;
     if ($('#fifaCountryLabel')) $('#fifaCountryLabel').textContent = club.countryLabel || 'BRASIL · LIGA OFICIAL';
-    if ($('#fifaClubTag')) $('#fifaClubTag').textContent = club.clubTag || 'CLUBE OFICIAL PES 21';
     if ($('#fifaLeagueSub')) $('#fifaLeagueSub').textContent = (club.leagueName || "XUPÉ GENTE BOA'S LEAGUE").toUpperCase();
-    if ($('#fifaSeasonTitle')) $('#fifaSeasonTitle').textContent = club.seasonTitle || 'Temporada PES 21';
+    if ($('#fifaSeasonTitle')) $('#fifaSeasonTitle').textContent = 'TEMPORADA 2026';
     const crestCircle = $('#fifaCrestCircle');
     if (crestCircle) {
       if (badgeInfo.hasCustom) {
@@ -1013,21 +977,9 @@
     }
     if ($('#fifaStripStars')) $('#fifaStripStars').innerHTML = renderStars(starsNum);
     if ($('#fifaStripOvrBadge')) $('#fifaStripOvrBadge').textContent = `OVR MÉDIO ${avgOvr} · ${starsFormatted}★`;
-    if ($('#fifaStripManager')) $('#fifaStripManager').textContent = `Treinador: ${club.manager || '—'}`;
+    if ($('#fifaStripManager')) $('#fifaStripManager').textContent = club.manager || '—';
 
-    // Linha de resumo de comando: "Capitão: [Nome] ([OVR]) • [Esquema e Estilo]"
-    const captainRaw = (club.captain || '').trim();
-    let captainDisplay = captainRaw || '—';
-    if (captainRaw && !captainRaw.includes('(')) {
-      const matchP = roster.find((p) => p.name.toLowerCase() === captainRaw.toLowerCase());
-      if (matchP && matchP.ovr) {
-        captainDisplay = `${matchP.name} (${matchP.ovr})`;
-      }
-    }
-    const formationDisplay = (club.formation || 'Esquema Equilibrado').trim();
-    if ($('#fifaStripCaptain')) {
-      $('#fifaStripCaptain').textContent = `Capitão: ${captainDisplay} • ${formationDisplay}`;
-    }
+    const formationDisplay = state.selectedFormation;
     if ($('#fifaFormationPill')) {
       $('#fifaFormationPill').textContent = formationDisplay;
     }
@@ -1136,7 +1088,7 @@
       $('#squadTotalCount').textContent = `Elenco: ${orderedRosterList.length}/${MAX_SQUAD_SIZE} (${starters.length} Titulares + ${subs.length}/${MAX_SUBSTITUTES} Reservas)`;
     }
     if ($('#fifaFormationPill')) {
-      $('#fifaFormationPill').textContent = `Esquema: ${club.formation || '4-3-3 Ofensivo'}`;
+      $('#fifaFormationPill').textContent = `Esquema: ${state.selectedFormation}`;
     }
 
     const swapHint = $('#fifaSwapHint');
@@ -1159,7 +1111,7 @@
         <div class="fifa-spot-top">
           <div class="fifa-spot-pos">
             <span class="fifa-pos-dot" style="background:${getPosDotColor(selectedPlayer.pos)}"></span>
-            <span class="fifa-pos-code">${escapeHtml(selectedPlayer.pos)}</span>
+            <span class="fifa-pos-code ${selectedPlayer.pos === 'GK' ? 'gk-label' : ''}">${escapeHtml(selectedPlayer.pos)}</span>
           </div>
           <div class="fifa-spot-avatar-wrap">
             ${renderPlayerAvatarSvg(club.primaryColor, club.secondaryColor, selectedPlayer.pos)}
@@ -1190,22 +1142,21 @@
 
     const formationSelect = $('#squadFormationSelect');
     if (formationSelect) {
-      formationSelect.innerHTML = Object.keys(FORMATION_PRESETS).map((key) =>
+      formationSelect.innerHTML = Object.keys(FORMATIONS_DATA).map((key) =>
         `<option value="${key}">${key}</option>`).join('');
-      formationSelect.value = getFormationKey(club.formation);
-      formationSelect.disabled = !canManageFormation(club);
-      formationSelect.parentElement.hidden = !canManageFormation(club);
+      formationSelect.value = state.selectedFormation;
+      formationSelect.disabled = false;
+      formationSelect.parentElement.hidden = false;
     }
 
     const pitchPlayersEl = $('#fifaPitchPlayers');
     if (pitchPlayersEl) {
       const captainRaw = norm(club.captain || '');
-      const slots = FORMATION_PRESETS[getFormationKey(club.formation)];
-      const tokenHtml = lineup
-        .slice(0, 11)
-        .map((player, idx) => {
+      const layoutTatico = FORMATIONS_DATA[state.selectedFormation];
+      const tokenHtml = layoutTatico
+        .map((coord, idx) => {
+          const player = lineup[idx];
           if (!player) return '';
-          const coord = slots[idx];
           const isSelected = selectedPlayer && player.id === selectedPlayer.id;
           const isSwapSource = state.swapSourceId === player.id;
           const isGK = String(player.pos).toUpperCase() === 'GK';
@@ -1215,7 +1166,7 @@
           return `
             <div
               class="pitch-player-token ${isSelected ? 'selected' : ''} ${isSwapSource ? 'swap-source' : ''}"
-              style="left: ${coord.left}; top: ${coord.top};"
+              style="left: ${coord.x}%; top: ${coord.y}%;"
               data-slot-role="${coord.role}"
               data-pitch-player="${escapeHtml(player.id)}"
               role="button"
@@ -1240,7 +1191,7 @@
                 ${isSelected ? `<span class="pitch-a-btn">A</span>` : ''}
                 <span class="pitch-token-name">${escapeHtml(abbreviatePlayerName(player.name))}</span>
               </div>
-              <small class="pitch-token-position">${escapeHtml(POSITION_LABELS[player.pos] || player.pos)}</small>
+              <small class="pitch-token-position ${player.pos === 'GK' ? 'gk-label' : ''}">${escapeHtml(POSITION_LABELS[player.pos] || player.pos)}</small>
             </div>`;
         })
         .join('');
@@ -1308,7 +1259,7 @@
               <div class="fifa-sub-visual">
                 <div class="fifa-sub-pos">
                   <span class="fifa-pos-dot" style="background:${getPosDotColor(sub.pos)}"></span>
-                  <span>${escapeHtml(sub.pos)}</span>
+                  <span class="${sub.pos === 'GK' ? 'gk-label' : ''}">${escapeHtml(sub.pos)}</span>
                 </div>
                 <div class="fifa-sub-avatar">
                   ${renderPlayerAvatarSvg(club.primaryColor, club.secondaryColor, sub.pos)}
@@ -1339,34 +1290,27 @@
   }
 
   /* ---------- Navegação entre os 18 Clubes ---------- */
-  $('#prevSquadClub')?.addEventListener('click', () => {
-    state.currentIndex--;
+  function selectTeam(teamId) {
+    if (!readSquads().some((team) => team.id === teamId)) return;
+    state.selectedTeamId = teamId;
     state.selectedPlayerId = null;
     state.swapSourceId = null;
     renderSquadsHub();
-  });
+  }
 
-  $('#nextSquadClub')?.addEventListener('click', () => {
-    state.currentIndex++;
-    state.selectedPlayerId = null;
-    state.swapSourceId = null;
-    renderSquadsHub();
-  });
+  function navigateTeam(direction) {
+    const teams = readSquads();
+    if (!teams.length) return;
+    const index = Math.max(0, teams.findIndex((team) => team.id === state.selectedTeamId));
+    selectTeam(teams[(index + direction + teams.length) % teams.length].id);
+  }
 
-  $('#squadClubSelect')?.addEventListener('change', (e) => {
-    state.currentIndex = Number(e.target.value) || 0;
-    state.selectedPlayerId = null;
-    state.swapSourceId = null;
-    renderSquadsHub();
-  });
-
-  $('#squadCrestCarousel')?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-select-club]');
-    if (!btn) return;
-    state.currentIndex = Number(btn.dataset.selectClub) || 0;
-    state.selectedPlayerId = null;
-    state.swapSourceId = null;
-    renderSquadsHub();
+  $('#prevSquadClub')?.addEventListener('click', () => navigateTeam(-1));
+  $('#nextSquadClub')?.addEventListener('click', () => navigateTeam(1));
+  $('#squadClubSelect')?.addEventListener('change', (event) => selectTeam(event.target.value));
+  $('#squadCrestCarousel')?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-select-club]');
+    if (button) selectTeam(button.dataset.selectClub);
   });
 
   /* ---------- Alternância Mobile: Elenco vs Informações do Time ---------- */
@@ -1446,7 +1390,7 @@
       e.stopPropagation();
       const subId = quickSwapSubBtn.dataset.quickSwapSub;
       const squads = readSquads();
-      const club = squads[state.currentIndex];
+      const club = squads.find((team) => team.id === state.selectedTeamId);
       const { starters } = splitStartersAndSubs(club);
       const selectedIsStarter = starters.some((s) => s.id === state.selectedPlayerId);
       if (selectedIsStarter && state.selectedPlayerId) {
@@ -1476,7 +1420,7 @@
   function openAddPlayerModal() {
     if (typeof RBAC !== 'undefined' && !RBAC.requireAdmin('adicionar jogadores ao elenco')) return;
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     if (club && Array.isArray(club.roster) && club.roster.length >= MAX_SQUAD_SIZE) {
       showToast(`Limite de elenco atingido (${MAX_SQUAD_SIZE} atletas: 11 titulares + ${MAX_SUBSTITUTES} reservas). Remova um jogador antes de adicionar outro.`, 'error');
       return;
@@ -1494,7 +1438,7 @@
   function openEditPlayerModal(playerId) {
     if (typeof RBAC !== 'undefined' && !RBAC.requireAdmin('editar jogadores do elenco')) return;
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     const player = club?.roster?.find((p) => p.id === playerId);
     if (!player) return;
 
@@ -1516,7 +1460,7 @@
   async function deletePlayerFromCurrentClub(playerId) {
     if (typeof RBAC !== 'undefined' && !RBAC.requireAdmin('remover jogadores do elenco')) return;
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     const target = club?.roster?.find((p) => p.id === playerId);
     if (!target) return;
     const ok = await RBAC.confirmDelete({
@@ -1554,7 +1498,7 @@
     if (!name) return showToast('Informe o nome do jogador.', 'error');
 
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     if (!club) return;
 
     if (!Array.isArray(club.roster)) club.roster = [];
@@ -1587,7 +1531,7 @@
   $('#editSquadClubBtn')?.addEventListener('click', () => {
     if (typeof RBAC !== 'undefined' && !RBAC.requireAdmin('editar o clube')) return;
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     if (!club) return;
 
     $('#sqMetaName').value = club.name || '';
@@ -1612,7 +1556,7 @@
   $('#squadClubMetaForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     if (!club) return;
 
     const name = $('#sqMetaName').value.trim();
@@ -1652,7 +1596,7 @@
 
   $('#openClubBadgeModalBtn')?.addEventListener('click', () => {
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     if (club && typeof window.GBLBadgeModal !== 'undefined') {
       window.GBLBadgeModal.open(club.id);
     }
@@ -1660,7 +1604,7 @@
 
   $('#openEditClubMetadataFromSquadsBtn')?.addEventListener('click', () => {
     const squads = readSquads();
-    const club = squads[state.currentIndex];
+    const club = squads.find((team) => team.id === state.selectedTeamId);
     if (club && typeof window.GBLClubMetadataModal !== 'undefined') {
       window.GBLClubMetadataModal.open(club.id);
     }

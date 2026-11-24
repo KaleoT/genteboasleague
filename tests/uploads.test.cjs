@@ -43,6 +43,37 @@ test('Uploads validate content, MIME, SVG, size and ownership; alpha, dimensions
  db.prepare("UPDATE users SET status='pending_approval' WHERE id=?").run(user.user.id);assert.equal((await upload('sq1','badge',image,'image/png',user.access_token)).status,403);
 });
 
+test('News cover multipart save is admin-only, validates images and commits text and image atomically',async t=>{
+ const {directory,db,base,json,register,image}=await fixture(t),session=await register(1);
+ const state=async()=>await (await fetch(base+'/api/state')).json();
+ const original=(await state()).news,article=original.value[0];
+ async function send(token,revision,buffer=image,type='image/png',id=article.id){
+   const form=new FormData();form.append('file',new Blob([buffer],{type}),'capa.png');
+   form.append('payload',JSON.stringify({revision,article:{title:'Nova capa e título',body:'Novo corpo',author:'Novo autor',clubs:['Al Kabib']}}));
+   const res=await fetch(base+'/api/news/'+id+'/upload-cover',{method:'POST',body:form,headers:token?{Authorization:'Bearer '+token}:{}});
+   return {status:res.status,data:await res.json()};
+ }
+ assert.equal((await send(null,original.revision)).status,401);
+ assert.equal((await send(session.access_token,original.revision)).status,403);
+ db.prepare("UPDATE users SET role='admin' WHERE id=?").run(session.user.id);
+ assert.equal((await send(session.access_token,original.revision,Buffer.from('bad image'))).status,400);
+ assert.equal((await send(session.access_token,original.revision,image,'image/jpeg')).status,400);
+ assert.equal((await send(session.access_token,original.revision,Buffer.alloc(5*1024*1024+1))).status,413);
+ const result=await send(session.access_token,original.revision);assert.equal(result.status,200);
+ const updated=result.data.value.find(n=>n.id===article.id);assert.equal(updated.title,'Nova capa e título');assert.equal(updated.author,'Novo autor');assert.equal(updated.body,'Novo corpo');
+ assert.equal(updated.subtitle,article.subtitle);assert.match(updated.cover_url,/^\/uploads\/news\/[a-f0-9-]{36}\.webp$/);assert.equal(updated.image,updated.cover_url);
+ const file=path.join(directory,updated.cover_url.slice('/uploads/'.length));assert.ok(fs.existsSync(file));assert.equal((await sharp(fs.readFileSync(file)).metadata()).format,'webp');
+ const served=await fetch(base+updated.cover_url);assert.equal(served.status,200);await served.arrayBuffer();
+ const before=fs.readdirSync(path.join(directory,'news'));
+ assert.equal((await send(session.access_token,original.revision)).status,409);
+ assert.deepEqual(fs.readdirSync(path.join(directory,'news')),before);assert.deepEqual((await state()).news.value,result.data.value);
+ db.exec("CREATE TRIGGER reject_news BEFORE UPDATE ON shared_collections WHEN NEW.name='news' BEGIN SELECT RAISE(ABORT,'test-failure'); END;");
+ assert.equal((await send(session.access_token,result.data.revision)).status,400);db.exec('DROP TRIGGER reject_news');
+ assert.deepEqual(fs.readdirSync(path.join(directory,'news')),before);assert.equal(db.prepare("SELECT count(*) n FROM uploaded_assets WHERE category='news'").get().n,1);
+ const replaced=await send(session.access_token,result.data.revision);assert.equal(replaced.status,200);for(let i=0;i<100&&fs.existsSync(file);i++)await new Promise(r=>setTimeout(r,25));assert.ok(!fs.existsSync(file));
+ assert.equal((await send(session.access_token,replaced.data.revision,image,'image/png','missing')).status,404);
+});
+
 test('Owner drag-and-drop, progress and admin crest modal use multipart and publish public URLs without Base64',async t=>{
  const {base,db,register,image}=await fixture(t),session=await register(15);
  const dom=new JSDOM(fs.readFileSync(path.join(__dirname,'../index.html'),'utf8'),{url:base,runScripts:'outside-only',pretendToBeVisual:true});t.after(()=>dom.window.close());const w=dom.window;

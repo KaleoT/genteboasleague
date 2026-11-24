@@ -25,5 +25,5 @@
   }
   $('teamMediaBtn').onclick=()=>{const user=RBAC.getCurrentUser();if(!user||!RBAC.requireMember())return;$('mediaTeamSelect').replaceChildren(...teams().filter(t=>RBAC.isAdmin()||t.id===user.team_id).map(t=>new Option(t.name,t.id)));load();modal.hidden=false;};
   $('mediaTeamSelect').onchange=load;$('closeTeamMedia').onclick=()=>{if(!busy){release();modal.hidden=true;}};
-  window.addEventListener('gbl:profilechange',()=>{const user=RBAC.getCurrentUser();$('teamMediaBtn').hidden=!RBAC.isIdentified()||user?.status==='pending_approval';if(!RBAC.isIdentified()){release();modal.hidden=true;}});
+  window.addEventListener('gbl:profilechange',()=>{const user=RBAC.getCurrentUser();$('teamMediaBtn').hidden=!RBAC.isIdentified()||RBAC.isAdmin()||user?.status==='pending_approval';if(!RBAC.isIdentified()){release();modal.hidden=true;}});
 })();
